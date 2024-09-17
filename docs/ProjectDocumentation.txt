@@ -1,0 +1,1 @@
+Put the design, pseudcode, and anything else about the project in this folder
