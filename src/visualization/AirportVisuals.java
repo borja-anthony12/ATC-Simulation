@@ -1,5 +1,8 @@
 package src.visualization;
 
+import java.awt.Color;
+import java.awt.Graphics;
+
 import javax.swing.*;
 
 /**
@@ -21,6 +24,7 @@ public class AirportVisuals extends JFrame{
 	public AirportVisuals(int width, int height) {
 		intializeWindow(width, height); // Calls the initialize method and creates the Window
 	}
+	
 	/**
 	 * Method that initializes the creation of the window
 	 * 
@@ -32,6 +36,19 @@ public class AirportVisuals extends JFrame{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Fully closes the Window
 		setSize(width, height); // Initialize the Height and Width of the window
 		setLocationRelativeTo(null); // Sets the Location of the window to the center of the screen
+		setBackground(Color.BLACK);
+		
+		JPanel Airport = new JPanel() {
+			
+			@Override
+			public void paint(Graphics g) {
+				g.setColor(Color.red);
+				g.fillRect(100, 100, 300, 300);
+			}
+		};
+		
+		add(Airport);
+		
 		setVisible(true); // Sets window to visible
 	}
 }
