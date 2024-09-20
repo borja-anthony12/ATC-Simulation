@@ -8,12 +8,16 @@ import src.main.Plane;
 import src.visualization.AirportVisuals;
 
 public class Main {
+	private static int width = 720;
+	private static int height = 600;
 	public static void main(String[] args) {
+		// Creates instances of all of the imported modules
 		ATC atc = new ATC();
 		Plane plane = new Plane();
-		AirportVisuals apVisuals = new AirportVisuals();
+		AirportVisuals apVisuals = new AirportVisuals(width, height);
 		
-		System.out.println("Main Class Works!");
+		
+		
 		
 		plane.test();
 		atc.test();
