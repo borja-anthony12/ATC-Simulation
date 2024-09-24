@@ -33,10 +33,9 @@ public class AirportVisuals extends JFrame{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Fully closes the Window
 		setSize(windowWidth, windowHeight); // Initialise the Height and Width of the window
 		setLocationRelativeTo(null); // Sets the Location of the window to the centre of the screen
-		setBackground(Color.BLUE);
 		
 		
-//		add(runway);
+		add(runway);
 		
 		setVisible(true); // Sets window to visible
 	}
@@ -60,6 +59,7 @@ public class AirportVisuals extends JFrame{
 		 * @param windowHeight	takes the Height of the Window
 		 */
 		public RunwayPanel(int windowWidth, int windowHeight) {
+			setBackground(Color.BLACK);
 			this.windowWidth = windowWidth;
 			this.windowHeight = windowHeight;
 		}
@@ -83,8 +83,8 @@ public class AirportVisuals extends JFrame{
 	            int runwayX = (windowWidth - runwayWidth) / 2;
 	            int runwayY = (windowHeight - runwayHeight) / 2;
 
-//	            g.setColor(Color.GRAY);  // Set runway colour
-//	            g.fillRect(runwayX, runwayY, runwayWidth, runwayHeight);  // Draw the runway
+	            g.setColor(Color.GRAY);  // Set runway colour
+	            g.fillRect(runwayX, runwayY, runwayWidth, runwayHeight);  // Draw the runway
 	        }
 	}
 }
