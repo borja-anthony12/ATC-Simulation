@@ -79,20 +79,20 @@ public class AirportVisuals extends JFrame{
 		 * @param g takes in the graphics and calls it g
 		 */
 		 public void drawRunways(Graphics g) {
-			 /* runway width and height*/
-	            final int runwayWidth = 150;
-	            final int runwayHeight = 300;
-	            int runwayX = (windowWidth - runwayWidth) / 2;
-	            int runwayY = (windowHeight - runwayHeight) / 2;
+			 	/* runway width and height*/
+	            final int runwayWidth = 150; // Initialises the runway Width
+	            final int runwayHeight = 300; // Initialises the runway Height
+	            int runwayX = (windowWidth - runwayWidth) / 2; // Does the calculations for the runway X position
+	            int runwayY = (windowHeight - runwayHeight) / 2; // Does the calculations for the runway Y position
 	            
-			 	Graphics2D g2d = (Graphics2D)g;
-			 	Rectangle runwayVisual = new Rectangle(runwayX, runwayY, runwayWidth, runwayHeight);
+			 	Graphics2D g2d = (Graphics2D)g; // Creates and instance of Graphics2D
+			 	Rectangle runwayVisual = new Rectangle(250, 100, runwayWidth, runwayHeight); // Creates a rectangle Object called 'runwayVisual'
 			 	
 
 	            g2d.setColor(Color.GRAY);  // Set runway colour
 	            g2d.rotate(Math.toRadians(45)); // Rotates runwayVisual to 45 degrees
 	            g2d.draw(runwayVisual);  // Draw the runway
-	            g2d.fill(runwayVisual);
+	            g2d.fill(runwayVisual); // Fills the runway
 	            
 	        }
 	}
