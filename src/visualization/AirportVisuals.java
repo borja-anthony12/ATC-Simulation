@@ -2,6 +2,7 @@ package src.visualization;
 
 import java.awt.*;
 import javax.swing.*;
+import java.math.*;
 
 /**
  * Class which creates all of the ATC Simulation Visuals
@@ -67,6 +68,7 @@ public class AirportVisuals extends JFrame{
 		@Override
 		protected void paintComponent(Graphics g) {
 			super.paintComponent(g);
+			
 			drawRunways(g);
 		}
 		
@@ -77,14 +79,21 @@ public class AirportVisuals extends JFrame{
 		 * @param g takes in the graphics and calls it g
 		 */
 		 public void drawRunways(Graphics g) {
-			 	/* runway width and height*/
+			 /* runway width and height*/
 	            final int runwayWidth = 150;
 	            final int runwayHeight = 300;
 	            int runwayX = (windowWidth - runwayWidth) / 2;
 	            int runwayY = (windowHeight - runwayHeight) / 2;
+	            
+			 	Graphics2D g2d = (Graphics2D)g;
+			 	Rectangle runwayVisual = new Rectangle(runwayX, runwayY, runwayWidth, runwayHeight);
+			 	
 
-	            g.setColor(Color.BLACK);  // Set runway colour
-	            g.fillRect(runwayX, runwayY, runwayWidth, runwayHeight);  // Draw the runway
+	            g2d.setColor(Color.GRAY);  // Set runway colour
+	            g2d.rotate(Math.toRadians(45)); // Rotates runwayVisual to 45 degrees
+	            g2d.draw(runwayVisual);  // Draw the runway
+	            g2d.fill(runwayVisual);
+	            
 	        }
 	}
 }
