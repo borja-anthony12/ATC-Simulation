@@ -1,6 +1,6 @@
 package src.main;
 
-public class PlaneAttributes {
+public class PlaneAttributes extends PlaneBehavior {
 	int x = 0, y = 0, z = 0;
 	
 	

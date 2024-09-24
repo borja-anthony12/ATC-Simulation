@@ -49,10 +49,9 @@ public class Tower {
 	 * Receives positions in X Y Z array format
 	 */
 	private int comparePlanePos(PlaneAttributes p1, PlaneAttributes p2) {
-		int[] deltaPosition = new int[3];
-		deltaPosition = p1.getPosition() - p2.getPosition();
-		
-		int dif = (int) Math.sqrt(deltaPosition[0]^2 + deltaPosition[1]^2);
+		int deltaX = p1.getPosition()[0] - p2.getPosition()[0];
+		int deltaY = p1.getPosition()[1] - p2.getPosition()[1];
+		int dif = (int) Math.sqrt(deltaX^2 + deltaY^2);
 		return dif;
 	}
 } 

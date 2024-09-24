@@ -2,17 +2,19 @@ package src.main;
 
 public class PlaneBehavior {
 	
-	PlaneAttributes PAtt = new PlaneAttributes();
-	
-	public void takeoff() {
+	protected void takeoff() {
 		
 	}
 	
-	public void landing() {
+	protected void landing() {
 		
 	}
 	
-	public void flying() {
+	protected void flying() {
+		
+	}
+	
+	protected void crash() {
 		
 	}
 
