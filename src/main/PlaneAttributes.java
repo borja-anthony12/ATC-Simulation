@@ -2,27 +2,21 @@ package src.main;
 
 public class PlaneAttributes {
 	int x = 0, y = 0, z = 0;
+	int velocity = 0;
 	
-	
-	boolean veltimer = false;
-	int count = 0;
 	public PlaneAttributes() {
 		
 	}
 	
 	
+	
 	// trying to make a timer to get increasing velocity for a plane
 	public void upVelocity() {
-		if(veltimer = false) {
-			veltimer = true;
-			count = 0;
-			
-		}
 		
 			
 			
 		
-		//timer.start();
+		
 		
 	}
 	

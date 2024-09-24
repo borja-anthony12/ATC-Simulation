@@ -2,7 +2,7 @@ package src.main;
 
 public class PlaneBehavior {
 	
-	PlaneAttributes PAtt = new PlaneAttributes();
+	//PlaneAttributes PAtt = new PlaneAttributes();
 	
 	public void takeoff() {
 		
