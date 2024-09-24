@@ -83,7 +83,7 @@ public class AirportVisuals extends JFrame{
 	            int runwayX = (windowWidth - runwayWidth) / 2;
 	            int runwayY = (windowHeight - runwayHeight) / 2;
 
-	            g.setColor(Color.BLUE);  // Set runway colour
+	            g.setColor(Color.BLACK);  // Set runway colour
 	            g.fillRect(runwayX, runwayY, runwayWidth, runwayHeight);  // Draw the runway
 	        }
 	}
