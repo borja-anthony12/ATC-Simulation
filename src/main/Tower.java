@@ -33,12 +33,12 @@ public class Tower {
 	public void checkPlaneCollision() {
 		PlaneAttributes[] planeArray = (PlaneAttributes[]) planeAttributes.toArray();
 		
-		for(int i = 0; i < planeArray.length(); i++) {
-			for(int j = 0; j < planeArray.length(); j++) {
+		for(int i = 0; i < planeArray.length; i++) {
+			for(int j = 0; j < planeArray.length; j++) {
 				int dif = comparePlanePos(planeArray[i], planeArray[j]);
 				if(dif < minimumSpaceBetweenPlanes) {
-					planeAttributes[i].crash();
-					planeAttributes[j].crash();
+					planeArray[i].crash();
+					planeArray[j].crash();
 				}
 			}
 		}
