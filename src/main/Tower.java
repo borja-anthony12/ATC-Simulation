@@ -3,21 +3,20 @@ package src.main;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/*
+ * Class for handling all logic and detection of crashes
+ */
 public class Tower {
 	
 	protected ArrayList<PlaneAttributes> planeAttributes;
-	private int x;
-	private int y;
+	private PlaneAttributes[] gatePlanes;
+	private boolean[] gates;
 	private int minimumSpaceBetweenPlanes;
 	
-	public Tower() {
+	public Tower(int gateCount) {
 		planeAttributes = new ArrayList<PlaneAttributes>();
-	}
-	
-	public Tower(int x, int y) {
-		planeAttributes = new ArrayList<PlaneAttributes>();
-		this.x = x;
-		this.y= y;
+		gates = new boolean[gateCount];
+		gatePlanes = new PlaneAttributes[gateCount];
 	}
 	
 	/*
@@ -45,8 +44,31 @@ public class Tower {
 	}
 	
 	/*
-	 * gets the difference the X Y Z values of two planes
-	 * Receives positions in X Y Z array format
+	 * moves a plane to a gate from the runway
+	 */
+	public void taxiPlaneToGate(PlaneAttributes plane) {
+		for(int i = 0; i < gates.length; i++) {
+			if(!gates[i]) {
+				gates[i] = true;
+				gatePlanes[i] = plane.getCallSign();
+			}
+		}
+	}
+	
+	/*
+	 * moves a plane to the runway from a gate
+	 */
+	public void taxiPlaneToRunway(PlaneAttributes plane) {
+		for(int i = 0; i < gates.length; i++) {
+			if(plane.getCallSign() == gate) {
+				
+			}
+		}
+	}
+	
+	/*
+	 * gets the difference the X Y values of two planes
+	 * Receives positions in X Y array format
 	 */
 	private int comparePlanePos(PlaneAttributes p1, PlaneAttributes p2) {
 		int deltaX = p1.getPosition()[0] - p2.getPosition()[0];
