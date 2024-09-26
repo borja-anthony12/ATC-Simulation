@@ -11,17 +11,19 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import org.junit.Before;
+import src.main.Tower;
 	
-class UnitTestTest {
-	UnitTest UnitTest;
+class UnitTestsTower {
+	Tower tower = new Tower(3);
 	@BeforeEach
 	public void setUp() throws Exception {
-		UnitTest = new UnitTest(7, 10);
+
+		
 	}
 
 	@Test
-	public void testAdd() {
-		Assert.assertEquals(17,  UnitTest.add());
+	public void unitTestCheckPlaneCollision() {
+		tower.checkPlaneCollision();
 	}
 
 }
