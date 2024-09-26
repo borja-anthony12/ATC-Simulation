@@ -14,8 +14,8 @@ public class PlaneBehavior {
 		
 	}
 	
-	protected void crash() {
-		
+	protected boolean isCrashed() {
+		return true;
 	}
 
 }
