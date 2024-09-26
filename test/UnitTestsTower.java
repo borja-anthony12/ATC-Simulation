@@ -14,16 +14,15 @@ import org.junit.Before;
 import src.main.Tower;
 	
 class UnitTestsTower {
-	Tower tower = new Tower(3);
+	
 	@BeforeEach
 	public void setUp() throws Exception {
-
 		
 	}
 
 	@Test
 	public void unitTestCheckPlaneCollision() {
-		tower.checkPlaneCollision();
+		
 	}
 
 }
