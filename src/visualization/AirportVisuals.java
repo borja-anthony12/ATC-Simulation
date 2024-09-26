@@ -88,31 +88,26 @@ public class AirportVisuals extends JFrame{
 	            final int runwayHeight = 250; // Initialises the runway Height
 	            int spacing = 50;
 	            
+	            // Loops for the amount of runways provided
 	            for (int i = 0; i < RUNWAY_AMOUNT; i++) {
-	            	System.out.println(i);
-	            	int offset = i * (runwayWidth + spacing);
-	            	int runwayX = (windowWidth - (runwayWidth + offset)) / 2; // Does the calculations for the runway X position
-		            int runwayY = ((windowHeight - runwayHeight) / 2); // Does the calculations for the runway Y position
-		            int centerX = runwayX + (runwayWidth / 2);
-		            int centerY = (runwayY + (runwayHeight / 2));
-		            System.out.println("Offset: " + offset);
-		            System.out.println("RunwayX: " + runwayX);
-		            System.out.println("RunwayY: " + runwayY);
-		            System.out.println("centerx: " + centerX);
-		            System.out.println("centerY: " + centerY);
+	            	int offset = i * (runwayWidth + spacing); // runwayWidth + spacing is than multiplied by i to get the offset
+	            	int runwayX = (windowWidth - (runwayWidth + offset)) / 2 - 25; 	// Does the calculations for the runway X position and offsets it by 25 to centre the runway
+		            int runwayY = (windowHeight - runwayHeight) / 2 - 100; 			// Does the calculations for the runway Y position and offsets it by 100 to centre the runway
+		            int centerX = runwayX + (runwayWidth / 2);		// Calculates the rotated X values for the canvas
+		            int centerY = (runwayY + (runwayHeight / 2));	// Calculates the rotated Y values for the canvas
 				 	Graphics2D g2d = (Graphics2D) g; // Creates and instance of Graphics2D
 				 	
 		            g2d.setColor(Color.GRAY); // Set runway colour
-		            g2d.translate(centerX, centerY);
+		            g2d.translate(centerX, centerY); // Translates the object
 		            g2d.rotate(Math.toRadians(45)); // Rotates runwayVisual to 45 degrees
-		            g2d.translate(-centerX, -centerY);
+		            g2d.translate(-centerX, -centerY);	// Moves the Object back
 		            
 		            Rectangle runwayVisual = new Rectangle(runwayX + offset, runwayY, runwayWidth, runwayHeight); // Creates a rectangle Object called 'runwayVisual'
 		            
 		            g2d.draw(runwayVisual);  	// Draw the runway
 		            g2d.fill(runwayVisual); 	// Fills the runway
 		            
-		            g2d.setTransform(g2d.getDeviceConfiguration().getDefaultTransform());
+		            g2d.setTransform(g2d.getDeviceConfiguration().getDefaultTransform()); // Resets transformations for the next runway
 	            }
 	        }
 	}
