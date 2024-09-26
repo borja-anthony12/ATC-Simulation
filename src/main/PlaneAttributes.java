@@ -6,23 +6,22 @@ public class PlaneAttributes extends PlaneBehavior {
 	int vel = 0;
 	int accel = 0;
 	int altaccel = 0;
+	String a, b, c, d, e;
 	String call;
-	String[] {a, b, c, d, e};
-	int ran;
+	
+	//String[] digits = (a, b, c, d, e);
+	 int ran;
 	
 	public PlaneAttributes() {
 		
 	}
 	
+	// make a list of letters and choose a random one
 	public String getCallSign() {
 		// n c f g
+		String[] digits = {a, b, c, d, e};
 		Random r = new Random();
 		ran = r.nextInt(4) + 1;
-		/*a = r.nextInt(4) + 1;
-		b = r.nextInt(10) + 1;
-		c = r.nextInt(10) + 1;
-		d = r.nextInt(10) + 1;
-		e = r.nextInt(10) + 1;*/
 		
 		if(ran == 1) {
 			a = "c";
@@ -36,11 +35,11 @@ public class PlaneAttributes extends PlaneBehavior {
 			a = "z";
 		}
 		
-		for(int i = 0; i <= 4; i++) {
+		for(int i = 1; i < 5; i++) {
 			ran = r.nextInt(10) + 1;
-			b = Integer.toString(ran);
+			digits[i] = Integer.toString(ran);
 		}
-		
+		call = a + "-" + b + c + d + e;
 		
 		return call;
 	}
@@ -63,7 +62,7 @@ public class PlaneAttributes extends PlaneBehavior {
 	}
 	
 	public int[] getPosition() {
-		int[] coords = {x, y ,z};
+		int[] coords = {x, y, z};
 		x = 0;
 		y = 0;
 		z = 0;
