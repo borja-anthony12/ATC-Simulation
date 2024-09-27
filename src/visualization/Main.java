@@ -1,11 +1,10 @@
 package src.visualization;
 
 // Module imports from src.main
-import src.main.Tower;
-import src.main.PlaneAttributes;
+import src.main.*;
 
 // Local Module Imports
-import src.visualization.AirportVisuals;
+import src.visualization.*;
 
 public class Main {
 	/* Width and Height */
@@ -13,6 +12,7 @@ public class Main {
 	private static final int HEIGHT = 600;	// Height for window
 	
 	private static final int RUNWAY_AMOUNT = 2; // Maximum amount of runways is 2
+	public static final int UPDATE_INTERAVAL = 1;
 	
 	public static void main(String[] args) {
 		// Creates instances of all of the imported modules
