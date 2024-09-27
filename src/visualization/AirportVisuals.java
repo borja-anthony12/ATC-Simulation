@@ -79,7 +79,7 @@ public class AirportVisuals extends JFrame{
 			
 			
 			drawRunways(g, 75, -50, 0, 400, RUNWAY_WIDTH);
-			if (RUNWAY_AMOUNT > 1) {
+			if (RUNWAY_AMOUNT > 1 && RUNWAY_AMOUNT < 2) {
 				drawRunways(g, -60, -25, -50, 450, RUNWAY_WIDTH);
 			}
 //			drawTaxiWays(g);
