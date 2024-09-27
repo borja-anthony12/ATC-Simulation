@@ -16,9 +16,13 @@ public class Tower {
 	/**
 	 * 
 	 * @param gateCount is the number of gates in the airport
+	 * 		  The max amount of gates is 5, the minimum is 2
 	 */
 	public Tower(int gateCount) {
 		planes = new ArrayList<PlaneAttributes>();
+		
+		if(gateCount < 2) gateCount = 2;
+		if(gateCount > 5) gateCount = 5;
 		gates = new boolean[gateCount];
 		gatePlanes = new PlaneAttributes[gateCount];
 	}
@@ -27,7 +31,10 @@ public class Tower {
 	 * Checks if planes collide
 	 */
 	public void checkPlaneCollision() {
-		PlaneAttributes[] planeArray = (PlaneAttributes[]) planes.toArray();
+		PlaneAttributes[] planeArray = new PlaneAttributes[planes.size()];
+		for(int i = 0; i < planes.size(); i++) {
+			planeArray[i] = planes.get(i);
+		}
 		
 		for(int i = 0; i < planeArray.length; i++) {
 			for(int j = 0; j < planeArray.length; j++) {
@@ -64,6 +71,9 @@ public class Tower {
 		}
 	}
 	
+	/**
+	 * adds a new plane to simulation
+	 */
 	public void spawnPlane() {
 		PlaneAttributes plane = new PlaneAttributes();
 		planes.add(plane);
