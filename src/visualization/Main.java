@@ -12,7 +12,7 @@ public class Main {
 	private static final int WIDTH = 720; 	// Width for window
 	private static final int HEIGHT = 600;	// Height for window
 	
-	private static final int RUNWAY_AMOUNT = 3;
+	private static final int RUNWAY_AMOUNT = 2; // Maximum amount of runways is 2
 	
 	public static void main(String[] args) {
 		// Creates instances of all of the imported modules
