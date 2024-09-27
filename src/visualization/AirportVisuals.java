@@ -3,6 +3,7 @@ package src.visualization;
 import java.awt.*;
 import javax.swing.*;
 import java.math.*;
+import src.visualization.WindowUpdate;
 
 /**
  * Class which creates all of the ATC Simulation Visuals
@@ -43,6 +44,7 @@ public class AirportVisuals extends JFrame{
 		add(runway);
 		
 		setVisible(true); // Sets window to visible
+		WindowUpdate update = new WindowUpdate(runway);
 	}
 	
 	/**
@@ -78,10 +80,13 @@ public class AirportVisuals extends JFrame{
 			super.paintComponent(g);
 			
 			
-			drawRunways(g, 75, -50, 0, 400, RUNWAY_WIDTH);
-			if (RUNWAY_AMOUNT > 1 && RUNWAY_AMOUNT < 2) {
-				drawRunways(g, -60, -25, -50, 450, RUNWAY_WIDTH);
+			drawRunways(g, 75, -50, 0, 400, RUNWAY_WIDTH); // Creates the first runway
+			
+			// Checks whether runway amount is greater than 2 and runway amount isn't greater than 2;
+			if (RUNWAY_AMOUNT > 1 && RUNWAY_AMOUNT <= 2) {
+				drawRunways(g, -60, -25, -50, 450, RUNWAY_WIDTH); // Creates the second runway
 			}
+			// TO-DO 
 //			drawTaxiWays(g);
 			
 		}
@@ -90,7 +95,12 @@ public class AirportVisuals extends JFrame{
 		 * Creates the runway and does the calculations for
 		 * the position of the runway
 		 * 
-		 * @param g takes in the graphics and calls it g
+		 * @param g 			takes in the graphics and calls it g
+		 * @param rotation 		takes in the degrees of how much the runway is rotated
+		 * @param xPos 			takes in the x position of the runway
+		 * @param yPos 			takes in the y position of the runway
+		 * @param runwayHeight 	takes in specified height of  runway
+		 * @param runwayWidth 	takes in specified width of runway
 		 */
 		 public void drawRunways(Graphics g, int rotation, int xPos, int yPos, int runwayHeight, int runwayWidth) {
 	            Graphics2D g2d = (Graphics2D) g; // Creates and instance of Graphics2D
@@ -102,13 +112,15 @@ public class AirportVisuals extends JFrame{
 			 	
 	            g2d.setColor(Color.GRAY); // Set runway colour
 	            g2d.translate(centerX, centerY); // Translates the object
-	            g2d.rotate(Math.toRadians(rotation)); // Rotates runwayVisual to 45 degrees
+	            g2d.rotate(Math.toRadians(rotation)); // Rotates runwayVisual to the given rotation in degrees and converts to radiens
 	            g2d.translate(-centerX, -centerY);	// Moves the Object back
 	            
 	            Rectangle runwayVisual = new Rectangle(runwayX, runwayY, runwayWidth, runwayHeight); // Creates a rectangle Object called 'runwayVisual'
 	            
-	            g2d.draw(runwayVisual);  	// Draw the runway
+	            g2d.draw(runwayVisual);  	// Draws the runway
 	            g2d.fill(runwayVisual); 	// Fills the runway
+	            
+	            // Resets canvas
 	            g2d.setTransform(g2d.getDeviceConfiguration().getDefaultTransform());
 	 	}
 		
