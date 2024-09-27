@@ -34,7 +34,7 @@ public class AirportVisuals extends JFrame {
      * @param windowHeight	Takes in the height given by the constructor
      */
     private void initializeWindow(int windowWidth, int windowHeight) {
-        RunwayPanel runway = new RunwayPanel(windowWidth, windowHeight);
+        AirportPanel airport = new AirportPanel(windowWidth, windowHeight);
         
         // Setup the current JFrame (AirportVisuals extends JFrame)
         setTitle("ATC Simulation"); // Sets the title of the Window to ATC Simulation
@@ -42,16 +42,16 @@ public class AirportVisuals extends JFrame {
         setSize(windowWidth, windowHeight); // Initialise the Height and Width of the window
         setLocationRelativeTo(null); // Sets the Location of the window to the centre of the screen
         
-        add(runway); // Add the runway panel to the current frame
+        add(airport); // Add the runway panel to the current frame
         setVisible(true); // Sets window to visible
         
+        // Added Component Listener for updating runways
         addComponentListener(new ComponentAdapter() {
         	@Override
             public void componentResized(ComponentEvent e) {
             	 Dimension newSize = getSize();
-                 runway.updateRunwayPosition(newSize.width, newSize.height);
-                 runway.revalidate();
-                 runway.repaint();
+                 airport.updateRunwayPosition(newSize.width, newSize.height);
+                 airport.repaint();
             }
         });
         
@@ -59,21 +59,20 @@ public class AirportVisuals extends JFrame {
         
 
         // Create a WindowUpdate object and start the update process
-        WindowUpdate update = new WindowUpdate(runway);
+        WindowUpdate update = new WindowUpdate(airport);
     }
 
     /**
      * Class that extends JPanel and creates runways
      */
-    private class RunwayPanel extends JPanel {
+    private class AirportPanel extends JPanel {
         private static final long serialVersionUID = 2853523647566452733L;
         
         private int windowWidth, windowHeight;
         private int runwayX, runwayY;
         private final int RUNWAY_WIDTH = 40;
 
-        public RunwayPanel(int windowWidth, int windowHeight) {
-        	setDoubleBuffered(true);
+        public AirportPanel(int windowWidth, int windowHeight) {
             setBackground(Color.BLACK);
             this.windowWidth = windowWidth;
             this.windowHeight = windowHeight;
@@ -82,11 +81,12 @@ public class AirportVisuals extends JFrame {
         @Override
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
-            drawRunways(g, 75, -50, 0, 400, RUNWAY_WIDTH); // Creates the first runway
+            drawRunways(g, 60, 0, 0, 400, RUNWAY_WIDTH); // Creates the first runway
 
             if (RUNWAY_AMOUNT > 1 && RUNWAY_AMOUNT <= 2) {
-                drawRunways(g, -60, -25, -50, 450, RUNWAY_WIDTH); // Creates the second runway
+                drawRunways(g, -60, 23, -50, 450, RUNWAY_WIDTH); // Creates the second runway
             }
+            drawAirportBuilding(g);
         }
         
         public void updateRunwayPosition(int newWidth, int newHeight) {
@@ -94,7 +94,7 @@ public class AirportVisuals extends JFrame {
             windowHeight = newHeight;
             
             // Example to update runway positions dynamically
-            runwayX = (windowWidth - 50) / 2;  // Adjust X position to centre runway
+            runwayX = (windowWidth - RUNWAY_WIDTH) / 2;  // Adjust X position to centre runway
             runwayY = (windowHeight - 250) / 2;  // Adjust Y position to centre runway
         }
 
@@ -118,6 +118,15 @@ public class AirportVisuals extends JFrame {
 
             // Reset canvas transformation
             g2d.setTransform(g2d.getDeviceConfiguration().getDefaultTransform());
+        }
+        
+        public void drawAirportBuilding(Graphics g) {
+        	Graphics2D g2d = (Graphics2D) g;
+        	Rectangle Building = new Rectangle (100, 50, 350, 115);
+        	
+        	g2d.setColor(Color.BLUE);
+        	g2d.draw(Building);
+        	g2d.fill(Building);
         }
 
         public void drawTaxiWays(Graphics g) {
