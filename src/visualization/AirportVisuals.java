@@ -53,6 +53,7 @@ public class AirportVisuals extends JFrame{
 		
 		private int windowWidth;
 		private int windowHeight;
+		private final int RUNWAY_WIDTH = 40;
 		
 		/**
 		 * Runway Constructor that takes in 
@@ -69,11 +70,20 @@ public class AirportVisuals extends JFrame{
 			this.windowHeight = windowHeight;
 		}
 		
+		/**
+		 * Overrides the paintComponent
+		 */
 		@Override
 		protected void paintComponent(Graphics g) {
 			super.paintComponent(g);
 			
-			drawRunways(g);
+			
+			drawRunways(g, 75, -50, 0, 400, RUNWAY_WIDTH);
+			if (RUNWAY_AMOUNT > 1) {
+				drawRunways(g, -60, -25, -50, 450, RUNWAY_WIDTH);
+			}
+//			drawTaxiWays(g);
+			
 		}
 		
 		/**
@@ -82,33 +92,34 @@ public class AirportVisuals extends JFrame{
 		 * 
 		 * @param g takes in the graphics and calls it g
 		 */
-		 public void drawRunways(Graphics g) {
-			 	/* runway width and height*/
-	            final int runwayWidth = 50; // Initialises the runway Width
-	            final int runwayHeight = 250; // Initialises the runway Height
-	            int spacing = 50;
+		 public void drawRunways(Graphics g, int rotation, int xPos, int yPos, int runwayHeight, int runwayWidth) {
+	            Graphics2D g2d = (Graphics2D) g; // Creates and instance of Graphics2D
 	            
-	            // Loops for the amount of runways provided
-	            for (int i = 0; i < RUNWAY_AMOUNT; i++) {
-	            	int offset = i * (runwayWidth + spacing); // runwayWidth + spacing is than multiplied by i to get the offset
-	            	int runwayX = (windowWidth - (runwayWidth + offset)) / 2 - 25; 	// Does the calculations for the runway X position and offsets it by 25 to centre the runway
-		            int runwayY = (windowHeight - runwayHeight) / 2 - 100; 			// Does the calculations for the runway Y position and offsets it by 100 to centre the runway
-		            int centerX = runwayX + (runwayWidth / 2);		// Calculates the rotated X values for the canvas
-		            int centerY = (runwayY + (runwayHeight / 2));	// Calculates the rotated Y values for the canvas
-				 	Graphics2D g2d = (Graphics2D) g; // Creates and instance of Graphics2D
-				 	
-		            g2d.setColor(Color.GRAY); // Set runway colour
-		            g2d.translate(centerX, centerY); // Translates the object
-		            g2d.rotate(Math.toRadians(45)); // Rotates runwayVisual to 45 degrees
-		            g2d.translate(-centerX, -centerY);	// Moves the Object back
-		            
-		            Rectangle runwayVisual = new Rectangle(runwayX + offset, runwayY, runwayWidth, runwayHeight); // Creates a rectangle Object called 'runwayVisual'
-		            
-		            g2d.draw(runwayVisual);  	// Draw the runway
-		            g2d.fill(runwayVisual); 	// Fills the runway
-		            
-		            g2d.setTransform(g2d.getDeviceConfiguration().getDefaultTransform()); // Resets transformations for the next runway
-	            }
-	        }
+            	int runwayX = (windowWidth - (runwayWidth)) / 2 + xPos; 	// Does the calculations for the runway X position and offsets it by 25 to centre the runway
+	            int runwayY = (windowHeight - runwayHeight) / 2 + yPos; 			// Does the calculations for the runway Y position and offsets it by 100 to centre the runway
+	            int centerX = runwayX + (runwayWidth / 2);		// Calculates the rotated X values for the canvas
+	            int centerY = runwayY + (runwayHeight / 2);	// Calculates the rotated Y values for the canvas
+			 	
+	            g2d.setColor(Color.GRAY); // Set runway colour
+	            g2d.translate(centerX, centerY); // Translates the object
+	            g2d.rotate(Math.toRadians(rotation)); // Rotates runwayVisual to 45 degrees
+	            g2d.translate(-centerX, -centerY);	// Moves the Object back
+	            
+	            Rectangle runwayVisual = new Rectangle(runwayX, runwayY, runwayWidth, runwayHeight); // Creates a rectangle Object called 'runwayVisual'
+	            
+	            g2d.draw(runwayVisual);  	// Draw the runway
+	            g2d.fill(runwayVisual); 	// Fills the runway
+	            g2d.setTransform(g2d.getDeviceConfiguration().getDefaultTransform());
+	 	}
+		
+		 public void drawTaxiWays(Graphics g) {
+			 Graphics2D g2d = (Graphics2D) g;
+			 
+			 Rectangle taxiWayVisual = new Rectangle(50, 50, 100, 100);
+			 
+			 g2d.setColor(Color.GRAY);
+			 g2d.draw(taxiWayVisual);
+			 g2d.fill(taxiWayVisual);
+			 }
 	}
 }
