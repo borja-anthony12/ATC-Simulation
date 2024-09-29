@@ -69,8 +69,16 @@ public class AirportVisuals extends JFrame {
         private static final long serialVersionUID = 2853523647566452733L;
         
         private int windowWidth, windowHeight;
-        private int runwayX, runwayY;
+        private int runwayXPos, runwayYPos;
+        private int buildingXPos, buildingYPos;
+        
         private final int RUNWAY_WIDTH = 40;
+        private final int RUNWAY_HEIGHT = 450;
+        private final int ROTATION = 60;
+
+        
+        private final int BUILDING_WIDTH = 325;
+        private final int BUILDING_HEIGHT = 100;
 
         public AirportPanel(int windowWidth, int windowHeight) {
             setBackground(Color.BLACK);
@@ -81,12 +89,13 @@ public class AirportVisuals extends JFrame {
         @Override
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
-            drawRunways(g, 60, 0, 0, 400, RUNWAY_WIDTH); // Creates the first runway
-
-            if (RUNWAY_AMOUNT > 1 && RUNWAY_AMOUNT <= 2) {
-                drawRunways(g, -60, 23, -50, 450, RUNWAY_WIDTH); // Creates the second runway
-            }
+//            drawRunways(g, ROTATION, 0, 0, RUNWAY_WIDTH, RUNWAY_HEIGHT); // Creates the first runway
+//
+//            if (RUNWAY_AMOUNT > 1 && RUNWAY_AMOUNT <= 2) {
+//                drawRunways(g, -ROTATION, 23, -50, 450, RUNWAY_WIDTH); // Creates the second runway
+//            }
             drawAirportBuilding(g);
+            drawGates(g);
         }
         
         public void updateRunwayPosition(int newWidth, int newHeight) {
@@ -94,24 +103,26 @@ public class AirportVisuals extends JFrame {
             windowHeight = newHeight;
             
             // Example to update runway positions dynamically
-            runwayX = (windowWidth - RUNWAY_WIDTH) / 2;  // Adjust X position to centre runway
-            runwayY = (windowHeight - 250) / 2;  // Adjust Y position to centre runway
+            runwayXPos = (windowWidth - RUNWAY_WIDTH) / 2;  // Adjust X position to centre runway
+            runwayYPos = (windowHeight - 250) / 2;  // Adjust Y position to centre runway
+            
+//            buildingXPos = (windowWidth - )
         }
 
-        public void drawRunways(Graphics g, int rotation, int xPos, int yPos, int runwayHeight, int runwayWidth) {
+        public void drawRunways(Graphics g, int rotation, int xPos, int yPos, int runwayWidth, int runwayHeight) {
             Graphics2D g2d = (Graphics2D) g;
 
-            runwayX = (windowWidth - (runwayWidth)) / 2 + xPos;
-            runwayY = (windowHeight - runwayHeight) / 2 + yPos;
-            int centerX = runwayX + (runwayWidth / 2);
-            int centerY = runwayY + (runwayHeight / 2);
+            runwayXPos = (windowWidth - (runwayWidth)) / 2 + xPos;
+            runwayYPos = (windowHeight - runwayHeight) / 2 + yPos;
+            int centreXRunway = runwayXPos + (runwayWidth / 2);
+            int centreYRunway = runwayYPos + (runwayHeight / 2);
 
             g2d.setColor(Color.GRAY);
-            g2d.translate(centerX, centerY);
+            g2d.translate(centreXRunway, centreYRunway);
             g2d.rotate(Math.toRadians(rotation));
-            g2d.translate(-centerX, -centerY);
+            g2d.translate(-centreXRunway, -centreYRunway);
 
-            Rectangle runwayVisual = new Rectangle(runwayX, runwayY, runwayWidth, runwayHeight);
+            Rectangle runwayVisual = new Rectangle(runwayXPos, runwayYPos, runwayWidth, runwayHeight);
 
             g2d.draw(runwayVisual);
             g2d.fill(runwayVisual);
@@ -122,13 +133,45 @@ public class AirportVisuals extends JFrame {
         
         public void drawAirportBuilding(Graphics g) {
         	Graphics2D g2d = (Graphics2D) g;
-        	Rectangle Building = new Rectangle (100, 50, 350, 115);
         	
-        	g2d.setColor(Color.BLUE);
+        	final int offsetY = 100;
+        	buildingXPos = (windowWidth - (BUILDING_WIDTH)) / 2;
+        	buildingYPos = (windowHeight - (BUILDING_HEIGHT)) / 2 + offsetY;
+        	int centreXBuilding = buildingXPos + (350 / 2);
+        	int centreYBuilding = buildingYPos + (115 / 2);
+        	
+        	g2d.setColor(Color.GRAY);
+        	g2d.translate(centreXBuilding, centreYBuilding);
+        	g2d.rotate(Math.toRadians(-30));
+        	g2d.translate(-centreXBuilding, -centreYBuilding);
+        	
+        	Rectangle Building = new Rectangle (buildingXPos, buildingYPos, 325, 100);
+        	
         	g2d.draw(Building);
         	g2d.fill(Building);
+        	
+        	g2d.setTransform(g2d.getDeviceConfiguration().getDefaultTransform());
         }
-
+        
+        public void drawGates(Graphics g) {
+        	Graphics2D g2d = (Graphics2D) g;
+        	
+        	int centerXGates = 0;
+        	int centerYGates = 0;
+        	
+        	g2d.setColor(Color.GREEN);
+        	g2d.translate(centerXGates, centerYGates);
+        	g2d.rotate(Math.toRadians(-30));
+        	g2d.translate(-centerXGates, -centerYGates);
+        	
+        	Rectangle Gate = new Rectangle(100, 50, 25, 50);
+        	
+        	g2d.draw(Gate);
+        	g2d.fill(Gate);
+        	
+        	g2d.setTransform(g2d.getDeviceConfiguration().getDefaultTransform());
+        }
+        
         public void drawTaxiWays(Graphics g) {
             Graphics2D g2d = (Graphics2D) g;
             Rectangle taxiWayVisual = new Rectangle(50, 50, 100, 100);
