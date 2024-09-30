@@ -13,6 +13,7 @@ import javax.swing.*;
 public class AirportVisuals extends JFrame {
     private static final long serialVersionUID = 2178084625298728326L;
     public final int RUNWAY_AMOUNT;
+    public final int GATE_AMOUNT;
 
     /**
      * Constructor of class AirportVisuals. Calls the method initializeWindow 
@@ -21,9 +22,11 @@ public class AirportVisuals extends JFrame {
      * @param windowWidth 	Takes in the width of the window
      * @param windowHeight	Takes in the height of the window
      * @param runwayAmount  Takes in the amount of runways
+     * @param gateAmount 
      */
-    public AirportVisuals(int windowWidth, int windowHeight, int runwayAmount) {
+    public AirportVisuals(int windowWidth, int windowHeight, int runwayAmount, int gateAmount) {
         this.RUNWAY_AMOUNT = runwayAmount;
+        this.GATE_AMOUNT = gateAmount;
         initializeWindow(windowWidth, windowHeight); // Calls the initializeWindow method and creates the Window
     }
 
@@ -163,25 +166,37 @@ public class AirportVisuals extends JFrame {
         }
         
         public void drawGates(Graphics g) {
-        	/* TO-DO */
         	Graphics2D g2d = (Graphics2D) g;
-        	
-        	gateXPos = (windowWidth - GATE_WIDTH) / 2;
-        	gateYPos = (windowHeight - GATE_HEIGHT) / 2;
-        	int centerXGates = gateXPos + (350 / 2);
-        	int centerYGates = gateYPos + (115 / 2);
-        	
-        	g2d.setColor(Color.BLUE);
-        	g2d.translate(centerXGates, centerYGates);
-        	g2d.rotate(Math.toRadians(-30));
-        	g2d.translate(-centerXGates, -centerYGates);
-        	
-        	Rectangle Gate = new Rectangle(gateXPos, gateYPos, GATE_WIDTH, GATE_HEIGHT);
-        	
-        	g2d.draw(Gate);
-        	g2d.fill(Gate);
-        	
-        	g2d.setTransform(g2d.getDeviceConfiguration().getDefaultTransform());
+
+
+            final int gateOffsetY = -44;	// Offset to position gates relative to the building (e.g., above the building)
+            final int gateOffsetX = 6;
+            final int gateSpacing = 85;  	// Space between each gate
+
+            // Apply the rotation first for both building and gates together
+            int centerXBuilding = buildingXPos + (BUILDING_WIDTH / 2);
+            int centerYBuilding = buildingYPos + (BUILDING_HEIGHT / 2);
+            
+            // Rotate the entire coordinate system around the building's centre
+            g2d.translate(centerXBuilding, centerYBuilding);
+            g2d.rotate(Math.toRadians(-30));
+            g2d.translate(-centerXBuilding, -centerYBuilding);
+
+            // Loop to create multiple gates evenly spaced along the building
+            for (int i = 0; i < GATE_AMOUNT; i++) {
+                // Calculate gate position based on the building position and size
+                gateXPos = buildingXPos + (i * gateSpacing) - gateOffsetX;  // Evenly space gates along the building
+                gateYPos = buildingYPos + gateOffsetY;  // Position gates relative to the building
+
+                // Draw gate
+                g2d.setColor(Color.GRAY);
+                Rectangle Gate = new Rectangle(gateXPos, gateYPos, GATE_WIDTH, GATE_HEIGHT);
+                g2d.draw(Gate);
+                g2d.fill(Gate);
+            }
+
+            // Reset transform
+            g2d.setTransform(g2d.getDeviceConfiguration().getDefaultTransform());
         }
         
         public void drawTaxiWays(Graphics g) {
