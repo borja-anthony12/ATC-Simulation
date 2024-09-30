@@ -96,12 +96,16 @@ public class AirportVisuals extends JFrame {
         protected void paintComponent(Graphics g) {
         	/* TO-DO */
             super.paintComponent(g);
-//            drawRunways(g, ROTATION, 0, 0); // Creates the first runway
-//
-//            if (RUNWAY_AMOUNT > 1 && RUNWAY_AMOUNT <= 2) {
-//                drawRunways(g, -ROTATION, 23, -50); // Creates the second runway
-//            }
+            drawRunways(g, ROTATION, 0, 0); // Creates the first runway
+
+            if (RUNWAY_AMOUNT > 1 && RUNWAY_AMOUNT <= 2) {
+                drawRunways(g, -ROTATION, 23, -50); // Creates the second runway
+            }
+            
+            drawTaxiWays(g);
+            
             drawAirportBuilding(g);
+            
             drawGates(g);
         }
         
@@ -121,7 +125,6 @@ public class AirportVisuals extends JFrame {
         }
 
         public void drawRunways(Graphics g, int ROTATION, int xPos, int yPos) {
-        	/* TO-DO */
             Graphics2D g2d = (Graphics2D) g;
 
             runwayXPos = (windowWidth - (RUNWAY_WIDTH)) / 2 + xPos;
@@ -129,7 +132,7 @@ public class AirportVisuals extends JFrame {
             int centreXRunway = runwayXPos + (RUNWAY_WIDTH / 2);
             int centreYRunway = runwayYPos + (RUNWAY_HEIGHT / 2);
 
-            g2d.setColor(Color.GRAY);
+            g2d.setColor(Color.DARK_GRAY);
             g2d.translate(centreXRunway, centreYRunway);
             g2d.rotate(Math.toRadians(ROTATION));
             g2d.translate(-centreXRunway, -centreYRunway);
@@ -152,7 +155,7 @@ public class AirportVisuals extends JFrame {
         	int centreXBuilding = buildingXPos + (350 / 2);
         	int centreYBuilding = buildingYPos + (115 / 2);
         	
-        	g2d.setColor(Color.GRAY);
+        	g2d.setColor(Color.LIGHT_GRAY);
         	g2d.translate(centreXBuilding, centreYBuilding);
         	g2d.rotate(Math.toRadians(-30));
         	g2d.translate(-centreXBuilding, -centreYBuilding);
@@ -170,7 +173,7 @@ public class AirportVisuals extends JFrame {
 
 
             final int gateOffsetY = -44;	// Offset to position gates relative to the building (e.g., above the building)
-            final int gateOffsetX = 6;
+            final int gateOffsetX = 5;
             final int gateSpacing = 85;  	// Space between each gate
 
             // Apply the rotation first for both building and gates together
@@ -189,7 +192,7 @@ public class AirportVisuals extends JFrame {
                 gateYPos = buildingYPos + gateOffsetY;  // Position gates relative to the building
 
                 // Draw gate
-                g2d.setColor(Color.GRAY);
+                g2d.setColor(Color.LIGHT_GRAY);
                 Rectangle Gate = new Rectangle(gateXPos, gateYPos, GATE_WIDTH, GATE_HEIGHT);
                 g2d.draw(Gate);
                 g2d.fill(Gate);
