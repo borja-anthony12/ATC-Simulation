@@ -83,11 +83,13 @@ public class AirportVisuals extends JFrame {
         private final int RUNWAY_HEIGHT = 450;	// Initialises the runway height
         private final int RUNWAY_ROTATION = 60;	// Initialises the runway rotation
 
-        private final int GATE_WIDTH = 25;	// Initialises the gate width
-        private final int GATE_HEIGHT = 50; // Initialises the gate height
+        private final int GATE_WIDTH = 10;	// Initialises the gate width
+        private final int GATE_HEIGHT = 65; // Initialises the gate height
         
-        private final int BUILDING_WIDTH = 325;		// Initialises the building width
-        private final int BUILDING_HEIGHT = 100;	// Initialises the building height
+        private final int BUILDING_WIDTH = 340;		// Initialises the building width
+        private final int BUILDING_HEIGHT = 110;	// Initialises the building height
+        
+        private final int TAXIWAY_WIDTH = RUNWAY_WIDTH / 2;
 
         /**
          * Constructor of Airport Panel and initialises the background as black
@@ -105,16 +107,31 @@ public class AirportVisuals extends JFrame {
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
             
-            // Draws runway
-            drawRunways(g, RUNWAY_ROTATION, 0, 0); // Creates the first runway
-            
             // Checks the runway amount and makes sure that it's not greater than two
             if (RUNWAY_AMOUNT > 1 && RUNWAY_AMOUNT <= 2) {
-                drawRunways(g, -RUNWAY_ROTATION, 23, -50); // Creates the second runway
+            	drawTaxiWays(g, 510, 20, 260, 150, Color.DARK_GRAY);
+                drawRunways(g, -RUNWAY_ROTATION, 40, -155); // Creates the second runway
+                
             }
             
+            // Draws runway
+            drawRunways(g, RUNWAY_ROTATION, -60, -100); // Creates the first runway
             
-            drawTaxiWays(g); // Draws taxi way (Currently only draws one but will change once the entirety of the airport is complete)
+            
+            
+            drawTaxiWays(g, ((WINDOW_WIDTH - RUNWAY_WIDTH) / 2) - 85, ((WINDOW_HEIGHT - RUNWAY_HEIGHT) / 2) - 160, RUNWAY_HEIGHT, RUNWAY_ROTATION, Color.DARK_GRAY); // Draws taxi way 
+            
+            drawTaxiWays(g, ((WINDOW_WIDTH - RUNWAY_WIDTH) / 2) - 15, ((WINDOW_HEIGHT - RUNWAY_HEIGHT) / 2) - 40, RUNWAY_HEIGHT, RUNWAY_ROTATION, Color.DARK_GRAY); // Draws taxi way 
+            
+            drawTaxiWays(g, 104, 231, 155, -30, Color.DARK_GRAY);
+            
+            drawTaxiWays(g, 150, 201, 155, -30, Color.DARK_GRAY);
+            
+            drawTaxiWays(g, 196, 175, 155, -30, Color.DARK_GRAY);
+            
+            drawTaxiWays(g, 196, 50, 155, 30, Color.DARK_GRAY);
+            
+            drawTaxiWays(g, 300 , 300 , -30, BUILDING_HEIGHT, Color.GREEN);
             
             drawAirportBuilding(g);	// Draws the main building of the airport
             
@@ -142,6 +159,8 @@ public class AirportVisuals extends JFrame {
             // Gate
             gateXPos = (WINDOW_WIDTH - GATE_WIDTH) / 2;		// Adjusts the X position to centre the building
             gateYPos = (WINDOW_HEIGHT - GATE_HEIGHT) / 2;	// Adjusts the Y position to centre the building
+            
+            
         }
         
         /**
@@ -219,7 +238,7 @@ public class AirportVisuals extends JFrame {
 
 
             final int gateOffsetY = -44;	// Offsets the gate on the Y axis
-            final int gateOffsetX = 5;		// Offsets the gate on the X axis
+            final int gateOffsetX = 2;		// Offsets the gate on the X axis
             final int gateSpacing = 85;  	// Determines the spacing between each gate
 
             /* Calculates the Gates centre */
@@ -250,14 +269,23 @@ public class AirportVisuals extends JFrame {
          * 
          * @param g
          */
-        public void drawTaxiWays(Graphics g) {
-        	/* TO-DO */
+        public void drawTaxiWays(Graphics g, int xPos, int yPos, int height, int rotationAngle, Color c) {
             Graphics2D g2d = (Graphics2D) g;
-            Rectangle taxiWayVisual = new Rectangle(50, 50, 100, 100);
+            
+            int centerX = xPos + (TAXIWAY_WIDTH / 2);
+            int centerY = yPos + (height / 2);
 
-            g2d.setColor(Color.GRAY);
+            g2d.translate(centerX, centerY);
+            g2d.rotate(Math.toRadians(rotationAngle));
+            g2d.translate(-centerX, -centerY);
+            
+            Rectangle taxiWayVisual = new Rectangle(xPos, yPos, TAXIWAY_WIDTH, height);
+            
+            g2d.setColor(c);
             g2d.draw(taxiWayVisual);
             g2d.fill(taxiWayVisual);
+            
+            g2d.setTransform(g2d.getDeviceConfiguration().getDefaultTransform()); // Resets any canvas transformation
         }
     }
 }
