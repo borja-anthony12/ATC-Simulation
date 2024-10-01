@@ -107,11 +107,15 @@ public class AirportVisuals extends JFrame {
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
             
+            
+        	
             // Checks the runway amount and makes sure that it's not greater than two
             if (RUNWAY_AMOUNT > 1 && RUNWAY_AMOUNT <= 2) {
             	drawTaxiWays(g, 510, 20, 260, 150, Color.DARK_GRAY);
                 drawRunways(g, -RUNWAY_ROTATION, 40, -155); // Creates the second runway
-                
+                drawTaxiWays(g, 196, 50, 155, 30, Color.DARK_GRAY);
+            } else {
+            	drawTaxiWays(g, 478, 13, 159, 150, Color.DARK_GRAY);
             }
             
             // Draws runway
@@ -129,9 +133,9 @@ public class AirportVisuals extends JFrame {
             
             drawTaxiWays(g, 196, 175, 155, -30, Color.DARK_GRAY);
             
-            drawTaxiWays(g, 196, 50, 155, 30, Color.DARK_GRAY);
             
-            drawTaxiWays(g, 300 , 300 , -30, BUILDING_HEIGHT, Color.GREEN);
+            
+            drawTaxiWays(g, 100, 100, -30, 100, Color.GREEN);
             
             drawAirportBuilding(g);	// Draws the main building of the airport
             
