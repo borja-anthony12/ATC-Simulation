@@ -19,6 +19,6 @@ public class Main {
 		// Creates instances of all of the imported modules
 		Tower tower = new Tower(3);
 //		PlaneAttributes planeAttributes = new PlaneAttributes();
-		AirportVisuals apVisuals = new AirportVisuals(WIDTH, HEIGHT, RUNWAY_AMOUNT, GATE_AMOUNT);
+		GUIElements apVisuals = new GUIElements(WIDTH, HEIGHT, RUNWAY_AMOUNT, GATE_AMOUNT);
 	}
 }
