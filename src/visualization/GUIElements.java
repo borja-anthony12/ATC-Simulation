@@ -15,12 +15,12 @@ import javax.swing.event.*;
  */
 public class GUIElements extends JFrame {
 	AirportPanel airport;
-	JButton setRunwayToOne;
-	JButton setRunwayToTwo;
-	
+
 	private static final long serialVersionUID = 2178084625298728326L;
 	public int RUNWAY_AMOUNT;
 	public int GATE_AMOUNT;
+	
+	private Integer[] setRunwayAmount = {1, 2};
 
 	/**
 	 * Constructor of class AirportVisuals. Calls the method initializeWindow to
@@ -56,26 +56,18 @@ public class GUIElements extends JFrame {
 		airport.setLayout(new GridBagLayout());
 		GridBagLayout c = new GridBagLayout();
 		
-		 ArrayList<JButton> buttonList = new ArrayList<>();
-
-	        // Add 5 buttons to the list
-	        for (int i = 1; i <= 2; i++) {
-	            JButton button = new JButton(Integer.toString(i));
-	            buttonList.add(button);  // Add the button to the list
-	            
-	            // Add an ActionListener to each button
-	            button.addActionListener(new ActionListener() {
-	                @Override
-	                public void actionPerformed(ActionEvent e) {
-	                    // Action when the button is clicked
-	                    RUNWAY_AMOUNT = Integer.parseInt(button.getText());
-	                }
-	            });
-	            
-	            // Add the button to the panel
-	            airport.add(button);
-	        }
+		JComboBox<Integer> changeRunwayAmount = new JComboBox<Integer> (setRunwayAmount);
+		changeRunwayAmount.setSelectedIndex(0);
 		
+		changeRunwayAmount.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				RUNWAY_AMOUNT = (int) changeRunwayAmount.getSelectedItem();
+			}
+		});
+		
+		airport.add(changeRunwayAmount);
 		add(airport); // Add the runway panel to the current frame
 		setVisible(true); // Sets window to visible
 
