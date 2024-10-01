@@ -18,10 +18,18 @@ public class WindowUpdate extends JFrame{
 	 */
 	public WindowUpdate(JPanel Panel) {
 		Timer timer = new Timer(Main.UPDATE_INTERAVAL,  new ActionListener() {
-
+		PlaneAttributes one = new PlaneAttributes();
+		int vel;
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Panel.repaint();
+				/*if(???? = true) {
+					one.upVelocity(vel);
+				}
+				one.upVelocity(vel);
+				this.vel = vel;
+				
+				vel *= 1.2;*/
 			}
 		});
 		timer.start();

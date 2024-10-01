@@ -8,6 +8,7 @@ public class PlaneAttributes extends PlaneBehavior {
 	int altaccel = 0;
 	String a, b, c, d, e;
 	String call;
+	boolean power = false;
 	
 	//String[] digits = (a, b, c, d, e);
 	 int ran;
@@ -44,12 +45,12 @@ public class PlaneAttributes extends PlaneBehavior {
 		return call;
 	}
 	
-	
+	//public boolean
 	// trying to make a timer to get increasing velocity for a plane
 	// 160 - 180 mph takeoff speed
-	public void upVelocity() {
+	public void upVelocity(int vel) {
 		
-		
+		vel *= 1.2;
 		
 		
 	}
