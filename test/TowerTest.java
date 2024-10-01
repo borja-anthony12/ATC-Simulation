@@ -1,27 +1,23 @@
 package test;
 
-import org.junit.Assert;
-
-
-
-
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import org.junit.Before;
 import src.main.Tower;
-	
-class UnitTestsTower {
+
+class TowerTest {
+
+	Tower tower = new Tower(3);
 	
 	@BeforeEach
-	public void setUp() throws Exception {
-		
+	void setUp() throws Exception {
+		tower.checkPlaneCollision();
 	}
 
 	@Test
-	public void unitTestCheckPlaneCollision() {
+	void test() {
 		
 	}
 
