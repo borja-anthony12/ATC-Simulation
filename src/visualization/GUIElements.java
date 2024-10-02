@@ -5,22 +5,29 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
-import java.util.ArrayList;
 
 import javax.swing.*;
-import javax.swing.event.*;
 
 /**
  * Class which creates all of the ATC Simulation Visuals
  */
 public class GUIElements extends JFrame {
 	AirportPanel airport;
+	JComboBox<Integer> changeGateAmount;
+	JComboBox<Integer> changeRunwayAmount;
+	JLabel GateAmount;
+	JLabel RunwayAmount;
 
-	private static final long serialVersionUID = 2178084625298728326L;
-	public int RUNWAY_AMOUNT;
-	public int GATE_AMOUNT;
+	Font font = new Font("Arial", Font.BOLD, 14);
+	Color Transparent = new Color(0, 0, 0, 0);
 	
-	private Integer[] setRunwayAmount = {1, 2};
+	private static final long serialVersionUID = 2178084625298728326L;
+	public int runwayAmount;
+	public int gateAmount;
+	
+
+	private Integer[] setRunwayAmount = { 1, 2 };
+	private Integer[] setGateAmount = { 1, 2, 3, 4 };
 
 	/**
 	 * Constructor of class AirportVisuals. Calls the method initializeWindow to
@@ -32,9 +39,9 @@ public class GUIElements extends JFrame {
 	 * @param gateAmount
 	 */
 	public GUIElements(int windowWidth, int windowHeight, int runwayAmount, int gateAmount) {
-		this.RUNWAY_AMOUNT = runwayAmount;
-		this.GATE_AMOUNT = gateAmount;
-		initializeWindow(windowWidth, windowHeight); // Calls the initializeWindow method and creates the Window
+		this.runwayAmount = runwayAmount;
+		this.gateAmount = gateAmount;
+		window(windowWidth, windowHeight); // Calls the initializeWindow method and creates the Window
 	}
 
 	/**
@@ -43,31 +50,73 @@ public class GUIElements extends JFrame {
 	 * @param windowWidth  Takes in the width given by the constructor
 	 * @param windowHeight Takes in the height given by the constructor
 	 */
-	private void initializeWindow(int windowWidth, int windowHeight) {
+	private void window(int windowWidth, int windowHeight) {
 		
+		UIManager.put("ComboBox.background", Color.DARK_GRAY);
+		UIManager.put("ComboBox.foreground", Color.WHITE);
+		UIManager.put("ComboBox.buttonBackground", Color.WHITE);
+		UIManager.put("ComboBox.selectionBackground", Color.WHITE);
 		
 		// Setup the current JFrame (AirportVisuals extends JFrame)
 		setTitle("ATC Simulation"); // Sets the title of the Window to ATC Simulation
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Fully closes the Window
 		setSize(windowWidth, windowHeight); // Initialise the Height and Width of the window
 		setLocationRelativeTo(null); // Sets the Location of the window to the centre of the screen
-		
+
 		airport = new AirportPanel(windowWidth, windowHeight);
-		airport.setLayout(new GridBagLayout());
-		GridBagLayout c = new GridBagLayout();
+
+		GateAmount = new JLabel("Gate Amount:");
+		GateAmount.setFont(font);
+		GateAmount.setForeground(Color.WHITE);
+		airport.add(GateAmount);
 		
-		JComboBox<Integer> changeRunwayAmount = new JComboBox<Integer> (setRunwayAmount);
+		changeGateAmount = new JComboBox<Integer>(setGateAmount);
+		changeGateAmount.setSelectedIndex(3);
+		
+		changeGateAmount.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				gateAmount = (int) changeGateAmount.getSelectedItem();
+
+			}
+
+		});
+		
+		changeGateAmount.setToolTipText("Gate Amount:");
+		
+		changeGateAmount.setFont(font);
+
+		
+		airport.add(changeGateAmount);
+
+		RunwayAmount = new JLabel("Runway Amount:");
+		RunwayAmount.setFont(font);
+		RunwayAmount.setForeground(Color.WHITE);
+		airport.add(RunwayAmount);
+		
+		changeRunwayAmount = new JComboBox<Integer>(setRunwayAmount);
 		changeRunwayAmount.setSelectedIndex(0);
-		
+
 		changeRunwayAmount.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				RUNWAY_AMOUNT = (int) changeRunwayAmount.getSelectedItem();
+				runwayAmount = (int) changeRunwayAmount.getSelectedItem();
 			}
 		});
 		
+		changeRunwayAmount.setToolTipText("Runway Amount:");
+		
+		changeRunwayAmount.setFont(font);
+		changeRunwayAmount.setForeground(Color.WHITE);
+		changeRunwayAmount.setBackground(Color.DARK_GRAY);
+
 		airport.add(changeRunwayAmount);
+		
+		
+		
+		
 		add(airport); // Add the runway panel to the current frame
 		setVisible(true); // Sets window to visible
 
@@ -82,9 +131,10 @@ public class GUIElements extends JFrame {
 		});
 
 		// Create a WindowUpdate object and start the update process
+		@SuppressWarnings("unused")
 		WindowUpdate update = new WindowUpdate(airport);
 	}
-	
+
 	/**
 	 * Class that extends JPanel and creates runways
 	 */
@@ -143,8 +193,8 @@ public class GUIElements extends JFrame {
 					BUILDING_WIDTH, 155, -30, Color.DARK_GRAY);
 
 			// Checks the runway amount and makes sure that it's not greater than two
-			if (RUNWAY_AMOUNT > 1 && RUNWAY_AMOUNT <= 2) {
-				drawTaxiWays(g, 510, 20, TAXIWAY_WIDTH, 260, 150, Color.DARK_GRAY); 
+			if (runwayAmount > 1 && runwayAmount <= 2) {
+				drawTaxiWays(g, 510, 20, TAXIWAY_WIDTH, 260, 150, Color.DARK_GRAY);
 				drawTaxiWays(g, 196, 50, TAXIWAY_WIDTH, 155, 30, Color.DARK_GRAY);
 				drawRunways(g, RUNWAY_ROTATION, -60, -100); // Creates the first runway
 				drawRunways(g, -RUNWAY_ROTATION, 40, -155); // Creates the second runway
@@ -152,7 +202,6 @@ public class GUIElements extends JFrame {
 				drawTaxiWays(g, 478, 13, TAXIWAY_WIDTH, 159, 150, Color.DARK_GRAY);
 				drawRunways(g, RUNWAY_ROTATION, -60, -100); // Creates the first runway
 			}
-
 
 			drawAirportBuilding(g); // Draws the main building of the airport
 
@@ -294,7 +343,7 @@ public class GUIElements extends JFrame {
 			g2d.translate(-centerXBuilding, -centerYBuilding); // Translates the gate back to the centre
 
 			// Loop to create multiple gates evenly spaced along the building
-			for (int i = 0; i < GATE_AMOUNT; i++) {
+			for (int i = 0; i < gateAmount; i++) {
 				// Calculates gate position based on the building position and size
 				gateXPos = buildingXPos + (i * gateSpacing) - gateOffsetX; // Evenly spaces gates along the building
 				gateYPos = buildingYPos + gateOffsetY; // Position gates relative to the building
