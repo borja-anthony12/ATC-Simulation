@@ -139,8 +139,36 @@ public class GUIElements extends JFrame {
 	 * Class that extends JPanel and creates runways
 	 */
 	private class AirportPanel extends JPanel {
-		private static final long serialVersionUID = 2853523647566452733L;
+	    private static final long serialVersionUID = 2853523647566452733L;
 
+	    // Define relative positions as percentages (from 0 to 1)
+	    private final double TAXIWAY_1_X_PERCENT = 0.3542;
+	    private final double TAXIWAY_1_Y_PERCENT = -0.1417;
+	    
+	    private final double TAXIWAY_2_X_PERCENT = 0.4514;
+	    private final double TAXIWAY_2_Y_PERCENT = 0.0583;
+	    
+	    private final double TAXIWAY_3_X_PERCENT = 0.1444;
+	    private final double TAXIWAY_3_Y_PERCENT = 0.3850;
+	    
+	    private final double TAXIWAY_4_X_PERCENT = 0.2083;
+	    private final double TAXIWAY_4_Y_PERCENT = 0.3350;
+	    
+	    private final double TAXIWAY_5_X_PERCENT = 0.2722;
+	    private final double TAXIWAY_5_Y_PERCENT = 0.2917;
+
+	    private final double TAXIWAY_6_X_PERCENT = 0.2222;
+	    private final double TAXIWAY_6_Y_PERCENT = 0.4583;
+	    
+	    private final double TAXIWAY_7_X_PERCENT = 0.7083;
+	    private final double TAXIWAY_7_Y_PERCENT = 0.0333;
+	    
+	    private final double TAXIWAY_8_X_PERCENT = 0.2722;
+	    private final double TAXIWAY_8_Y_PERCENT = 0.0833;
+	    
+	    private final double TAXIWAY_9_X_PERCENT = 0.6639;
+	    private final double TAXIWAY_9_Y_PERCENT = 0.0217;
+	    
 		/* Initialises Airports X & Y positions */
 		private int runwayXPos, runwayYPos; // Initialises the runways X and Y
 		private int buildingXPos, buildingYPos; // Initialises the buildings X and Y
