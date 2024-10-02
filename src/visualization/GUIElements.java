@@ -20,11 +20,10 @@ public class GUIElements extends JFrame {
 
 	Font font = new Font("Arial", Font.BOLD, 14);
 	Color Transparent = new Color(0, 0, 0, 0);
-	
+
 	private static final long serialVersionUID = 2178084625298728326L;
 	public int runwayAmount;
 	public int gateAmount;
-	
 
 	private Integer[] setRunwayAmount = { 1, 2 };
 	private Integer[] setGateAmount = { 1, 2, 3, 4 };
@@ -51,12 +50,12 @@ public class GUIElements extends JFrame {
 	 * @param windowHeight Takes in the height given by the constructor
 	 */
 	private void window(int windowWidth, int windowHeight) {
-		
+
 		UIManager.put("ComboBox.background", Color.DARK_GRAY);
 		UIManager.put("ComboBox.foreground", Color.WHITE);
 		UIManager.put("ComboBox.buttonBackground", Color.WHITE);
 		UIManager.put("ComboBox.selectionBackground", Color.WHITE);
-		
+
 		// Setup the current JFrame (AirportVisuals extends JFrame)
 		setTitle("ATC Simulation"); // Sets the title of the Window to ATC Simulation
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Fully closes the Window
@@ -69,10 +68,10 @@ public class GUIElements extends JFrame {
 		GateAmount.setFont(font);
 		GateAmount.setForeground(Color.WHITE);
 		airport.add(GateAmount);
-		
+
 		changeGateAmount = new JComboBox<Integer>(setGateAmount);
 		changeGateAmount.setSelectedIndex(3);
-		
+
 		changeGateAmount.addActionListener(new ActionListener() {
 
 			@Override
@@ -82,19 +81,18 @@ public class GUIElements extends JFrame {
 			}
 
 		});
-		
+
 		changeGateAmount.setToolTipText("Gate Amount:");
-		
+
 		changeGateAmount.setFont(font);
 
-		
 		airport.add(changeGateAmount);
 
 		RunwayAmount = new JLabel("Runway Amount:");
 		RunwayAmount.setFont(font);
 		RunwayAmount.setForeground(Color.WHITE);
 		airport.add(RunwayAmount);
-		
+
 		changeRunwayAmount = new JComboBox<Integer>(setRunwayAmount);
 		changeRunwayAmount.setSelectedIndex(0);
 
@@ -105,18 +103,15 @@ public class GUIElements extends JFrame {
 				runwayAmount = (int) changeRunwayAmount.getSelectedItem();
 			}
 		});
-		
+
 		changeRunwayAmount.setToolTipText("Runway Amount:");
-		
+
 		changeRunwayAmount.setFont(font);
 		changeRunwayAmount.setForeground(Color.WHITE);
 		changeRunwayAmount.setBackground(Color.DARK_GRAY);
 
 		airport.add(changeRunwayAmount);
-		
-		
-		
-		
+
 		add(airport); // Add the runway panel to the current frame
 		setVisible(true); // Sets window to visible
 
@@ -139,36 +134,36 @@ public class GUIElements extends JFrame {
 	 * Class that extends JPanel and creates runways
 	 */
 	private class AirportPanel extends JPanel {
-	    private static final long serialVersionUID = 2853523647566452733L;
+		private static final long serialVersionUID = 2853523647566452733L;
 
-	    // Define relative positions as percentages (from 0 to 1)
-	    private final double TAXIWAY_1_X_PERCENT = 0.3542;
-	    private final double TAXIWAY_1_Y_PERCENT = -0.1417;
-	    
-	    private final double TAXIWAY_2_X_PERCENT = 0.4514;
-	    private final double TAXIWAY_2_Y_PERCENT = 0.0583;
-	    
-	    private final double TAXIWAY_3_X_PERCENT = 0.1444;
-	    private final double TAXIWAY_3_Y_PERCENT = 0.3850;
-	    
-	    private final double TAXIWAY_4_X_PERCENT = 0.2083;
-	    private final double TAXIWAY_4_Y_PERCENT = 0.3350;
-	    
-	    private final double TAXIWAY_5_X_PERCENT = 0.2722;
-	    private final double TAXIWAY_5_Y_PERCENT = 0.2917;
+		// Define relative positions as percentages (from 0 to 1)
+		private final double TAXIWAY_1_X_PERCENT = 0.3400;
+		private final double TAXIWAY_1_Y_PERCENT = -0.1417;
 
-	    private final double TAXIWAY_6_X_PERCENT = 0.2222;
-	    private final double TAXIWAY_6_Y_PERCENT = 0.4583;
-	    
-	    private final double TAXIWAY_7_X_PERCENT = 0.7083;
-	    private final double TAXIWAY_7_Y_PERCENT = 0.0333;
-	    
-	    private final double TAXIWAY_8_X_PERCENT = 0.2722;
-	    private final double TAXIWAY_8_Y_PERCENT = 0.0833;
-	    
-	    private final double TAXIWAY_9_X_PERCENT = 0.6639;
-	    private final double TAXIWAY_9_Y_PERCENT = 0.0217;
-	    
+		private final double TAXIWAY_2_X_PERCENT = 0.4514;
+		private final double TAXIWAY_2_Y_PERCENT = 0.0583;
+
+		private final double TAXIWAY_3_X_PERCENT = 0.1444;
+		private final double TAXIWAY_3_Y_PERCENT = 0.3850;
+
+		private final double TAXIWAY_4_X_PERCENT = 0.2083;
+		private final double TAXIWAY_4_Y_PERCENT = 0.3350;
+
+		private final double TAXIWAY_5_X_PERCENT = 0.2722;
+		private final double TAXIWAY_5_Y_PERCENT = 0.2917;
+
+		private final double TAXIWAY_6_X_PERCENT = 0.2222;
+		private final double TAXIWAY_6_Y_PERCENT = 0.4583;
+
+		private final double TAXIWAY_7_X_PERCENT = 0.7083;
+		private final double TAXIWAY_7_Y_PERCENT = 0.0333;
+
+		private final double TAXIWAY_8_X_PERCENT = 0.2722;
+		private final double TAXIWAY_8_Y_PERCENT = 0.0833;
+
+		private final double TAXIWAY_9_X_PERCENT = 0.6639;
+		private final double TAXIWAY_9_Y_PERCENT = 0.0217;
+
 		/* Initialises Airports X & Y positions */
 		private int runwayXPos, runwayYPos; // Initialises the runways X and Y
 		private int buildingXPos, buildingYPos; // Initialises the buildings X and Y
@@ -206,10 +201,10 @@ public class GUIElements extends JFrame {
 			super.paintComponent(g);
 
 			drawTaxiWays(g, ((WINDOW_WIDTH - RUNWAY_WIDTH) / 2) - 85, ((WINDOW_HEIGHT - RUNWAY_HEIGHT) / 2) - 160,
-					TAXIWAY_WIDTH, RUNWAY_HEIGHT, RUNWAY_ROTATION, Color.DARK_GRAY); // Draws taxi way
+					TAXIWAY_WIDTH, RUNWAY_HEIGHT, RUNWAY_ROTATION, Color.DARK_GRAY); // Draws parallel taxiway above the main runway 
 
 			drawTaxiWays(g, ((WINDOW_WIDTH - RUNWAY_WIDTH) / 2) - 15, ((WINDOW_HEIGHT - RUNWAY_HEIGHT) / 2) - 40,
-					TAXIWAY_WIDTH, RUNWAY_HEIGHT, RUNWAY_ROTATION, Color.DARK_GRAY); // Draws taxi way
+					TAXIWAY_WIDTH, RUNWAY_HEIGHT, RUNWAY_ROTATION, Color.DARK_GRAY); // Draws parallel taxiway below the main runway
 
 			drawTaxiWays(g, 104, 231, TAXIWAY_WIDTH, 155, -30, Color.DARK_GRAY);
 
