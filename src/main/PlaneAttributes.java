@@ -48,28 +48,57 @@ public class PlaneAttributes extends PlaneBehavior {
 	//public boolean
 	// trying to make a timer to get increasing velocity for a plane
 	// 160 - 180 mph takeoff speed
-	public void upVelocity(int vel) {
+	public void upVelocity(int vel, boolean takeoff) {
 		
-		vel *= 1.2;
-		
-		
+		if(vel < 180) {
+			vel *= 2;
+		}else if(vel >= 180) {
+			takeoff = false;
+			cruise = true;
+		}
 	}
 	
-	public int getAltitude(int z) {
+	public void downVelocity(int vel, boolean landing) {
+		if(vel > 0) {
+			vel /= 2;
+		}else if(vel <= 0) {
+			landing = false;
+		}
+	}
+	
+	
+	public void upAlt(double z) {
+		
+		if(z < 500 && vel >= 150) {
+			z *= 1.3;
+		}
+	}
+	
+	
+	public void downAlt(double z) {
+		
+		if(z > 0) {
+			z /= 1.4;
+		}
+	}
+	
+	/*public int getAltitude(int z) {
 		if(vel >= 150) {
 			z *= altaccel;
 		}
+		
+		
+		
 		return z;
-	}
+	}*/
 	
 	public int[] getPosition() {
 		int[] coords = {x, y, z};
-		x = 0;
-		y = 0;
-		z = 0;
 		
-		// TO-DO 
-		//return coords(x, y, z);
+		/*x = 0;
+		y = 0;
+		z = 0;*/
+		
 		return coords;
 	}
 }

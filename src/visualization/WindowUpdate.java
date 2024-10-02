@@ -18,18 +18,31 @@ public class WindowUpdate extends JFrame{
 	 */
 	public WindowUpdate(JPanel Panel) {
 		Timer timer = new Timer(Main.UPDATE_INTERAVAL,  new ActionListener() {
-//		PlaneAttributes one = new PlaneAttributes();
+		PlaneAttributes one = new PlaneAttributes();
 		int vel;
+		double z;
+		boolean takeoff, landing;
+		
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Panel.repaint();
-				/*if(???? = true) {
-					one.upVelocity(vel);
-				}
-				one.upVelocity(vel);
-				this.vel = vel;
 				
-				vel *= 1.2;*/
+				
+				one.takeoff(takeoff);
+				one.landing(landing);
+				
+				this.takeoff = takeoff;
+				this.landing = landing;
+				
+				
+				if(takeoff == true) {
+					one.upVelocity(vel, takeoff);
+					one.upAlt(z);
+				}else if(landing == true)
+					one.downVelocity(vel, landing);
+					one.downAlt(z);
+				
+				
 			}
 		});
 		timer.start();

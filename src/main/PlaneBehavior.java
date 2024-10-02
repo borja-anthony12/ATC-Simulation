@@ -2,16 +2,24 @@ package src.main;
 
 public class PlaneBehavior {
 	PlaneAttributes one = new PlaneAttributes();
-	protected void takeoff() {
-		//one.upVelocity();
+	int vel = 0;
+	boolean takeoff = false;
+	boolean landing = false;
+	boolean cruise = false;
+	public void takeoff(boolean takeoff) {
+		takeoff = true;
+		//one.upVelocity(vel);
 	}
 	
-	protected void landing() {
-		
+	public void landing(boolean landing) {
+		landing = true;
+		//one.downVelocity(vel);
 	}
 	
-	protected void flying() {
-		
+	public void flying() {
+		if(cruise == true) {
+			vel = 180;
+		}
 	}
 	
 	protected boolean isCrashed() {
