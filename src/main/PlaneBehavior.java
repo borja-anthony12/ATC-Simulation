@@ -1,7 +1,6 @@
 package src.main;
 
 public class PlaneBehavior {
-	PlaneAttributes one = new PlaneAttributes();
 	int vel = 0;
 	boolean takeoff = false;
 	boolean landing = false;
