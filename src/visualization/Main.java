@@ -17,7 +17,7 @@ public class Main {
 	
 	public static void main(String[] args) {
 		// Creates instances of all of the imported modules
-		Tower tower = new Tower(3);
+		Tower tower = new Tower();
 //		PlaneAttributes planeAttributes = new PlaneAttributes();
 		GUIElements apVisuals = new GUIElements(WIDTH, HEIGHT, runwayAmount, gateAmount);
 	}

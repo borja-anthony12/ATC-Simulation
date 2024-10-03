@@ -14,20 +14,12 @@ public class Tower {
 	private final int CRASH_DIVERT_DISTANCE = 40;			//ADJUST THESE VALUES
 
 	/**
-	 * 
-	 * @param gateCount is the number of gates in the airport The max amount of
-	 *                  gates is 5, the minimum is 2
+	 *	Initializes the tower
 	 */
 	public Tower() {
 		planes = new ArrayList<PlaneAttributes>();
-		/*
-		if (gateCount < 2)
-			gateCount = 2;
-		if (gateCount > 5)
-			gateCount = 5;
-		gates = new boolean[gateCount];
-		gatePlanes = new PlaneAttributes[gateCount];
-		*/
+		gates = new boolean[4];
+		gatePlanes = new PlaneAttributes[4];
 	}
 
 	/**
@@ -102,6 +94,15 @@ public class Tower {
 	public void spawnPlane() {
 		PlaneAttributes plane = new PlaneAttributes();
 		planes.add(plane);
+	}
+	
+	/*
+	 * adjusts gate availability
+	 */
+	public void setGateCount(int count) {
+		for(int i = 4 - count ; i > 0; i--) {
+			gates[4 - i] = true;
+		}
 	}
 
 	/**
