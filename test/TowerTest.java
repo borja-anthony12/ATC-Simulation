@@ -9,7 +9,7 @@ import src.main.Tower;
 
 class TowerTest {
 
-	Tower tower = new Tower(3);
+	Tower tower = new Tower();
 	
 	@BeforeEach
 	void setUp() throws Exception {
