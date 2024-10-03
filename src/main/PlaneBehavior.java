@@ -18,6 +18,7 @@ public class PlaneBehavior {
 	public void flying() {
 		if(cruise == true) {
 			vel = 180;
+			
 		}
 	}
 	
