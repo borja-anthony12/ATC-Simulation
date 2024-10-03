@@ -18,15 +18,16 @@ public class Tower {
 	 * @param gateCount is the number of gates in the airport The max amount of
 	 *                  gates is 5, the minimum is 2
 	 */
-	public Tower(int gateCount) {
+	public Tower() {
 		planes = new ArrayList<PlaneAttributes>();
-
+		/*
 		if (gateCount < 2)
 			gateCount = 2;
 		if (gateCount > 5)
 			gateCount = 5;
 		gates = new boolean[gateCount];
 		gatePlanes = new PlaneAttributes[gateCount];
+		*/
 	}
 
 	/**
