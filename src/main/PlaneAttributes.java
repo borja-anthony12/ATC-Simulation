@@ -2,11 +2,12 @@ package src.main;
 import java.util.Random;
 
 public class PlaneAttributes extends PlaneBehavior {
-	int x = 0, y = 0, z = 0;
+	double x = 0, y = 0, z = 0;
+	double dir = 0;
 	double vel = 0;
 	double v = 1.1;
-	int accel = 0;
-	int altaccel = 0;
+	double accel = 0;
+	double altaccel = 0;
 	double takeoffvel;
 	String a, b, c, d, e;
 	String call;
@@ -101,8 +102,15 @@ public class PlaneAttributes extends PlaneBehavior {
 		return z;
 	}*/
 	
-	public int[] getPosition() {
-		int[] coords = {x, y, z};
+	/*
+	 * turns the plane
+	 */
+	public void turn(double degrees) {
+		dir += degrees;
+	}
+	
+	public double[] getPosition() {
+		double[] coords = {x, y, z};
 		
 		/*x = 0;
 		y = 0;
