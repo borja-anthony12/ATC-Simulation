@@ -296,7 +296,7 @@ public class GUIElements extends JFrame {
 					TAXIWAY_WIDTH, RUNWAY_HEIGHT, RUNWAY_ROTATION, Color.DARK_GRAY); // Draws parallel taxi way below the
 																						// main runway
 
-			drawTaxiWays(g, TAXIWAY_3_X_PERCENT, 231, TAXIWAY_WIDTH, 155, -30, Color.DARK_GRAY);
+			drawTaxiWays(g, 103, 231, TAXIWAY_WIDTH, 155, -30, Color.DARK_GRAY);
 
 			drawTaxiWays(g, 150, 201, TAXIWAY_WIDTH, 155, -30, Color.DARK_GRAY);
 
@@ -480,7 +480,7 @@ public class GUIElements extends JFrame {
 		 * 
 		 * @param g
 		 */
-		public void drawTaxiWays(Graphics g, double tAXIWAY_3_X_PERCENT2, int yPos, int width, int height, int rotationAngle, Color c) {
+		public void drawTaxiWays(Graphics g, int tAXIWAY_3_X_PERCENT2, int yPos, int width, int height, int rotationAngle, Color c) {
 			Graphics2D g2d = (Graphics2D) g;
 
 			double centerX = tAXIWAY_3_X_PERCENT2 + (width / 2);
