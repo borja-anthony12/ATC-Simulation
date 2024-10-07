@@ -50,6 +50,7 @@ public class GUIElements extends JFrame {
 	public GUIElements(int windowWidth, int windowHeight, int runwayAmount, int gateAmount) {
 		this.runwayAmount = runwayAmount;
 		this.gateAmount = gateAmount;
+		tower = new Tower();
 		window(windowWidth, windowHeight); // Calls the initializeWindow method and creates the Window
 	}
 
@@ -83,7 +84,7 @@ public class GUIElements extends JFrame {
 				planeAmount += 1;
 				System.out.println(planeAmount);
 				planeAmountDisplay.setText(String.valueOf(planeAmount));
-				
+				tower.spawnPlane();
 			}
 			
 		});
@@ -173,12 +174,13 @@ public class GUIElements extends JFrame {
 				airport.repaint();
 			}
 		});
-
+		
 		// Create a WindowUpdate object and start the update process
 		@SuppressWarnings("unused")
 		WindowUpdate update = new WindowUpdate(airport);
-	}
 
+	}
+	
 	/**
 	 * Class that extends JPanel and creates runways
 	 */
@@ -279,7 +281,7 @@ public class GUIElements extends JFrame {
 
 			drawGates(g); // Draws the gates
 			
-			
+			tower.renderPlanes(g);
 			
 		}
 

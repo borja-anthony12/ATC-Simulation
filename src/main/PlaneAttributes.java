@@ -2,7 +2,7 @@ package src.main;
 import java.util.Random;
 
 public class PlaneAttributes extends PlaneBehavior {
-	double x = 0, y = 0, z = 0;
+	double x, y, z;
 	double dir = 0;
 	double vel = 0;
 	double v = 1.1;
@@ -17,9 +17,12 @@ public class PlaneAttributes extends PlaneBehavior {
 	 int ran;
 	
 	public PlaneAttributes() {
-		
+
+		x = 200;
+		y = 200;
+		z = 300;
 	}
-	
+
 	// make a list of letters and choose a random one
 	public String getCallSign() {
 		// n c f g
@@ -111,11 +114,6 @@ public class PlaneAttributes extends PlaneBehavior {
 	
 	public double[] getPosition() {
 		double[] coords = {x, y, z};
-		
-		/*x = 0;
-		y = 0;
-		z = 0;*/
-		
 		return coords;
 	}
 }

@@ -1,5 +1,7 @@
 package src.main;
 
+import java.awt.Color;
+import java.awt.Graphics;
 import java.util.ArrayList;
 
 /*
@@ -20,6 +22,17 @@ public class Tower {
 		planes = new ArrayList<PlaneAttributes>();
 		gates = new boolean[4];
 		gatePlanes = new PlaneAttributes[4];
+	}
+	
+	/**
+	 * draws planes
+	 * @param g: graphics input
+	 */
+	public void renderPlanes(Graphics g) {
+		for(PlaneAttributes plane: planes) {
+			g.setColor(Color.GREEN);
+			g.fillRect((int)plane.getPosition()[0], (int)plane.getPosition()[1], 32, 32);
+		}
 	}
 
 	/**
@@ -94,6 +107,7 @@ public class Tower {
 	public void spawnPlane() {
 		PlaneAttributes plane = new PlaneAttributes();
 		planes.add(plane);
+		System.out.println(plane.getPosition()[0]);
 	}
 
 	/*
