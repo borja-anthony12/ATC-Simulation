@@ -14,29 +14,36 @@ import src.main.*;
  * Class which creates all of the ATC Simulation Visuals
  */
 public class GUIElements extends JFrame {
-	Tower tower;
-	AirportPanel airport;
-	
-	JComboBox<Integer> changeGateAmount;
-	JComboBox<Integer> changeRunwayAmount;
-	
-	JLabel gateAmountDisplay;
-	JLabel runwayAmountDisplay;
-	JLabel planeAmountDisplay;
-	
-	JButton addPlane;
-	JButton removePlane;
-
-	Font font = new Font("Arial", Font.BOLD, 14);
-	Color Transparent = new Color(0, 0, 0, 0);
-
 	private static final long serialVersionUID = 2178084625298728326L;
-	public int runwayAmount;
-	public int gateAmount;
-	public int planeAmount;
 
-	private Integer[] setRunwayAmount = { 1, 2 };
-	private Integer[] setGateAmount = { 1, 2, 3, 4 };
+	// Creates instances of classes
+	Tower tower; // Creates an instance of tower class
+	AirportPanel airportVisuals; // Creates an instance of the AirportPanel class
+
+	// Creates JComboBox (Creates a drop down)
+	JComboBox<Integer> changeGateAmount; // Creates a JCombox for changing the amount of gates
+	JComboBox<Integer> changeRunwayAmount; // Creates an JCombox for changing the amount of planes
+
+	// Creates JLabels
+	JLabel gateAmountDisplay; // Creates a JLabel for displaying the amount of gates (Gate Amount: )
+	JLabel runwayAmountDisplay; // Creates a JLabel for displaying the amount of runways (Runway Amount: )
+	JLabel planeAmountDisplay; // Creates a JLabel for displaying the amount of planes (0)
+
+	// Creates JButtons
+	JButton addPlane; // Creates a JButton for adding a plane
+	JButton removePlane; // Creates a JButton for removing a plane
+
+	// Creates font style
+	Font font = new Font("Arial", Font.BOLD, 14); // Sets the font for the entire window
+
+	// Initialises variables
+	public int runwayAmount; // Initialises the runway amount variable
+	public int gateAmount; // Initialises the gate amount variable
+	public int planeAmount; // Initialises the plane amount variable
+
+	// Initialises lists
+	private Integer[] setRunwayAmount = { 1, 2 }; // Creates a 1D list for the available runways
+	private Integer[] setGateAmount = { 1, 2, 3, 4 }; // Creates a 1D list for the available gates
 
 	/**
 	 * Constructor of class AirportVisuals. Calls the method initializeWindow to
@@ -48,10 +55,14 @@ public class GUIElements extends JFrame {
 	 * @param gateAmount
 	 */
 	public GUIElements(int windowWidth, int windowHeight, int runwayAmount, int gateAmount) {
-		this.runwayAmount = runwayAmount;
-		this.gateAmount = gateAmount;
-		tower = new Tower();
-		window(windowWidth, windowHeight); // Calls the initializeWindow method and creates the Window
+		// Creates variables
+		this.runwayAmount = runwayAmount; // Sets the runwayAmount to runwayAmount
+		this.gateAmount = gateAmount; // Sets the gateAmount to gateAmount
+
+		tower = new Tower(); // Creates an instance of tower class
+
+		window(windowWidth, windowHeight); // Calls the initializeWindow method and creates a window setting the width
+											// and height to windowWidth and windowHeight
 	}
 
 	/**
@@ -61,159 +72,154 @@ public class GUIElements extends JFrame {
 	 * @param windowHeight Takes in the height given by the constructor
 	 */
 	private void window(int windowWidth, int windowHeight) {
-		planeAmount = 0;
-		
-		UIManager.put("ComboBox.background", Color.DARK_GRAY);
-		UIManager.put("ComboBox.foreground", Color.WHITE);
-		UIManager.put("ComboBox.buttonBackground", Color.WHITE);
-		UIManager.put("ComboBox.selectionBackground", Color.WHITE);
+		planeAmount = 0; // Sets planeAmount variable to 0
 
-		// Setup the current JFrame (AirportVisuals extends JFrame)
+		// Styles the Drop down menu (JComboBox)
+		UIManager.put("ComboBox.background", Color.DARK_GRAY); // Sets the background to dark gray
+		UIManager.put("ComboBox.foreground", Color.WHITE); // Sets the text to white
+		UIManager.put("ComboBox.buttonBackground", Color.WHITE); // Sets the button background to white
+		UIManager.put("ComboBox.selectionBackground", Color.WHITE); // Sets the selection background to white
+
+		// Setup the current JFrame
 		setTitle("ATC Simulation"); // Sets the title of the Window to ATC Simulation
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Fully closes the Window
 		setSize(windowWidth, windowHeight); // Initialise the Height and Width of the window
 		setLocationRelativeTo(null); // Sets the Location of the window to the centre of the screen
 
-		airport = new AirportPanel(windowWidth, windowHeight);
-		
-		addPlane = new JButton("Add Plane");
+		airportVisuals = new AirportPanel(windowWidth, windowHeight); // Creates an instance of JPanel by calling
+																		// AirportPanel
+
+		// Creates addPlane Button
+		addPlane = new JButton("Add Plane"); // Creates a JButton and sets the button text to "Add PLane"
+		// Adds Action Listener to addPLane button. When button is pressed adds one to
+		// planeAmount and spawns plane
 		addPlane.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				planeAmount += 1;
-				System.out.println(planeAmount);
-				planeAmountDisplay.setText(String.valueOf(planeAmount));
-				tower.spawnPlane();
+				planeAmount += 1; // Adds one to planeAmount and sets planeAmount to that value
+				planeAmountDisplay.setText(String.valueOf(planeAmount)); // Sets the planeAmountDisplay to the value of
+																			// planeAmount
+				tower.spawnPlane(); // Spawns plane and places it on JPanel
 			}
-			
+
 		});
-		
-		
-		airport.add(addPlane);
-		
-		planeAmountDisplay = new JLabel(String.valueOf(planeAmount));
-		planeAmountDisplay.setFont(font);
-		planeAmountDisplay.setForeground(Color.WHITE);
-		airport.add(planeAmountDisplay);
-		
-		removePlane = new JButton("Remove Plane");
+
+		airportVisuals.add(addPlane); // Adds addPlane to airportVisuals
+
+		// Creates planeAmountDisplay Label
+		planeAmountDisplay = new JLabel(String.valueOf(planeAmount)); // Creates planeAmountDisplay and sets text to
+																		// planeAmount
+		planeAmountDisplay.setFont(font); // Sets font to font
+		planeAmountDisplay.setForeground(Color.WHITE); // Sets text colour to white
+
+		airportVisuals.add(planeAmountDisplay); // Adds planeAmountDisplay to airportVisuals
+
+		// Creates removePlane Button
+		removePlane = new JButton("Remove Plane"); // Creates a JButton and sets the button text to "Remove Plane"
+		// Adds Action Listener to removePLane . When button is pressed it removes one
+		// from planeAmount and removes plane
 		removePlane.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				// Checks if plane amount does not equal zero
 				if (planeAmount > 0) {
-					planeAmount -= 1;
-					System.out.println(planeAmount);
-					planeAmountDisplay.setText(String.valueOf(planeAmount));
-				} 
-				
+					planeAmount -= 1; // Removes one to planeAmount and sets palneAmount to that value
+					planeAmountDisplay.setText(String.valueOf(planeAmount)); // Sets the planeAmountDisplay to the value
+																				// of planeAmount
+				}
+
 			}
-			
+
 		});
-		
-		airport.add(removePlane);
-		
-		gateAmountDisplay = new JLabel("Gate Amount:");
-		gateAmountDisplay.setFont(font);
-		gateAmountDisplay.setForeground(Color.WHITE);
-		airport.add(gateAmountDisplay);
 
-		changeGateAmount = new JComboBox<Integer>(setGateAmount);
-		changeGateAmount.setSelectedIndex(3);
+		airportVisuals.add(removePlane); // Adds removePlane to airportVisuals
 
+		// Creates gateAmountDisplay label
+		gateAmountDisplay = new JLabel("Gate Amount:"); // Creates Label with text "Gate Amount:"
+
+		gateAmountDisplay.setFont(font); // Sets the font to font
+		gateAmountDisplay.setForeground(Color.WHITE); // Sets text colour to white
+
+		airportVisuals.add(gateAmountDisplay); // Adds gateAmountDisplay to airportVisuals
+
+		// Creates JComboBox for setting the amount of gates
+		changeGateAmount = new JComboBox<Integer>(setGateAmount); // Creates JCombobox (Drop down) and sets the value to
+																	// setGateAmount list
+		changeGateAmount.setSelectedIndex(3); // Sets the start selected index to 3
+
+		// adds ActionListener to changeGateAmount to check how many gates there will be
 		changeGateAmount.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				gateAmount = (int) changeGateAmount.getSelectedItem();
+				gateAmount = (int) changeGateAmount.getSelectedItem(); // Sets gateAmount to the selected item from the
+																		// JComboBox(Drop
+																		// down)
 
 			}
 
 		});
 
-		changeGateAmount.setToolTipText("Gate Amount:");
+		changeGateAmount.setFont(font); // Sets font to font
 
-		changeGateAmount.setFont(font);
+		airportVisuals.add(changeGateAmount); // Adds changeGateAmount to airportVisuals
 
-		airport.add(changeGateAmount);
+		// Creates JLabel for displaying the amount of runways
+		runwayAmountDisplay = new JLabel("Runway Amount:"); // Sets label text to "Runway Amount:"
 
-		runwayAmountDisplay = new JLabel("Runway Amount:");
-		runwayAmountDisplay.setFont(font);
-		runwayAmountDisplay.setForeground(Color.WHITE);
-		airport.add(runwayAmountDisplay);
+		runwayAmountDisplay.setFont(font); // Sets the font to font
+		runwayAmountDisplay.setForeground(Color.WHITE); // Sets the text colour to white
 
+		airportVisuals.add(runwayAmountDisplay); // Adds runwayAmountDisplay to airportVisuals
+
+		// Creates a JComboBox for setting the amount of runways
 		changeRunwayAmount = new JComboBox<Integer>(setRunwayAmount);
-		changeRunwayAmount.setSelectedIndex(0);
 
+		changeRunwayAmount.setSelectedIndex(0); // Sets the start selected index to 0
+
+		// Adds ActionListener to changeRunwayAmount to check how many runways there
+		// will be
 		changeRunwayAmount.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				runwayAmount = (int) changeRunwayAmount.getSelectedItem();
+				runwayAmount = (int) changeRunwayAmount.getSelectedItem(); // Sets runwayAmount to the selected item
+																			// from the JComboBox (Drop down)
 			}
 		});
 
-		changeRunwayAmount.setToolTipText("Runway Amount:");
+		changeRunwayAmount.setFont(font); // Sets font of JComboBox to font
+		changeRunwayAmount.setForeground(Color.WHITE); // Sets the text colour to white
+		changeRunwayAmount.setBackground(Color.DARK_GRAY); // Sets the background colour to dark gray
 
-		changeRunwayAmount.setFont(font);
-		changeRunwayAmount.setForeground(Color.WHITE);
-		changeRunwayAmount.setBackground(Color.DARK_GRAY);
+		airportVisuals.add(changeRunwayAmount); // Adds changeRunwayAmount to airportVisuals
 
-		airport.add(changeRunwayAmount);
-
-		add(airport); // Add the runway panel to the current frame
+		add(airportVisuals); // Add the runway panel to the current frame
 		setVisible(true); // Sets window to visible
 
 		// Added Component Listener for updating runways
 		addComponentListener(new ComponentAdapter() {
 			@Override
 			public void componentResized(ComponentEvent e) {
-				Dimension newSize = getSize();
-				airport.updateRunwayPosition(newSize.width, newSize.height);
-				airport.repaint();
+				Dimension newSize = getSize(); // Gets the new size of the window when it changes
+				airportVisuals.updateRunwayPosition(newSize.width, newSize.height); // Sets the new position of all JComponents
+				airportVisuals.repaint(); // Updates the window
 			}
 		});
-		
+
 		// Create a WindowUpdate object and start the update process
 		@SuppressWarnings("unused")
-		WindowUpdate update = new WindowUpdate(airport);
+		WindowUpdate update = new WindowUpdate(airportVisuals);
 
 	}
-	
+
 	/**
 	 * Class that extends JPanel and creates runways
 	 */
 	private class AirportPanel extends JPanel {
 		private static final long serialVersionUID = 2853523647566452733L;
-
-		// Define relative positions as percentages (from 0 to 1)
-		private final double TAXIWAY_1_X_PERCENT = 0.3400;
-		private final double TAXIWAY_1_Y_PERCENT = -0.1417;
-
-		private final double TAXIWAY_2_X_PERCENT = 0.4514;
-		private final double TAXIWAY_2_Y_PERCENT = 0.0583;
-
-		private final double TAXIWAY_3_X_PERCENT = 0.1444;
-		private final double TAXIWAY_3_Y_PERCENT = 0.3850;
-
-		private final double TAXIWAY_4_X_PERCENT = 0.2083;
-		private final double TAXIWAY_4_Y_PERCENT = 0.3350;
-
-		private final double TAXIWAY_5_X_PERCENT = 0.2722;
-		private final double TAXIWAY_5_Y_PERCENT = 0.2917;
-
-		private final double TAXIWAY_6_X_PERCENT = 0.2222;
-		private final double TAXIWAY_6_Y_PERCENT = 0.4583;
-
-		private final double TAXIWAY_7_X_PERCENT = 0.7083;
-		private final double TAXIWAY_7_Y_PERCENT = 0.0333;
-
-		private final double TAXIWAY_8_X_PERCENT = 0.2722;
-		private final double TAXIWAY_8_Y_PERCENT = 0.0833;
-
-		private final double TAXIWAY_9_X_PERCENT = 0.6639;
-		private final double TAXIWAY_9_Y_PERCENT = 0.0217;
 
 		/* Initialises Airports X & Y positions */
 		private int runwayXPos, runwayYPos; // Initialises the runways X and Y
@@ -221,7 +227,7 @@ public class GUIElements extends JFrame {
 		private int gateXPos, gateYPos; // Initialises the gates X and Y
 
 		/* Initialises Airport and Window Components X and Y */
-		private int WINDOW_WIDTH, WINDOW_HEIGHT; // Initialises the windows width and height
+		private int windowWidth, windowHeight; // Initialises the windows width and height
 
 		private final int RUNWAY_WIDTH = 40; // Initialises the runway width
 		private final int RUNWAY_HEIGHT = 450; // Initialises the runway height
@@ -242,20 +248,25 @@ public class GUIElements extends JFrame {
 		 * @param windowHeight Takes in window Height
 		 */
 		public AirportPanel(int windowWidth, int windowHeight) {
-			setBackground(Color.BLACK);
-			this.WINDOW_WIDTH = windowWidth;
-			this.WINDOW_HEIGHT = windowHeight;
+			setBackground(Color.BLACK); // Sets the panel background to black
+			
+			this.windowWidth = windowWidth; // Sets the windowWidth to windowWidth
+			this.windowHeight = windowHeight; // Sets the windowHeight to windowHeight
 		}
-
+		/**
+		 * Overrides paintComponent to create taxi ways, runway, gates and airport
+		 */
 		@Override
 		protected void paintComponent(Graphics g) {
 			super.paintComponent(g);
 
-			drawTaxiWays(g, ((WINDOW_WIDTH - RUNWAY_WIDTH) / 2) - 85, ((WINDOW_HEIGHT - RUNWAY_HEIGHT) / 2) - 160,
-					TAXIWAY_WIDTH, RUNWAY_HEIGHT, RUNWAY_ROTATION, Color.DARK_GRAY); // Draws parallel taxiway above the main runway 
+			drawTaxiWays(g, ((windowWidth - RUNWAY_WIDTH) / 2) - 85, ((windowHeight - RUNWAY_HEIGHT) / 2) - 160,
+					TAXIWAY_WIDTH, RUNWAY_HEIGHT, RUNWAY_ROTATION, Color.DARK_GRAY); // Draws parallel taxi way above the
+																						// main runway
 
-			drawTaxiWays(g, ((WINDOW_WIDTH - RUNWAY_WIDTH) / 2) - 15, ((WINDOW_HEIGHT - RUNWAY_HEIGHT) / 2) - 40,
-					TAXIWAY_WIDTH, RUNWAY_HEIGHT, RUNWAY_ROTATION, Color.DARK_GRAY); // Draws parallel taxiway below the main runway
+			drawTaxiWays(g, ((windowWidth - RUNWAY_WIDTH) / 2) - 15, ((windowHeight - RUNWAY_HEIGHT) / 2) - 40,
+					TAXIWAY_WIDTH, RUNWAY_HEIGHT, RUNWAY_ROTATION, Color.DARK_GRAY); // Draws parallel taxi way below the
+																						// main runway
 
 			drawTaxiWays(g, 104, 231, TAXIWAY_WIDTH, 155, -30, Color.DARK_GRAY);
 
@@ -263,7 +274,7 @@ public class GUIElements extends JFrame {
 
 			drawTaxiWays(g, 196, 175, TAXIWAY_WIDTH, 155, -30, Color.DARK_GRAY);
 
-			drawTaxiWays(g, (WINDOW_WIDTH - BUILDING_WIDTH) / 2 - 30, (WINDOW_HEIGHT - BUILDING_HEIGHT) / 2 + 30,
+			drawTaxiWays(g, (windowWidth - BUILDING_WIDTH) / 2 - 30, (windowHeight - BUILDING_HEIGHT) / 2 + 30,
 					BUILDING_WIDTH, 155, -30, Color.DARK_GRAY);
 
 			// Checks the runway amount and makes sure that it's not greater than two
@@ -280,9 +291,9 @@ public class GUIElements extends JFrame {
 			drawAirportBuilding(g); // Draws the main building of the airport
 
 			drawGates(g); // Draws the gates
-			
+
 			tower.renderPlanes(g);
-			
+
 		}
 
 		/**
@@ -293,19 +304,19 @@ public class GUIElements extends JFrame {
 		 */
 		public void updateRunwayPosition(int newWidth, int newHeight) {
 			/* Updates the window size */
-			WINDOW_WIDTH = newWidth; // Updates the original width to new width
-			WINDOW_HEIGHT = newHeight; // Updates the original height to new height
+			windowWidth = newWidth; // Updates the original width to new width
+			windowHeight = newHeight; // Updates the original height to new height
 
 			/* Updates Airport Components positions dynamically */
 			// Runways
-			runwayXPos = (WINDOW_WIDTH - RUNWAY_WIDTH) / 2; // Adjust X position to centre runway
-			runwayYPos = (WINDOW_HEIGHT - 250) / 2; // Adjust Y position to centre runway
+			runwayXPos = (windowWidth - RUNWAY_WIDTH) / 2; // Adjust X position to centre runway
+			runwayYPos = (windowHeight - 250) / 2; // Adjust Y position to centre runway
 			// Building
-			buildingXPos = (WINDOW_WIDTH - BUILDING_WIDTH) / 2; // Adjusts the X position to centre the building
-			buildingYPos = (WINDOW_HEIGHT - BUILDING_HEIGHT) / 2; // Adjusts the Y Position to centre the building
+			buildingXPos = (windowWidth - BUILDING_WIDTH) / 2; // Adjusts the X position to centre the building
+			buildingYPos = (windowHeight - BUILDING_HEIGHT) / 2; // Adjusts the Y Position to centre the building
 			// Gate
-			gateXPos = (WINDOW_WIDTH - GATE_WIDTH) / 2; // Adjusts the X position to centre the building
-			gateYPos = (WINDOW_HEIGHT - GATE_HEIGHT) / 2; // Adjusts the Y position to centre the building
+			gateXPos = (windowWidth - GATE_WIDTH) / 2; // Adjusts the X position to centre the building
+			gateYPos = (windowHeight - GATE_HEIGHT) / 2; // Adjusts the Y position to centre the building
 
 		}
 
@@ -321,9 +332,9 @@ public class GUIElements extends JFrame {
 			Graphics2D g2d = (Graphics2D) g; // Creates an instance of 2d graphics
 
 			/* Calculates runway X & Y position */
-			runwayXPos = (WINDOW_WIDTH - (RUNWAY_WIDTH)) / 2 + xPos; // Calculates the runway's X position on the X axis
+			runwayXPos = (windowWidth - (RUNWAY_WIDTH)) / 2 + xPos; // Calculates the runway's X position on the X axis
 																		// and offsets by xPos
-			runwayYPos = (WINDOW_HEIGHT - RUNWAY_HEIGHT) / 2 + yPos; // Calculates the runway's Y position on the Y axis
+			runwayYPos = (windowHeight - RUNWAY_HEIGHT) / 2 + yPos; // Calculates the runway's Y position on the Y axis
 																		// and offsets by yPos
 
 			/* Calculates the runway's position when centred */
@@ -364,8 +375,8 @@ public class GUIElements extends JFrame {
 			final int offsetY = 100; // Sets the offset of the building
 
 			/* Calculates the buildings X & Y position */
-			buildingXPos = (WINDOW_WIDTH - BUILDING_WIDTH) / 2; // Calculates the buildings X position on the X axis
-			buildingYPos = (WINDOW_HEIGHT - (BUILDING_HEIGHT)) / 2 + offsetY; // Calculates the buildings Y position on
+			buildingXPos = (windowWidth - BUILDING_WIDTH) / 2; // Calculates the buildings X position on the X axis
+			buildingYPos = (windowHeight - (BUILDING_HEIGHT)) / 2 + offsetY; // Calculates the buildings Y position on
 																				// the Y axis and offsets by 100
 
 			/* Calculates the buildings position when centred */
