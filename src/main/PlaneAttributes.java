@@ -52,12 +52,12 @@ public class PlaneAttributes extends PlaneBehavior {
 	//increases velocity rate
 	public void upVelocity(double vel, boolean takeoff) {
 		
-		if(vel < 180) {
+		if(vel < 500) {
 			//speed is square root of height
 			//height is speed squared
-			//TO-DO ------------------------------------------------------
-			vel = Math.sqrt(z);
-			v = vel;
+			
+			vel += 2.5;
+			
 		}else if(vel >= 180) {
 			takeoff = false;
 			cruise = true;
@@ -67,7 +67,7 @@ public class PlaneAttributes extends PlaneBehavior {
 	//decreases velocity rate
 	public void downVelocity(double vel, boolean landing) {
 		if(vel > 0) {
-			vel /= 2;
+			vel -= 2.5;
 		}else if(vel <= 0) {
 			landing = false;
 		}
@@ -78,6 +78,7 @@ public class PlaneAttributes extends PlaneBehavior {
 		
 		if(z < 500 && vel >= 150) {
 			//z *= 1.3;
+			
 			takeoffvel = vel - 150;
 			z = Math.pow(takeoffvel,  2);
 		}
@@ -90,16 +91,6 @@ public class PlaneAttributes extends PlaneBehavior {
 			z /= 1.4;
 		}
 	}
-	
-	/*public int getAltitude(int z) {
-		if(vel >= 150) {
-			z *= altaccel;
-		}
-		
-		
-		
-		return z;
-	}*/
 	
 	public int[] getPosition() {
 		int[] coords = {x, y, z};
