@@ -9,9 +9,12 @@ import org.junit.jupiter.api.Test;
 import src.main.Tower;
 
 class TowerTest {
+
 	
 	Tower tower = new Tower();
 	//PlaneAttributes PAtt = new PlaneAttributes();
+
+
 	
 	@BeforeEach
 	void setUp() throws Exception {

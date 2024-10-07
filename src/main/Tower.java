@@ -1,5 +1,7 @@
 package src.main;
 
+import java.awt.Color;
+import java.awt.Graphics;
 import java.util.ArrayList;
 
 /*
@@ -10,16 +12,27 @@ public class Tower {
 	protected ArrayList<PlaneAttributes> planes;
 	private PlaneAttributes[] gatePlanes;
 	private boolean[] gates;
-	private final int MINIMUM_SPACE_BETWEEN_PLANES = 10;	//ADJUST THESE VALUES
-	private final int CRASH_DIVERT_DISTANCE = 40;			//ADJUST THESE VALUES
+	private final int MINIMUM_SPACE_BETWEEN_PLANES = 10; // ADJUST THESE VALUES
+	private final int CRASH_DIVERT_DISTANCE = 40; // ADJUST THESE VALUES
 
 	/**
-	 *	Initializes the tower
+	 * Initializes the tower
 	 */
 	public Tower() {
 		planes = new ArrayList<PlaneAttributes>();
 		gates = new boolean[4];
 		gatePlanes = new PlaneAttributes[4];
+	}
+	
+	/**
+	 * draws planes
+	 * @param g: graphics input
+	 */
+	public void renderPlanes(Graphics g) {
+		for(PlaneAttributes plane: planes) {
+			g.setColor(Color.GREEN);
+			g.fillRect((int)plane.getPosition()[0], (int)plane.getPosition()[1], 32, 32);
+		}
 	}
 
 	/**
@@ -33,7 +46,7 @@ public class Tower {
 
 		for (int i = 0; i < planeArray.length; i++) {
 			for (int j = 0; j < planeArray.length; j++) {
-				int dif = comparePlanePos(planeArray[i], planeArray[j]);
+				double dif = comparePlanePos(planeArray[i], planeArray[j]);
 
 				if (dif < MINIMUM_SPACE_BETWEEN_PLANES) {
 					planeArray[i].isCrashed();
@@ -51,14 +64,14 @@ public class Tower {
 		for (int i = 0; i < planes.size(); i++) {
 			planeArray[i] = planes.get(i);
 		}
-		
+
 		for (int i = 0; i < planeArray.length; i++) {
 			for (int j = 0; j < planeArray.length; j++) {
-				int dif = comparePlanePos(planeArray[i], planeArray[j]);
+				double dif = comparePlanePos(planeArray[i], planeArray[j]);
 
 				if (dif < CRASH_DIVERT_DISTANCE) {
-				//	planeArray[i].turn();		//turn the planes away
-				//	planeArray[j].turn();
+					planeArray[i].turn(45);
+					planeArray[j].turn(-45);
 				}
 			}
 		}
@@ -94,13 +107,14 @@ public class Tower {
 	public void spawnPlane() {
 		PlaneAttributes plane = new PlaneAttributes();
 		planes.add(plane);
+		System.out.println(plane.getPosition()[0]);
 	}
-	
+
 	/*
 	 * adjusts gate availability
 	 */
 	public void setGateCount(int count) {
-		for(int i = 4 - count ; i > 0; i--) {
+		for (int i = 4 - count; i > 0; i--) {
 			gates[4 - i] = true;
 		}
 	}
@@ -112,10 +126,10 @@ public class Tower {
 	 * @param p1 is plane 1
 	 * @param p2 is plane 2
 	 */
-	private int comparePlanePos(PlaneAttributes p1, PlaneAttributes p2) {
-		int deltaX = p1.getPosition()[0] - p2.getPosition()[0];
-		int deltaY = p1.getPosition()[1] - p2.getPosition()[1];
-		int dif = (int) Math.sqrt(deltaX ^ 2 + deltaY ^ 2);
+	private double comparePlanePos(PlaneAttributes p1, PlaneAttributes p2) {
+		double deltaX = p1.getPosition()[0] - p2.getPosition()[0];
+		double deltaY = p1.getPosition()[1] - p2.getPosition()[1];
+		double dif = Math.sqrt(Math.pow(deltaX, deltaY));
 		return dif;
 	}
 

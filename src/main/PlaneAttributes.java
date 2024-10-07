@@ -2,11 +2,12 @@ package src.main;
 import java.util.Random;
 
 public class PlaneAttributes extends PlaneBehavior {
-	int x = 0, y = 0, z = 0;
+	double x, y, z;
+	double dir = 0;
 	double vel = 0;
 	double v = 1.1;
-	int accel = 0;
-	int altaccel = 0;
+	double accel = 0;
+	double altaccel = 0;
 	double takeoffvel;
 	String a, b, c, d, e;
 	String call;
@@ -16,9 +17,12 @@ public class PlaneAttributes extends PlaneBehavior {
 	 int ran;
 	
 	public PlaneAttributes() {
-		
+
+		x = 200;
+		y = 200;
+		z = 300;
 	}
-	
+
 	// make a list of letters and choose a random one
 	public String getCallSign() {
 		// n c f g
@@ -92,13 +96,35 @@ public class PlaneAttributes extends PlaneBehavior {
 		}
 	}
 	
-	public int[] getPosition() {
+
+	/*public int[] getPosition() {
 		int[] coords = {x, y, z};
 		
-		/*x = 0;
+		x = 0;
 		y = 0;
-		z = 0;*/
+		z = 0;
+	}*/
+
+	public int getAltitude(int z) {
+		if(vel >= 150) {
+			z *= altaccel;
+		}
 		
+		
+		
+		return z;
+	}
+	
+	/*
+	 * turns the plane
+	 */
+	public void turn(double degrees) {
+		dir += degrees;
+	}
+	
+	public double[] getPosition() {
+		double[] coords = {x, y, z};
+
 		return coords;
 	}
 }

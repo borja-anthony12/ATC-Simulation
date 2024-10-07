@@ -8,15 +8,24 @@ import java.awt.event.ComponentEvent;
 
 import javax.swing.*;
 
+import src.main.*;
+
 /**
  * Class which creates all of the ATC Simulation Visuals
  */
 public class GUIElements extends JFrame {
+	Tower tower;
 	AirportPanel airport;
+	
 	JComboBox<Integer> changeGateAmount;
 	JComboBox<Integer> changeRunwayAmount;
-	JLabel GateAmount;
-	JLabel RunwayAmount;
+	
+	JLabel gateAmountDisplay;
+	JLabel runwayAmountDisplay;
+	JLabel planeAmountDisplay;
+	
+	JButton addPlane;
+	JButton removePlane;
 
 	Font font = new Font("Arial", Font.BOLD, 14);
 	Color Transparent = new Color(0, 0, 0, 0);
@@ -24,6 +33,7 @@ public class GUIElements extends JFrame {
 	private static final long serialVersionUID = 2178084625298728326L;
 	public int runwayAmount;
 	public int gateAmount;
+	public int planeAmount;
 
 	private Integer[] setRunwayAmount = { 1, 2 };
 	private Integer[] setGateAmount = { 1, 2, 3, 4 };
@@ -40,6 +50,7 @@ public class GUIElements extends JFrame {
 	public GUIElements(int windowWidth, int windowHeight, int runwayAmount, int gateAmount) {
 		this.runwayAmount = runwayAmount;
 		this.gateAmount = gateAmount;
+		tower = new Tower();
 		window(windowWidth, windowHeight); // Calls the initializeWindow method and creates the Window
 	}
 
@@ -50,7 +61,8 @@ public class GUIElements extends JFrame {
 	 * @param windowHeight Takes in the height given by the constructor
 	 */
 	private void window(int windowWidth, int windowHeight) {
-
+		planeAmount = 0;
+		
 		UIManager.put("ComboBox.background", Color.DARK_GRAY);
 		UIManager.put("ComboBox.foreground", Color.WHITE);
 		UIManager.put("ComboBox.buttonBackground", Color.WHITE);
@@ -63,11 +75,49 @@ public class GUIElements extends JFrame {
 		setLocationRelativeTo(null); // Sets the Location of the window to the centre of the screen
 
 		airport = new AirportPanel(windowWidth, windowHeight);
+		
+		addPlane = new JButton("Add Plane");
+		addPlane.addActionListener(new ActionListener() {
 
-		GateAmount = new JLabel("Gate Amount:");
-		GateAmount.setFont(font);
-		GateAmount.setForeground(Color.WHITE);
-		airport.add(GateAmount);
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				planeAmount += 1;
+				System.out.println(planeAmount);
+				planeAmountDisplay.setText(String.valueOf(planeAmount));
+				tower.spawnPlane();
+			}
+			
+		});
+		
+		
+		airport.add(addPlane);
+		
+		planeAmountDisplay = new JLabel(String.valueOf(planeAmount));
+		planeAmountDisplay.setFont(font);
+		planeAmountDisplay.setForeground(Color.WHITE);
+		airport.add(planeAmountDisplay);
+		
+		removePlane = new JButton("Remove Plane");
+		removePlane.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (planeAmount > 0) {
+					planeAmount -= 1;
+					System.out.println(planeAmount);
+					planeAmountDisplay.setText(String.valueOf(planeAmount));
+				} 
+				
+			}
+			
+		});
+		
+		airport.add(removePlane);
+		
+		gateAmountDisplay = new JLabel("Gate Amount:");
+		gateAmountDisplay.setFont(font);
+		gateAmountDisplay.setForeground(Color.WHITE);
+		airport.add(gateAmountDisplay);
 
 		changeGateAmount = new JComboBox<Integer>(setGateAmount);
 		changeGateAmount.setSelectedIndex(3);
@@ -88,10 +138,10 @@ public class GUIElements extends JFrame {
 
 		airport.add(changeGateAmount);
 
-		RunwayAmount = new JLabel("Runway Amount:");
-		RunwayAmount.setFont(font);
-		RunwayAmount.setForeground(Color.WHITE);
-		airport.add(RunwayAmount);
+		runwayAmountDisplay = new JLabel("Runway Amount:");
+		runwayAmountDisplay.setFont(font);
+		runwayAmountDisplay.setForeground(Color.WHITE);
+		airport.add(runwayAmountDisplay);
 
 		changeRunwayAmount = new JComboBox<Integer>(setRunwayAmount);
 		changeRunwayAmount.setSelectedIndex(0);
@@ -124,12 +174,13 @@ public class GUIElements extends JFrame {
 				airport.repaint();
 			}
 		});
-
+		
 		// Create a WindowUpdate object and start the update process
 		@SuppressWarnings("unused")
 		WindowUpdate update = new WindowUpdate(airport);
-	}
 
+	}
+	
 	/**
 	 * Class that extends JPanel and creates runways
 	 */
@@ -229,6 +280,9 @@ public class GUIElements extends JFrame {
 			drawAirportBuilding(g); // Draws the main building of the airport
 
 			drawGates(g); // Draws the gates
+			
+			tower.renderPlanes(g);
+			
 		}
 
 		/**
