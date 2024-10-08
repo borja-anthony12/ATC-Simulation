@@ -319,9 +319,6 @@ public class GUIElements extends JFrame {
 			drawAirportBuilding(g); // Draws the main building of the airport
 
 			drawGates(g); // Draws the gates
-
-			tower.renderPlanes(g);
-
 		}
 
 		/**

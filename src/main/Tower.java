@@ -25,17 +25,6 @@ public class Tower {
 	}
 	
 	/**
-	 * draws planes
-	 * @param g: graphics input
-	 */
-	public void renderPlanes(Graphics g) {
-		for(PlaneAttributes plane: planes) {
-			g.setColor(Color.GREEN);
-			g.fillRect((int)plane.getPosition()[0], (int)plane.getPosition()[1], 32, 32);
-		}
-	}
-
-	/**
 	 * Checks if planes collide
 	 */
 	public void checkPlaneCollision() {
@@ -107,7 +96,6 @@ public class Tower {
 	public void spawnPlane() {
 		PlaneAttributes plane = new PlaneAttributes();
 		planes.add(plane);
-		System.out.println(plane.getPosition()[0]);
 	}
 
 	/*
