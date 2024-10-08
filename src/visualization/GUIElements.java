@@ -1,14 +1,19 @@
 package src.visualization;
 
+import java.util.Random;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.net.URL;
 
 import javax.swing.*;
 
 import src.main.*;
+
+
 
 /**
  * Class which creates all of the ATC Simulation Visuals
@@ -60,6 +65,7 @@ public class GUIElements extends JFrame {
 		this.gateAmount = gateAmount; // Sets the gateAmount to gateAmount
 
 		tower = new Tower(); // Creates an instance of tower class
+		Random rand = new Random();
 
 		window(windowWidth, windowHeight); // Calls the initializeWindow method and creates a window setting the width
 											// and height to windowWidth and windowHeight
@@ -220,34 +226,17 @@ public class GUIElements extends JFrame {
 	 */
 	private class AirportPanel extends JPanel {
 		private static final long serialVersionUID = 2853523647566452733L;
-
-		// Define relative positions as percentages (from 0 to 1)
-		private final double TAXIWAY_1_X_PERCENT = 0.3400;
-		private final double TAXIWAY_1_Y_PERCENT = -0.1417;
-
-		private final double TAXIWAY_2_X_PERCENT = 0.4514;
-		private final double TAXIWAY_2_Y_PERCENT = 0.0583;
-
-		private final double TAXIWAY_3_X_PERCENT = 0.1444;
-		private final double TAXIWAY_3_Y_PERCENT = 0.3850;
-
-		private final double TAXIWAY_4_X_PERCENT = 0.2083;
-		private final double TAXIWAY_4_Y_PERCENT = 0.3350;
-
-		private final double TAXIWAY_5_X_PERCENT = 0.2722;
-		private final double TAXIWAY_5_Y_PERCENT = 0.2917;
-
-		private final double TAXIWAY_6_X_PERCENT = 0.2222;
-		private final double TAXIWAY_6_Y_PERCENT = 0.4583;
-
-		private final double TAXIWAY_7_X_PERCENT = 0.7083;
-		private final double TAXIWAY_7_Y_PERCENT = 0.0333;
-
-		private final double TAXIWAY_8_X_PERCENT = 0.2722;
-		private final double TAXIWAY_8_Y_PERCENT = 0.0833;
-
-		private final double TAXIWAY_9_X_PERCENT = 0.6639;
-		private final double TAXIWAY_9_Y_PERCENT = 0.0217;
+		
+		private String[] imageDir = {
+				"/src/resources/plane-images/plane-blue.jpg",
+				"/src/resources/plane-images/plane-cyan.jpg",
+				"/src/resources/plane-images/plane-jared.jpg",
+				"/src/resources/plane-images/plane-lime.jpg",
+				"/src/resources/plane-images/plane-magenta.jpg",
+				"/src/resources/plane-images/plane-nolan.jpg",
+				"/src/resources/plane-images/plane-white.jpg",
+				"/src/resources/plane-images/plane-will.jpg"
+		};
 
 		/* Initialises Airports X & Y positions */
 		private int runwayXPos, runwayYPos; // Initialises the runways X and Y
@@ -277,7 +266,7 @@ public class GUIElements extends JFrame {
 		 */
 		public AirportPanel(int windowWidth, int windowHeight) {
 			setBackground(Color.BLACK); // Sets the panel background to black
-			
+			Random rand = new Random();
 			this.windowWidth = windowWidth; // Sets the windowWidth to windowWidth
 			this.windowHeight = windowHeight; // Sets the windowHeight to windowHeight
 		}
@@ -348,12 +337,17 @@ public class GUIElements extends JFrame {
 		}
 		
 		public void drawPlanes(Graphics g) {
+			Random rand = new Random();
 			Graphics2D g2d = (Graphics2D) g;
+			ImageIcon image = new ImageIcon(imageDir[rand.nextInt(imageDir.length)]);
+			System.out.println(imageDir[rand.nextInt(imageDir.length)]);
+			
 			for (PlaneAttributes plane: tower.getPlanes()) {
 				Rectangle planeVisual = new Rectangle((int) plane.getPosition()[0], (int) plane.getPosition()[1], 50, 50);
 				g2d.draw(planeVisual);
 				g2d.setColor(Color.GREEN);
 				g2d.fill(planeVisual);
+				g2d.drawImage(image.getImage(), (int) plane.getPosition()[0], (int) plane.getPosition()[1], Color.black, null);
 			}
 		}
 
@@ -489,17 +483,17 @@ public class GUIElements extends JFrame {
 		 * 
 		 * @param g
 		 */
-		public void drawTaxiWays(Graphics g, int tAXIWAY_3_X_PERCENT2, int yPos, int width, int height, int rotationAngle, Color c) {
+		public void drawTaxiWays(Graphics g, int xPos, int yPos, int width, int height, int rotationAngle, Color c) {
 			Graphics2D g2d = (Graphics2D) g;
 
-			double centerX = tAXIWAY_3_X_PERCENT2 + (width / 2);
+			double centerX = xPos + (width / 2);
 			int centerY = yPos + (height / 2);
 
 			g2d.translate(centerX, centerY);
 			g2d.rotate(Math.toRadians(rotationAngle));
 			g2d.translate(-centerX, -centerY);
 
-			Rectangle taxiWayVisual = new Rectangle(tAXIWAY_3_X_PERCENT2, yPos, width, height);
+			Rectangle taxiWayVisual = new Rectangle(xPos, yPos, width, height);
 
 			g2d.setColor(c);
 			g2d.draw(taxiWayVisual);
