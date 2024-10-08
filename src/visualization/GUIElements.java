@@ -319,6 +319,8 @@ public class GUIElements extends JFrame {
 			drawAirportBuilding(g); // Draws the main building of the airport
 
 			drawGates(g); // Draws the gates
+			
+			drawPlanes(g);
 		}
 
 		/**
@@ -343,6 +345,16 @@ public class GUIElements extends JFrame {
 			gateXPos = (windowWidth - GATE_WIDTH) / 2; // Adjusts the X position to centre the building
 			gateYPos = (windowHeight - GATE_HEIGHT) / 2; // Adjusts the Y position to centre the building
 
+		}
+		
+		public void drawPlanes(Graphics g) {
+			Graphics2D g2d = (Graphics2D) g;
+			for (PlaneAttributes plane: tower.getPlanes()) {
+				Rectangle planeVisual = new Rectangle((int) plane.getPosition()[0], (int) plane.getPosition()[1], 50, 50);
+				g2d.draw(planeVisual);
+				g2d.setColor(Color.GREEN);
+				g2d.fill(planeVisual);
+			}
 		}
 
 		/**
