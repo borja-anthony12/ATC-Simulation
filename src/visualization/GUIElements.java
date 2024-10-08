@@ -204,7 +204,8 @@ public class GUIElements extends JFrame {
 			@Override
 			public void componentResized(ComponentEvent e) {
 				Dimension newSize = getSize(); // Gets the new size of the window when it changes
-				airportVisuals.updateRunwayPosition(newSize.width, newSize.height); // Sets the new position of all JComponents
+				airportVisuals.updateRunwayPosition(newSize.width, newSize.height); // Sets the new position of all
+																					// JComponents
 				airportVisuals.repaint(); // Updates the window
 			}
 		});
@@ -277,10 +278,11 @@ public class GUIElements extends JFrame {
 		 */
 		public AirportPanel(int windowWidth, int windowHeight) {
 			setBackground(Color.BLACK); // Sets the panel background to black
-			
+
 			this.windowWidth = windowWidth; // Sets the windowWidth to windowWidth
 			this.windowHeight = windowHeight; // Sets the windowHeight to windowHeight
 		}
+
 		/**
 		 * Overrides paintComponent to create taxi ways, runway, gates and airport
 		 */
@@ -289,11 +291,13 @@ public class GUIElements extends JFrame {
 			super.paintComponent(g);
 
 			drawTaxiWays(g, ((windowWidth - RUNWAY_WIDTH) / 2) - 85, ((windowHeight - RUNWAY_HEIGHT) / 2) - 160,
-					TAXIWAY_WIDTH, RUNWAY_HEIGHT, RUNWAY_ROTATION, Color.DARK_GRAY); // Draws parallel taxi way above the
+					TAXIWAY_WIDTH, RUNWAY_HEIGHT, RUNWAY_ROTATION, Color.DARK_GRAY); // Draws parallel taxi way above
+																						// the
 																						// main runway
 
 			drawTaxiWays(g, ((windowWidth - RUNWAY_WIDTH) / 2) - 15, ((windowHeight - RUNWAY_HEIGHT) / 2) - 40,
-					TAXIWAY_WIDTH, RUNWAY_HEIGHT, RUNWAY_ROTATION, Color.DARK_GRAY); // Draws parallel taxi way below the
+					TAXIWAY_WIDTH, RUNWAY_HEIGHT, RUNWAY_ROTATION, Color.DARK_GRAY); // Draws parallel taxi way below
+																						// the
 																						// main runway
 
 			drawTaxiWays(g, 103, 231, TAXIWAY_WIDTH, 155, -30, Color.DARK_GRAY);
@@ -319,7 +323,7 @@ public class GUIElements extends JFrame {
 			drawAirportBuilding(g); // Draws the main building of the airport
 
 			drawGates(g); // Draws the gates
-			
+
 			drawPlanes(g);
 		}
 
@@ -346,14 +350,21 @@ public class GUIElements extends JFrame {
 			gateYPos = (windowHeight - GATE_HEIGHT) / 2; // Adjusts the Y position to centre the building
 
 		}
-		
+
+		/**
+		 * drawis the planes
+		 * 
+		 * @param g graphics input
+		 */
 		public void drawPlanes(Graphics g) {
 			Graphics2D g2d = (Graphics2D) g;
-			for (PlaneAttributes plane: tower.getPlanes()) {
-				Rectangle planeVisual = new Rectangle((int) plane.getPosition()[0], (int) plane.getPosition()[1], 50, 50);
+			for (PlaneAttributes plane : tower.getPlanes()) {
+				Rectangle planeVisual = new Rectangle((int) plane.getPosition()[0], (int) plane.getPosition()[1], 25, 25);
 				g2d.draw(planeVisual);
 				g2d.setColor(Color.GREEN);
 				g2d.fill(planeVisual);
+				g2d.setColor(Color.RED);
+				g2d.drawLine((int) plane.getPosition()[0], (int) plane.getPosition()[1], (int) (plane.getPosition()[0] + Math.cos(plane.getDirection()) * 50), (int) (plane.getPosition()[1] + Math.sin(plane.getDirection()) * 50));
 			}
 		}
 
@@ -370,9 +381,9 @@ public class GUIElements extends JFrame {
 
 			/* Calculates runway X & Y position */
 			runwayXPos = (windowWidth - (RUNWAY_WIDTH)) / 2 + xPos; // Calculates the runway's X position on the X axis
-																		// and offsets by xPos
+																	// and offsets by xPos
 			runwayYPos = (windowHeight - RUNWAY_HEIGHT) / 2 + yPos; // Calculates the runway's Y position on the Y axis
-																		// and offsets by yPos
+																	// and offsets by yPos
 
 			/* Calculates the runway's position when centred */
 			int centreXRunway = runwayXPos + (RUNWAY_WIDTH / 2); // Centres the runway on the X axis
@@ -489,7 +500,8 @@ public class GUIElements extends JFrame {
 		 * 
 		 * @param g
 		 */
-		public void drawTaxiWays(Graphics g, int tAXIWAY_3_X_PERCENT2, int yPos, int width, int height, int rotationAngle, Color c) {
+		public void drawTaxiWays(Graphics g, int tAXIWAY_3_X_PERCENT2, int yPos, int width, int height,
+				int rotationAngle, Color c) {
 			Graphics2D g2d = (Graphics2D) g;
 
 			double centerX = tAXIWAY_3_X_PERCENT2 + (width / 2);
