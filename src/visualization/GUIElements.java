@@ -228,14 +228,14 @@ public class GUIElements extends JFrame {
 		private static final long serialVersionUID = 2853523647566452733L;
 		
 		private String[] imageDir = {
-				"/src/resources/plane-images/plane-blue.jpg",
-				"/src/resources/plane-images/plane-cyan.jpg",
-				"/src/resources/plane-images/plane-jared.jpg",
-				"/src/resources/plane-images/plane-lime.jpg",
-				"/src/resources/plane-images/plane-magenta.jpg",
-				"/src/resources/plane-images/plane-nolan.jpg",
-				"/src/resources/plane-images/plane-white.jpg",
-				"/src/resources/plane-images/plane-will.jpg"
+				"/plane-images/plane-blue.jpg",
+				"/plane-images/plane-jared.jpg",
+				"/plane-images/plane-cyan.jpg",
+				"/plane-images/plane-lime.jpg",
+				"/plane-images/plane-magenta.jpg",
+				"/plane-images/plane-nolan.jpg",
+				"/plane-images/plane-white.jpg",
+				"/plane-images/plane-will.jpg"
 		};
 
 		/* Initialises Airports X & Y positions */
@@ -337,19 +337,35 @@ public class GUIElements extends JFrame {
 		}
 		
 		public void drawPlanes(Graphics g) {
-			Random rand = new Random();
-			Graphics2D g2d = (Graphics2D) g;
-			ImageIcon image = new ImageIcon(imageDir[rand.nextInt(imageDir.length)]);
-			System.out.println(imageDir[rand.nextInt(imageDir.length)]);
-			
-			for (PlaneAttributes plane: tower.getPlanes()) {
-				Rectangle planeVisual = new Rectangle((int) plane.getPosition()[0], (int) plane.getPosition()[1], 50, 50);
-				g2d.draw(planeVisual);
-				g2d.setColor(Color.GREEN);
-				g2d.fill(planeVisual);
-				g2d.drawImage(image.getImage(), (int) plane.getPosition()[0], (int) plane.getPosition()[1], Color.black, null);
-			}
+		    Random rand = new Random();
+		    Graphics2D g2d = (Graphics2D) g;
+
+		    // Generate a random index for the image
+		    int randomIndex = rand.nextInt(imageDir.length);
+		    
+		    // Load the image using the classloader to avoid issues with file paths
+		    ImageIcon image = new ImageIcon(getClass().getResource(imageDir[randomIndex]));
+		    
+		    // Print the selected image path for debugging
+		    System.out.println("Selected image: " + imageDir[randomIndex]);
+
+		    for (PlaneAttributes plane : tower.getPlanes()) {
+		        Rectangle planeVisual = new Rectangle((int) plane.getPosition()[0], (int) plane.getPosition()[1], 50, 50);
+		        
+		        // Draw the green rectangle representing the plane
+		        g2d.draw(planeVisual);
+		        g2d.setColor(Color.GREEN);
+		        g2d.fill(planeVisual);
+		        
+		        // Draw the plane image if it's loaded successfully
+		        if (image.getImage() != null) {
+		            g2d.drawImage(image.getImage(), (int) plane.getPosition()[0], (int) plane.getPosition()[1], this);
+		        } else {
+		            System.out.println("Image not loaded: " + imageDir[randomIndex]);
+		        }
+		    }
 		}
+
 
 		/**
 		 * Draws runways and calculates the position/centres the runways
