@@ -210,7 +210,8 @@ public class GUIElements extends JFrame {
 			@Override
 			public void componentResized(ComponentEvent e) {
 				Dimension newSize = getSize(); // Gets the new size of the window when it changes
-				airportVisuals.updateRunwayPosition(newSize.width, newSize.height); // Sets the new position of all JComponents
+				airportVisuals.updateRunwayPosition(newSize.width, newSize.height); // Sets the new position of all
+																					// JComponents
 				airportVisuals.repaint(); // Updates the window
 			}
 		});
@@ -228,14 +229,14 @@ public class GUIElements extends JFrame {
 		private static final long serialVersionUID = 2853523647566452733L;
 		
 		private String[] imageDir = {
-				"/plane-images/plane-blue.jpg",
-				"/plane-images/plane-jared.jpg",
-				"/plane-images/plane-cyan.jpg",
-				"/plane-images/plane-lime.jpg",
-				"/plane-images/plane-magenta.jpg",
-				"/plane-images/plane-nolan.jpg",
-				"/plane-images/plane-white.jpg",
-				"/plane-images/plane-will.jpg"
+				"/plane-images/plane-blue.png",
+				"/plane-images/plane-jared.png",
+				"/plane-images/plane-cyan.png",
+				"/plane-images/plane-green.png",
+				"/plane-images/plane-purple.png",
+				"/plane-images/plane-nolan.png",
+				"/plane-images/plane-white.png",
+				"/plane-images/plane-will.png"
 		};
 
 		/* Initialises Airports X & Y positions */
@@ -267,9 +268,11 @@ public class GUIElements extends JFrame {
 		public AirportPanel(int windowWidth, int windowHeight) {
 			setBackground(Color.BLACK); // Sets the panel background to black
 			Random rand = new Random();
+
 			this.windowWidth = windowWidth; // Sets the windowWidth to windowWidth
 			this.windowHeight = windowHeight; // Sets the windowHeight to windowHeight
 		}
+
 		/**
 		 * Overrides paintComponent to create taxi ways, runway, gates and airport
 		 */
@@ -278,11 +281,13 @@ public class GUIElements extends JFrame {
 			super.paintComponent(g);
 
 			drawTaxiWays(g, ((windowWidth - RUNWAY_WIDTH) / 2) - 85, ((windowHeight - RUNWAY_HEIGHT) / 2) - 160,
-					TAXIWAY_WIDTH, RUNWAY_HEIGHT, RUNWAY_ROTATION, Color.DARK_GRAY); // Draws parallel taxi way above the
+					TAXIWAY_WIDTH, RUNWAY_HEIGHT, RUNWAY_ROTATION, Color.DARK_GRAY); // Draws parallel taxi way above
+																						// the
 																						// main runway
 
 			drawTaxiWays(g, ((windowWidth - RUNWAY_WIDTH) / 2) - 15, ((windowHeight - RUNWAY_HEIGHT) / 2) - 40,
-					TAXIWAY_WIDTH, RUNWAY_HEIGHT, RUNWAY_ROTATION, Color.DARK_GRAY); // Draws parallel taxi way below the
+					TAXIWAY_WIDTH, RUNWAY_HEIGHT, RUNWAY_ROTATION, Color.DARK_GRAY); // Draws parallel taxi way below
+																						// the
 																						// main runway
 
 			drawTaxiWays(g, 103, 231, TAXIWAY_WIDTH, 155, -30, Color.DARK_GRAY);
@@ -308,7 +313,7 @@ public class GUIElements extends JFrame {
 			drawAirportBuilding(g); // Draws the main building of the airport
 
 			drawGates(g); // Draws the gates
-			
+
 			drawPlanes(g);
 		}
 
@@ -335,26 +340,26 @@ public class GUIElements extends JFrame {
 			gateYPos = (windowHeight - GATE_HEIGHT) / 2; // Adjusts the Y position to centre the building
 
 		}
-		
-		public void drawPlanes(Graphics g) {
-		    Random rand = new Random();
-		    Graphics2D g2d = (Graphics2D) g;
 
+		/**
+		 * drawis the planes
+		 * 
+		 * @param g graphics input
+		 */
+		public void drawPlanes(Graphics g) {
+		    Graphics2D g2d = (Graphics2D) g;
+		    Random rand = new Random();
 		    // Generate a random index for the image
 		    int randomIndex = rand.nextInt(imageDir.length);
 		    
 		    // Load the image using the classloader to avoid issues with file paths
 		    ImageIcon image = new ImageIcon(getClass().getResource(imageDir[randomIndex]));
-		    
-		    // Print the selected image path for debugging
-		    System.out.println("Selected image: " + imageDir[randomIndex]);
 
 		    for (PlaneAttributes plane : tower.getPlanes()) {
-		        Rectangle planeVisual = new Rectangle((int) plane.getPosition()[0], (int) plane.getPosition()[1], 50, 50);
+		        Rectangle planeVisual = new Rectangle((int) plane.getPosition()[0], (int) plane.getPosition()[1], 28, 28);
 		        
 		        // Draw the green rectangle representing the plane
-		        g2d.draw(planeVisual);
-		        g2d.setColor(Color.GREEN);
+		        g2d.setColor(new Color(0, 0, 0, 0));
 		        g2d.fill(planeVisual);
 		        
 		        // Draw the plane image if it's loaded successfully
@@ -363,6 +368,7 @@ public class GUIElements extends JFrame {
 		        } else {
 		            System.out.println("Image not loaded: " + imageDir[randomIndex]);
 		        }
+		        g2d.drawLine((int) plane.getPosition()[0], (int) plane.getPosition()[1], (int) (plane.getPosition()[0] + Math.cos(plane.getDirection()) * 50), (int) (plane.getPosition()[1] + Math.sin(plane.getDirection()) * 50));
 		    }
 		}
 
@@ -380,9 +386,9 @@ public class GUIElements extends JFrame {
 
 			/* Calculates runway X & Y position */
 			runwayXPos = (windowWidth - (RUNWAY_WIDTH)) / 2 + xPos; // Calculates the runway's X position on the X axis
-																		// and offsets by xPos
+																	// and offsets by xPos
 			runwayYPos = (windowHeight - RUNWAY_HEIGHT) / 2 + yPos; // Calculates the runway's Y position on the Y axis
-																		// and offsets by yPos
+																	// and offsets by yPos
 
 			/* Calculates the runway's position when centred */
 			int centreXRunway = runwayXPos + (RUNWAY_WIDTH / 2); // Centres the runway on the X axis

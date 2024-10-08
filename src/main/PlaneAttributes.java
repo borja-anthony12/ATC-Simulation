@@ -18,10 +18,10 @@ public class PlaneAttributes extends PlaneBehavior {
 	int ran;
 
 	public PlaneAttributes() {
-
 		x = 200;
 		y = 200;
 		z = 300;
+		dir = 300;
 	}
 
 	// make a list of letters and choose a random one
@@ -114,5 +114,9 @@ public class PlaneAttributes extends PlaneBehavior {
 		double[] coords = { x, y, z };
 
 		return coords;
+	}
+	
+	public double getDirection() {
+		return dir;
 	}
 }
