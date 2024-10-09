@@ -219,7 +219,7 @@ public class GUIElements extends JFrame {
 
 		// Create a WindowUpdate object and start the update process
 		@SuppressWarnings("unused")
-		WindowUpdate update = new WindowUpdate(airportVisuals);
+		WindowUpdate update = new WindowUpdate(airportVisuals, tower);
 
 	}
 

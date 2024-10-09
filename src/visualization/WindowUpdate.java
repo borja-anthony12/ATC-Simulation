@@ -16,7 +16,7 @@ public class WindowUpdate extends JFrame{
 	 * 
 	 * @param Panel Takes in the Panel for updating what's on the screen
 	 */
-	public WindowUpdate(JPanel Panel) {
+	public WindowUpdate(JPanel Panel, Tower tower) {
 		Timer timer = new Timer(Main.UPDATE_INTERAVAL,  new ActionListener() {
 		PlaneAttributes one = new PlaneAttributes();
 		int vel;
@@ -28,6 +28,18 @@ public class WindowUpdate extends JFrame{
 				Panel.repaint();
 				
 				
+				for(PlaneAttributes plane: tower.getPlanes()) {
+					//plane movement
+				}
+				
+				
+				
+				
+				
+				
+				
+				
+				/*
 				one.takeoff(takeoff);
 				one.landing(landing);
 				
@@ -41,7 +53,7 @@ public class WindowUpdate extends JFrame{
 				}else if(landing == true)
 					one.downVelocity(vel, landing);
 					one.downAlt(z);
-				
+				*/
 				
 			}
 		});
