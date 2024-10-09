@@ -132,7 +132,6 @@ public class GUIElements extends JFrame {
 				// Checks if plane amount does not equal zero
 				if (planeAmount > 0) {
 					planeAmount -= 1; // Removes one to planeAmount and sets palneAmount to that value
-					tower.despawnPlane();
 					planeAmountDisplay.setText(String.valueOf(planeAmount)); // Sets the planeAmountDisplay to the value
 																				// of planeAmount
 				}
@@ -268,7 +267,6 @@ public class GUIElements extends JFrame {
 		 */
 		public AirportPanel(int windowWidth, int windowHeight) {
 			setBackground(Color.BLACK); // Sets the panel background to black
-			Random rand = new Random();
 
 			this.windowWidth = windowWidth; // Sets the windowWidth to windowWidth
 			this.windowHeight = windowHeight; // Sets the windowHeight to windowHeight
@@ -349,19 +347,18 @@ public class GUIElements extends JFrame {
 		 */
 		public void drawPlanes(Graphics g) {
 		    Graphics2D g2d = (Graphics2D) g;
+		    
 		    Random rand = new Random();
 		    // Generate a random index for the image
 		    int randomIndex = rand.nextInt(imageDir.length);
 		    
 		    // Load the image using the classloader to avoid issues with file paths
 		    ImageIcon image = new ImageIcon(getClass().getResource(imageDir[randomIndex]));
-
+		    
 		    for (PlaneAttributes plane : tower.getPlanes()) {
 		        Rectangle planeVisual = new Rectangle((int) plane.getPosition()[0], (int) plane.getPosition()[1], 28, 28);
+		        System.out.println(plane.getDirection());
 		        
-		        // Draw the green rectangle representing the plane
-		        g2d.setColor(new Color(0, 0, 0, 0));
-		        g2d.fill(planeVisual);
 		        
 		        // Draw the plane image if it's loaded successfully
 		        if (image.getImage() != null) {
