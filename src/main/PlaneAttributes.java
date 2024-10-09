@@ -21,7 +21,7 @@ public class PlaneAttributes extends PlaneBehavior {
 		x = 200;
 		y = 200;
 		z = 300;
-		dir = 300;
+		dir = 0;
 	}
 
 	// make a list of letters and choose a random one
