@@ -97,6 +97,13 @@ public class Tower {
 		PlaneAttributes plane = new PlaneAttributes();
 		planes.add(plane);
 	}
+	
+	/**
+	 * deletes a plane
+	 */
+	public void despawnPlane() {
+		
+	}
 
 	/*
 	 * adjusts gate availability
