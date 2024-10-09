@@ -102,7 +102,7 @@ public class Tower {
 	 * deletes a plane
 	 */
 	public void despawnPlane() {
-		
+		planes.remove(planes.size() - 1);
 	}
 
 	/*
