@@ -7,8 +7,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.net.URL;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import src.main.*;
@@ -229,7 +234,7 @@ public class GUIElements extends JFrame {
 	private class AirportPanel extends JPanel {
 		private static final long serialVersionUID = 2853523647566452733L;
 		
-		private String[] imageDir = {
+		private String[] imageLocation = {
 				"/plane-images/plane-blue.png",
 				"/plane-images/plane-jared.png",
 				"/plane-images/plane-cyan.png",
@@ -348,28 +353,34 @@ public class GUIElements extends JFrame {
 		 */
 		public void drawPlanes(Graphics g) {
 		    Graphics2D g2d = (Graphics2D) g;
+		    BufferedImage Image;
 		    
 		    Random rand = new Random();
 		    // Generate a random index for the image
-		    int randomIndex = rand.nextInt(imageDir.length);
+		    
+		    String url = imageLocation[rand.nextInt(imageLocation.length)];
 		    
 		    // Load the image using the classloader to avoid issues with file paths
-		    ImageIcon image = new ImageIcon(getClass().getResource(imageDir[randomIndex]));
+		    try {
+		        Image = ImageIO.read(getClass().getResource(url));
+		    } catch (IOException e) {
+		        System.out.println("Error: " + e);
+		    }
 		    
 		    for (PlaneAttributes plane : tower.getPlanes()) {
-		        Rectangle planeVisual = new Rectangle((int) plane.getPosition()[0], (int) plane.getPosition()[1], 28, 28);
+		        double xPlane = plane.getPosition()[0];
+		        double yPlane = plane.getPosition()[1];
+		        Rectangle planeVisual = new Rectangle((int) xPlane, (int) yPlane, 28, 28);
 		        System.out.println(plane.getDirection());
 		        
+		        AffineTransform tx = AffineTransform.getRotateInstance(plane.getDirection(), xPlane, yPlane);
+		        AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
 		        
 		        // Draw the plane image if it's loaded successfully
-		        if (image.getImage() != null) {
-		            g2d.drawImage(image.getImage(), (int) plane.getPosition()[0], (int) plane.getPosition()[1], this);
-		        } else {
-		            System.out.println("Image not loaded: " + imageDir[randomIndex]);
-		        }
-		        g2d.drawLine((int) plane.getPosition()[0], (int) plane.getPosition()[1], (int) (plane.getPosition()[0] + Math.cos(plane.getDirection()) * 50), (int) (plane.getPosition()[1] + Math.sin(plane.getDirection()) * 50));
+		        g2d.drawImage(Image, null), xPlane, yPlane, this);
 		    }
 		}
+
 
 
 		/**
