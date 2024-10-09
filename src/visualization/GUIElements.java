@@ -317,9 +317,13 @@ public class GUIElements extends JFrame {
 
 			drawAirportBuilding(g); // Draws the main building of the airport
 
-			drawGates(g); // Draws the gates
 
-			drawPlanes(g);
+			try {
+				drawPlanes(g);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 
 		/**
@@ -350,8 +354,9 @@ public class GUIElements extends JFrame {
 		 * drawis the planes
 		 * 
 		 * @param g graphics input
+		 * @throws IOException 
 		 */
-		public void drawPlanes(Graphics g) {
+		public void drawPlanes(Graphics g) throws IOException {
 		    Graphics2D g2d = (Graphics2D) g;
 		    BufferedImage Image;
 		    
@@ -361,23 +366,26 @@ public class GUIElements extends JFrame {
 		    String url = imageLocation[rand.nextInt(imageLocation.length)];
 		    
 		    // Load the image using the classloader to avoid issues with file paths
-		    try {
-		        Image = ImageIO.read(getClass().getResource(url));
-		    } catch (IOException e) {
-		        System.out.println("Error: " + e);
-		    }
+
+	        Image = ImageIO.read(getClass().getResource(url));
 		    
 		    for (PlaneAttributes plane : tower.getPlanes()) {
 		        double xPlane = plane.getPosition()[0];
 		        double yPlane = plane.getPosition()[1];
-		        Rectangle planeVisual = new Rectangle((int) xPlane, (int) yPlane, 28, 28);
-		        System.out.println(plane.getDirection());
+		        double anglePlane = plane.getDirection();
+		        ;
+		        Rectangle planeVisual = new Rectangle((int) xPlane, (int) yPlane, Image.getWidth(), Image.getHeight());
 		        
-		        AffineTransform tx = AffineTransform.getRotateInstance(plane.getDirection(), xPlane, yPlane);
-		        AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
+		        AffineTransform transform = new AffineTransform();
 		        
-		        // Draw the plane image if it's loaded successfully
-		        g2d.drawImage(Image, null), xPlane, yPlane, this);
+		        double rotationRequired = Math.toRadians(anglePlane); // Example rotation in degrees
+
+		        transform.rotate(rotationRequired, xPlane, yPlane);
+		        g2d.setTransform(transform);
+
+		        // Draw the image after applying the transform
+		        g2d.drawImage(Image, (int) xPlane, (int) yPlane, null);
+		        g2d.setTransform(g2d.getDeviceConfiguration().getDefaultTransform());
 		    }
 		}
 
