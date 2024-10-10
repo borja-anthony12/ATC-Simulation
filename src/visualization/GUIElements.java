@@ -284,6 +284,8 @@ public class GUIElements extends JFrame {
 		@Override
 		protected void paintComponent(Graphics g) {
 			super.paintComponent(g);
+			
+			
 
 			drawTaxiWays(g, ((windowWidth - RUNWAY_WIDTH) / 2) - 85, ((windowHeight - RUNWAY_HEIGHT) / 2) - 160,
 					TAXIWAY_WIDTH, RUNWAY_HEIGHT, RUNWAY_ROTATION, Color.DARK_GRAY); // Draws parallel taxi way above
@@ -373,13 +375,24 @@ public class GUIElements extends JFrame {
 		        double xPlane = plane.getPosition()[0];
 		        double yPlane = plane.getPosition()[1];
 		        double anglePlane = -plane.getDirection();
-		        
-		        AffineTransform transform = new AffineTransform();
-		        
 		        double rotationRequired = Math.toRadians(anglePlane); // Example rotation in degrees
-
-		        transform.rotate(rotationRequired, xPlane, yPlane); // This is breaking the offset of the plane
-		        g2d.setTransform(transform);
+		        
+				double centreXPlane = xPlane + (Image.getWidth() / 2); // Centres the runway on the X axis
+				double centreYPLane = yPlane + (Image.getHeight() / 2); // Centres the runway on the Y axis
+		        
+		       
+		        
+		        g2d.drawRect((int) xPlane, (int) yPlane, Image.getWidth(), Image.getHeight());
+		        
+		        g2d.translate((int) xPlane, (int) yPlane);
+		        g2d.rotate(rotationRequired); // This is breaking the offset of the plane
+		        g2d.translate((int) -xPlane, (int) -yPlane);
+		        
+//		        g2d.drawRect((int) xPlane, (int) yPlane, Image.getWidth(), Image.getHeight());
+		        
+		        
+		        
+//		        g2d.drawRect((int) xPlane, (int) yPlane, Image.getWidth(), Image.getHeight());
 
 		        // Draw the image after applying the transform
 		        g2d.drawImage(Image, (int) xPlane - (Image.getWidth() / 2), (int) yPlane - (Image.getHeight() / 2), null);
