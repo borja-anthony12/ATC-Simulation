@@ -383,7 +383,7 @@ public class GUIElements extends JFrame {
 		        g2d.setTransform(transform);
 
 		        // Draw the image after applying the transform
-		        g2d.drawImage(Image, (int) xPlane - (Image.getWidth() / 2), (int) yPlane, null);
+		        g2d.drawImage(Image, (int) xPlane - (Image.getWidth() / 2), (int) yPlane - (Image.getHeight() / 2), null);
 		        
 		        g2d.setTransform(g2d.getDeviceConfiguration().getDefaultTransform());
 		    }
