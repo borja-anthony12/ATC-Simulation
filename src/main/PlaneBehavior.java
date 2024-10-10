@@ -5,9 +5,11 @@ public class PlaneBehavior {
 	boolean takeoff = false;
 	boolean landing = false;
 	boolean cruise = false;
+	//PlaneAttributes plane = new PlaneAttributes();
 	public void takeoff(boolean takeoff) {
 		takeoff = true;
-		//one.upVelocity(vel);
+		//plane.move(5,-2.9);
+		
 	}
 	
 	public void landing(boolean landing) {

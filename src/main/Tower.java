@@ -94,6 +94,7 @@ public class Tower {
 	public void spawnPlane() {
 		PlaneAttributes plane = new PlaneAttributes();
 		planes.add(plane);
+		plane.turn(300);
 	}
 	
 	/**

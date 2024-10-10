@@ -18,10 +18,15 @@ public class PlaneAttributes extends PlaneBehavior {
 	int ran;
 
 	public PlaneAttributes() {
-		x = 200;
-		y = 200;
+		/*x = 155;
+		y = 375;
+		z = 300;*/
+		x = 720;
+		y = 305;
 		z = 300;
 		dir = 0;
+		
+		
 	}
 
 	// make a list of letters and choose a random one
@@ -57,8 +62,6 @@ public class PlaneAttributes extends PlaneBehavior {
 	public void upVelocity(double vel, boolean takeoff) {
 
 		if (vel < 500) {
-			// speed is square root of height
-			// height is speed squared
 
 			vel += 2.5;
 

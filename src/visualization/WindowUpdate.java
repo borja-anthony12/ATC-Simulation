@@ -18,7 +18,8 @@ public class WindowUpdate extends JFrame{
 	 */
 	public WindowUpdate(JPanel Panel, Tower tower) {
 		Timer timer = new Timer(Main.UPDATE_INTERAVAL,  new ActionListener() {
-		PlaneAttributes one = new PlaneAttributes();
+		//PlaneAttributes one = new PlaneAttributes();
+		PlaneBehavior two = new PlaneBehavior();
 		int vel;
 		double z;
 		boolean takeoff, landing;
@@ -29,8 +30,9 @@ public class WindowUpdate extends JFrame{
 				
 				
 				for(PlaneAttributes plane: tower.getPlanes()) {
-					plane.move(5, 5);
-					plane.turn(2);
+					plane.move(-5, -2.9);
+					//plane.move(2.5, -1.45);
+					//plane.turn(2);
 				}
 				
 				
