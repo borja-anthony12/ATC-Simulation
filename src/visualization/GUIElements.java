@@ -251,7 +251,7 @@ public class GUIElements extends JFrame {
 		private int gateXPos, gateYPos; // Initialises the gates X and Y
 
 		/* Initialises Airport and Window Components X and Y */
-		private int windowWidth, windowHeight; // Initialises the windows width and height
+		private int windowWidth, windowHeight; // Initialises the windows width (720) and height (600)
 
 		private final int RUNWAY_WIDTH = 40; // Initialises the runway width
 		private final int RUNWAY_HEIGHT = 450; // Initialises the runway height
@@ -295,23 +295,23 @@ public class GUIElements extends JFrame {
 																						// the
 																						// main runway
 
-			drawTaxiWays(g, 103, 231, TAXIWAY_WIDTH, 155, -30, Color.DARK_GRAY);
+			drawTaxiWays(g, ((windowWidth - RUNWAY_WIDTH) / 2) - 237, ((windowHeight - RUNWAY_HEIGHT) / 2) + 156, TAXIWAY_WIDTH, 155, -30, Color.DARK_GRAY);
 
-			drawTaxiWays(g, 150, 201, TAXIWAY_WIDTH, 155, -30, Color.DARK_GRAY);
+			drawTaxiWays(g, ((windowWidth - RUNWAY_WIDTH) / 2) - 190, ((windowHeight - RUNWAY_HEIGHT) / 2) + 126, TAXIWAY_WIDTH, 155, -30, Color.DARK_GRAY);
 
-			drawTaxiWays(g, 196, 175, TAXIWAY_WIDTH, 155, -30, Color.DARK_GRAY);
+			drawTaxiWays(g, ((windowWidth - RUNWAY_WIDTH) / 2) - 144, ((windowHeight - RUNWAY_HEIGHT) / 2) + 100, TAXIWAY_WIDTH, 155, -30, Color.DARK_GRAY);
 
 			drawTaxiWays(g, (windowWidth - BUILDING_WIDTH) / 2 - 30, (windowHeight - BUILDING_HEIGHT) / 2 + 30,
 					BUILDING_WIDTH, 155, -30, Color.DARK_GRAY);
 
 			// Checks the runway amount and makes sure that it's not greater than two
 			if (runwayAmount > 1 && runwayAmount <= 2) {
-				drawTaxiWays(g, 510, 20, TAXIWAY_WIDTH, 260, 150, Color.DARK_GRAY);
-				drawTaxiWays(g, 196, 50, TAXIWAY_WIDTH, 155, 30, Color.DARK_GRAY);
+				drawTaxiWays(g, ((windowWidth - RUNWAY_WIDTH) / 2) + 170, ((windowHeight - RUNWAY_HEIGHT) / 2) - 50, TAXIWAY_WIDTH, 260, 150, Color.DARK_GRAY);
+				drawTaxiWays(g, ((windowWidth - RUNWAY_WIDTH) / 2) - 144, ((windowHeight - RUNWAY_HEIGHT) / 2) - 25, TAXIWAY_WIDTH, 155, 30, Color.DARK_GRAY);
 				drawRunways(g, RUNWAY_ROTATION, -60, -100); // Creates the first runway
 				drawRunways(g, -RUNWAY_ROTATION, 40, -155); // Creates the second runway
 			} else { // If RUNWAY_AMOUNT is less than 1 it draws the taxiway and than runway
-				drawTaxiWays(g, 478, 13, TAXIWAY_WIDTH, 159, 150, Color.DARK_GRAY);
+				drawTaxiWays(g,  ((windowWidth - RUNWAY_WIDTH) / 2) + 138, ((windowHeight - RUNWAY_HEIGHT) / 2) - 62, TAXIWAY_WIDTH, 159, 150, Color.DARK_GRAY);
 				drawRunways(g, RUNWAY_ROTATION, -60, -100); // Creates the first runway
 			}
 
@@ -322,7 +322,6 @@ public class GUIElements extends JFrame {
 			try {
 				drawPlanes(g);
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -366,20 +365,20 @@ public class GUIElements extends JFrame {
 		    
 		    String url = imageLocation[rand.nextInt(imageLocation.length)];
 		    
-		    // Load the image using the classloader to avoid issues with file paths
+		    // Load the image using the class loader to avoid issues with file paths
 
 	        Image = ImageIO.read(getClass().getResource(url));
 		    
 		    for (PlaneAttributes plane : tower.getPlanes()) {
 		        double xPlane = plane.getPosition()[0];
 		        double yPlane = plane.getPosition()[1];
-		        double anglePlane = plane.getDirection();
+		        double anglePlane = -plane.getDirection();
 		        
 		        AffineTransform transform = new AffineTransform();
 		        
 		        double rotationRequired = Math.toRadians(anglePlane); // Example rotation in degrees
 
-		        transform.rotate(rotationRequired, xPlane, yPlane);
+		        transform.rotate(rotationRequired, xPlane, yPlane); // This is breaking the offset of the plane
 		        g2d.setTransform(transform);
 
 		        // Draw the image after applying the transform
