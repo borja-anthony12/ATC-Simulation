@@ -18,8 +18,6 @@ import javax.swing.*;
 
 import src.main.*;
 
-
-
 /**
  * Class which creates all of the ATC Simulation Visuals
  */
@@ -233,17 +231,14 @@ public class GUIElements extends JFrame {
 	 */
 	private class AirportPanel extends JPanel {
 		private static final long serialVersionUID = 2853523647566452733L;
+
+		private String[] imageLocation = { "/plane-images/plane-blue.png", "/plane-images/plane-jared.png",
+				"/plane-images/plane-cyan.png", "/plane-images/plane-green.png", "/plane-images/plane-purple.png",
+				"/plane-images/plane-nolan.png", "/plane-images/plane-white.png", "/plane-images/plane-will.png" };
 		
-		private String[] imageLocation = {
-				"/plane-images/plane-blue.png",
-				"/plane-images/plane-jared.png",
-				"/plane-images/plane-cyan.png",
-				"/plane-images/plane-green.png",
-				"/plane-images/plane-purple.png",
-				"/plane-images/plane-nolan.png",
-				"/plane-images/plane-white.png",
-				"/plane-images/plane-will.png"
-		};
+		private final Color taxiWayColour = Color.DARK_GRAY;
+		private final Color runwayColour = Color.GRAY;
+		private final Color buildingColour = Color.LIGHT_GRAY;
 
 		/* Initialises Airports X & Y positions */
 		private int runwayXPos, runwayYPos; // Initialises the runways X and Y
@@ -262,6 +257,7 @@ public class GUIElements extends JFrame {
 
 		private final int BUILDING_WIDTH = 340; // Initialises the building width
 		private final int BUILDING_HEIGHT = 110; // Initialises the building height
+		private final int BUILDING_ROTATION = -30;
 
 		private final int TAXIWAY_WIDTH = RUNWAY_WIDTH / 2;
 
@@ -284,36 +280,40 @@ public class GUIElements extends JFrame {
 		@Override
 		protected void paintComponent(Graphics g) {
 			super.paintComponent(g);
-			
-			
 
 			drawTaxiWays(g, ((windowWidth - RUNWAY_WIDTH) / 2) - 85, ((windowHeight - RUNWAY_HEIGHT) / 2) - 160,
-					TAXIWAY_WIDTH, RUNWAY_HEIGHT, RUNWAY_ROTATION, Color.DARK_GRAY); // Draws parallel taxi way above
+					TAXIWAY_WIDTH, RUNWAY_HEIGHT, RUNWAY_ROTATION); // Draws parallel taxi way above
 																						// the
 																						// main runway
 
 			drawTaxiWays(g, ((windowWidth - RUNWAY_WIDTH) / 2) - 15, ((windowHeight - RUNWAY_HEIGHT) / 2) - 40,
-					TAXIWAY_WIDTH, RUNWAY_HEIGHT, RUNWAY_ROTATION, Color.DARK_GRAY); // Draws parallel taxi way below
+					TAXIWAY_WIDTH, RUNWAY_HEIGHT, RUNWAY_ROTATION); // Draws parallel taxi way below
 																						// the
 																						// main runway
 
-			drawTaxiWays(g, ((windowWidth - RUNWAY_WIDTH) / 2) - 237, ((windowHeight - RUNWAY_HEIGHT) / 2) + 156, TAXIWAY_WIDTH, 155, -30, Color.DARK_GRAY);
+			drawTaxiWays(g, ((windowWidth - RUNWAY_WIDTH) / 2) - 237, ((windowHeight - RUNWAY_HEIGHT) / 2) + 156,
+					TAXIWAY_WIDTH, 155, -30);
 
-			drawTaxiWays(g, ((windowWidth - RUNWAY_WIDTH) / 2) - 190, ((windowHeight - RUNWAY_HEIGHT) / 2) + 126, TAXIWAY_WIDTH, 155, -30, Color.DARK_GRAY);
+			drawTaxiWays(g, ((windowWidth - RUNWAY_WIDTH) / 2) - 190, ((windowHeight - RUNWAY_HEIGHT) / 2) + 126,
+					TAXIWAY_WIDTH, 155, -30);
 
-			drawTaxiWays(g, ((windowWidth - RUNWAY_WIDTH) / 2) - 144, ((windowHeight - RUNWAY_HEIGHT) / 2) + 100, TAXIWAY_WIDTH, 155, -30, Color.DARK_GRAY);
+			drawTaxiWays(g, ((windowWidth - RUNWAY_WIDTH) / 2) - 144, ((windowHeight - RUNWAY_HEIGHT) / 2) + 100,
+					TAXIWAY_WIDTH, 155, -30);
 
 			drawTaxiWays(g, (windowWidth - BUILDING_WIDTH) / 2 - 30, (windowHeight - BUILDING_HEIGHT) / 2 + 30,
-					BUILDING_WIDTH, 155, -30, Color.DARK_GRAY);
+					BUILDING_WIDTH, 155, -30);
 
 			// Checks the runway amount and makes sure that it's not greater than two
 			if (runwayAmount > 1 && runwayAmount <= 2) {
-				drawTaxiWays(g, ((windowWidth - RUNWAY_WIDTH) / 2) + 170, ((windowHeight - RUNWAY_HEIGHT) / 2) - 50, TAXIWAY_WIDTH, 260, 150, Color.DARK_GRAY);
-				drawTaxiWays(g, ((windowWidth - RUNWAY_WIDTH) / 2) - 144, ((windowHeight - RUNWAY_HEIGHT) / 2) - 25, TAXIWAY_WIDTH, 155, 30, Color.DARK_GRAY);
+				drawTaxiWays(g, ((windowWidth - RUNWAY_WIDTH) / 2) + 170, ((windowHeight - RUNWAY_HEIGHT) / 2) - 50,
+						TAXIWAY_WIDTH, 260, 150);
+				drawTaxiWays(g, ((windowWidth - RUNWAY_WIDTH) / 2) - 144, ((windowHeight - RUNWAY_HEIGHT) / 2) - 25,
+						TAXIWAY_WIDTH, 155, 30);
 				drawRunways(g, RUNWAY_ROTATION, -60, -100); // Creates the first runway
 				drawRunways(g, -RUNWAY_ROTATION, 40, -155); // Creates the second runway
 			} else { // If RUNWAY_AMOUNT is less than 1 it draws the taxiway and than runway
-				drawTaxiWays(g,  ((windowWidth - RUNWAY_WIDTH) / 2) + 138, ((windowHeight - RUNWAY_HEIGHT) / 2) - 62, TAXIWAY_WIDTH, 159, 150, Color.DARK_GRAY);
+				drawTaxiWays(g, ((windowWidth - RUNWAY_WIDTH) / 2) + 138, ((windowHeight - RUNWAY_HEIGHT) / 2) - 62,
+						TAXIWAY_WIDTH, 159, 150);
 				drawRunways(g, RUNWAY_ROTATION, -60, -100); // Creates the first runway
 			}
 
@@ -352,56 +352,65 @@ public class GUIElements extends JFrame {
 
 		}
 
-		/**
-		 * drawis the planes
-		 * 
-		 * @param g graphics input
-		 * @throws IOException 
-		 */
-		public void drawPlanes(Graphics g) throws IOException {
-		    Graphics2D g2d = (Graphics2D) g;
-		    BufferedImage Image;
-		    
-		    Random rand = new Random();
-		    // Generate a random index for the image
-		    
-		    String url = imageLocation[rand.nextInt(imageLocation.length)];
-		    
-		    // Load the image using the class loader to avoid issues with file paths
-
-	        Image = ImageIO.read(getClass().getResource(url));
-		    
-		    for (PlaneAttributes plane : tower.getPlanes()) {
-		        double xPlane = plane.getPosition()[0];
-		        double yPlane = plane.getPosition()[1];
-		        double anglePlane = -plane.getDirection();
-		        double rotationRequired = Math.toRadians(anglePlane); // Example rotation in degrees
-		        
-				double centreXPlane = xPlane + (Image.getWidth() / 2); // Centres the runway on the X axis
-				double centreYPLane = yPlane + (Image.getHeight() / 2); // Centres the runway on the Y axis
-		        
-		       
-		        
-		        g2d.drawRect((int) xPlane, (int) yPlane, Image.getWidth(), Image.getHeight());
-		        
-		        g2d.translate((int) xPlane, (int) yPlane);
-		        g2d.rotate(rotationRequired); // This is breaking the offset of the plane
-		        g2d.translate((int) -xPlane, (int) -yPlane);
-		        
-//		        g2d.drawRect((int) xPlane, (int) yPlane, Image.getWidth(), Image.getHeight());
-		        
-		        
-		        
-//		        g2d.drawRect((int) xPlane, (int) yPlane, Image.getWidth(), Image.getHeight());
-
-		        // Draw the image after applying the transform
-		        g2d.drawImage(Image, (int) xPlane - (Image.getWidth() / 2), (int) yPlane - (Image.getHeight() / 2), null);
-		        
-		        g2d.setTransform(g2d.getDeviceConfiguration().getDefaultTransform());
-		    }
+		public void rotateObject(Graphics2D g2d, int xPos, int yPos, int rotation) {
+			g2d.translate(xPos, yPos);
+			g2d.rotate(Math.toRadians(rotation));
+			g2d.translate(-xPos, -yPos);
 		}
 
+		public void drawObject(Graphics2D g2d, Rectangle visual) {
+			g2d.draw(visual);
+			g2d.fill(visual);
+		}
 
+		public void resetTransformation(Graphics2D g2d) {
+			g2d.setTransform(g2d.getDeviceConfiguration().getDefaultTransform());
+		}
+
+		public int[] centreObject(int xPos, int yPos, int width, int height) {
+			int centreXPos = xPos + (width / 2);
+			int centreYPos = yPos + (height / 2);
+
+			int[] centrePos = { centreXPos, centreYPos };
+
+			return centrePos;
+		}
+
+		/**
+		 * draws the planes
+		 * 
+		 * @param g graphics input
+		 * @throws IOException
+		 */
+		public void drawPlanes(Graphics g) throws IOException {
+			Graphics2D g2d = (Graphics2D) g;
+
+			BufferedImage Image;
+
+			Random rand = new Random();
+
+			String url = imageLocation[rand.nextInt(imageLocation.length)];
+
+			Image = ImageIO.read(getClass().getResource(url));
+
+			for (PlaneAttributes plane : tower.getPlanes()) {
+				double xPlane = plane.getPosition()[0];
+				double yPlane = plane.getPosition()[1];
+				double anglePlane = -plane.getDirection();
+
+				System.out.println("Created plane");
+
+//		        g2d.drawRect((int) xPlane, (int) yPlane, Image.getWidth(), Image.getHeight()); // Check plane position 
+
+				rotateObject(g2d, (int) xPlane, (int) yPlane, (int) anglePlane);
+
+				// Draw the image after applying the transform
+				g2d.drawImage(Image, (int) xPlane - (Image.getWidth() / 2), (int) yPlane - (Image.getHeight() / 2),
+						null);
+
+				resetTransformation(g2d);
+			}
+		}
 
 		/**
 		 * Draws runways and calculates the position/centres the runways
@@ -419,16 +428,15 @@ public class GUIElements extends JFrame {
 																	// and offsets by xPos
 			runwayYPos = (windowHeight - RUNWAY_HEIGHT) / 2 + yPos; // Calculates the runway's Y position on the Y axis
 																	// and offsets by yPos
+			int[] getCentredPos = centreObject(runwayXPos, runwayYPos, RUNWAY_WIDTH, RUNWAY_HEIGHT);
 
 			/* Calculates the runway's position when centred */
-			int centreXRunway = runwayXPos + (RUNWAY_WIDTH / 2); // Centres the runway on the X axis
-			int centreYRunway = runwayYPos + (RUNWAY_HEIGHT / 2); // Centres the runway on the Y axis
+			int centreXRunway = getCentredPos[0]; // Centres the runway on the X axis
+			int centreYRunway = getCentredPos[1]; // Centres the runway on the Y axis
 
-			g2d.setColor(Color.GRAY); // Sets the runway colour to dark gray
-			g2d.translate(centreXRunway, centreYRunway); // Translates the runway to the centre
-			g2d.rotate(Math.toRadians(rotation)); // Converts rotation to radians and rotates the runway
-			g2d.translate(-centreXRunway, -centreYRunway); // Translates the runway back to the centre (This was added
-															// due to the runway being in a random position)
+			g2d.setColor(runwayColour); // Sets the runway colour to dark gray
+
+			rotateObject(g2d, centreXRunway, centreYRunway, rotation);
 
 			Rectangle runwayVisual = new Rectangle(runwayXPos, runwayYPos, RUNWAY_WIDTH, RUNWAY_HEIGHT); // Creates the
 																											// runway
@@ -437,14 +445,10 @@ public class GUIElements extends JFrame {
 																											// runway
 																											// width and
 																											// height
-
-			g2d.draw(runwayVisual); // Draws the runway on the panel
-			g2d.fill(runwayVisual); // Fills the runway on the panel
+			drawObject(g2d, runwayVisual);
 
 			// Resets any canvas transformation
-			g2d.setTransform(g2d.getDeviceConfiguration().getDefaultTransform()); // Added due to when building, gates
-																					// and taxi way weren't in predicted
-																					// position
+			resetTransformation(g2d);
 		}
 
 		/**
@@ -461,19 +465,19 @@ public class GUIElements extends JFrame {
 			buildingXPos = (windowWidth - BUILDING_WIDTH) / 2; // Calculates the buildings X position on the X axis
 			buildingYPos = (windowHeight - (BUILDING_HEIGHT)) / 2 + offsetY; // Calculates the buildings Y position on
 																				// the Y axis and offsets by 100
-
+			int[] getCentredPos = centreObject(buildingXPos, buildingYPos, 350, 115);
+			
 			/* Calculates the buildings position when centred */
-			int centreXBuilding = buildingXPos + (350 / 2); // Calculates the building centre. (350 is what got to the
+			int centreXBuilding = getCentredPos[0]; // Calculates the building centre. (350 is what got to the
 															// position I wanted)
-			int centreYBuilding = buildingYPos + (115 / 2); // Calculates the building centre. (115 is what got the the
+			int centreYBuilding = getCentredPos[1]; // Calculates the building centre. (115 is what got the the
 															// position on I wanted)
 
-			g2d.setColor(Color.LIGHT_GRAY); // Sets the building colour to light gray
-			g2d.translate(centreXBuilding, centreYBuilding); // Translates the building to the centre
-			g2d.rotate(Math.toRadians(-30)); // Takes in -30 degrees and converts to radians and rotates building
-			g2d.translate(-centreXBuilding, -centreYBuilding); // Translates the building back to the centre
+			g2d.setColor(buildingColour); // Sets the building colour to light gray
 
-			Rectangle Building = new Rectangle(buildingXPos, buildingYPos, BUILDING_WIDTH, BUILDING_HEIGHT); // Creates
+			rotateObject(g2d, centreXBuilding, centreYBuilding, BUILDING_ROTATION);
+
+			Rectangle building = new Rectangle(buildingXPos, buildingYPos, BUILDING_WIDTH, BUILDING_HEIGHT); // Creates
 																												// the
 																												// building
 																												// and
@@ -485,10 +489,9 @@ public class GUIElements extends JFrame {
 																												// and
 																												// height
 
-			g2d.draw(Building); // Draws the building on the panel
-			g2d.fill(Building); // Fills the building on the panel
+			drawObject(g2d, building);
 
-			g2d.setTransform(g2d.getDeviceConfiguration().getDefaultTransform()); // Resets any canvas transformation
+			resetTransformation(g2d);
 		}
 
 		/**
@@ -502,16 +505,16 @@ public class GUIElements extends JFrame {
 			final int gateOffsetY = -44; // Offsets the gate on the Y axis
 			final int gateOffsetX = 2; // Offsets the gate on the X axis
 			final int gateSpacing = 85; // Determines the spacing between each gate
-
+			
+			int[] getCentredPos = centreObject(buildingXPos, buildingYPos, BUILDING_WIDTH, BUILDING_HEIGHT);
+			
 			/* Calculates the Gates centre */
-			int centerXBuilding = buildingXPos + (BUILDING_WIDTH / 2); // Calculates the buildings X position on the X
+			int centreXBuilding = getCentredPos[0]; // Calculates the buildings X position on the X
 																		// axis
-			int centerYBuilding = buildingYPos + (BUILDING_HEIGHT / 2); // Calculates the buildings Y position on the Y
+			int centreYBuilding = getCentredPos[1]; // Calculates the buildings Y position on the Y
 																		// axis
 
-			g2d.translate(centerXBuilding, centerYBuilding); // Translates the gate to the centre
-			g2d.rotate(Math.toRadians(-30)); // Converts -30 to degrees and converts to radians and rotates building
-			g2d.translate(-centerXBuilding, -centerYBuilding); // Translates the gate back to the centre
+			rotateObject(g2d, centreXBuilding, centreYBuilding, BUILDING_ROTATION);
 
 			// Loop to create multiple gates evenly spaced along the building
 			for (int i = 0; i < gateAmount; i++) {
@@ -519,15 +522,14 @@ public class GUIElements extends JFrame {
 				gateXPos = buildingXPos + (i * gateSpacing) - gateOffsetX; // Evenly spaces gates along the building
 				gateYPos = buildingYPos + gateOffsetY; // Position gates relative to the building
 
-				g2d.setColor(Color.LIGHT_GRAY); // Sets the gates colour to light gray
-				Rectangle Gate = new Rectangle(gateXPos, gateYPos, GATE_WIDTH, GATE_HEIGHT); // Creates the gate and
+				g2d.setColor(buildingColour); // Sets the gates colour to light gray
+				Rectangle gate = new Rectangle(gateXPos, gateYPos, GATE_WIDTH, GATE_HEIGHT); // Creates the gate and
 																								// sets the X, Y, gate
 																								// width and height
-				g2d.draw(Gate); // Draws gate
-				g2d.fill(Gate); // Fills gate
+				drawObject(g2d, gate);
 			}
 
-			g2d.setTransform(g2d.getDeviceConfiguration().getDefaultTransform()); // Resets any canvas transformation
+			resetTransformation(g2d);
 		}
 
 		/**
@@ -535,23 +537,23 @@ public class GUIElements extends JFrame {
 		 * 
 		 * @param g
 		 */
-		public void drawTaxiWays(Graphics g, int xPos, int yPos, int width, int height, int rotationAngle, Color c) {
+		public void drawTaxiWays(Graphics g, int xPos, int yPos, int width, int height, int rotationAngle) {
 			Graphics2D g2d = (Graphics2D) g;
+			
+			int[] getCentredPos = centreObject(xPos, yPos, width, height);
+			
+			int centreX = getCentredPos[0];
+			int centreY = getCentredPos[1];
 
-			double centerX = xPos + (width / 2);
-			int centerY = yPos + (height / 2);
-
-			g2d.translate(centerX, centerY);
-			g2d.rotate(Math.toRadians(rotationAngle));
-			g2d.translate(-centerX, -centerY);
+			rotateObject(g2d, centreX, centreY, rotationAngle);
 
 			Rectangle taxiWayVisual = new Rectangle(xPos, yPos, width, height);
 
-			g2d.setColor(c);
-			g2d.draw(taxiWayVisual);
-			g2d.fill(taxiWayVisual);
+			g2d.setColor(taxiWayColour);
 
-			g2d.setTransform(g2d.getDeviceConfiguration().getDefaultTransform()); // Resets any canvas transformation
+			drawObject(g2d, taxiWayVisual);
+
+			resetTransformation(g2d);
 		}
 	}
 }
