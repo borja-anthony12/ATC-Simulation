@@ -374,8 +374,6 @@ public class GUIElements extends JFrame {
 		        double xPlane = plane.getPosition()[0];
 		        double yPlane = plane.getPosition()[1];
 		        double anglePlane = plane.getDirection();
-		        ;
-		        Rectangle planeVisual = new Rectangle((int) xPlane, (int) yPlane, Image.getWidth(), Image.getHeight());
 		        
 		        AffineTransform transform = new AffineTransform();
 		        
@@ -385,7 +383,8 @@ public class GUIElements extends JFrame {
 		        g2d.setTransform(transform);
 
 		        // Draw the image after applying the transform
-		        g2d.drawImage(Image, (int) xPlane, (int) yPlane, null);
+		        g2d.drawImage(Image, (int) xPlane - (Image.getWidth() / 2), (int) yPlane, null);
+		        
 		        g2d.setTransform(g2d.getDeviceConfiguration().getDefaultTransform());
 		    }
 		}
