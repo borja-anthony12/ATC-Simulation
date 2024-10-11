@@ -9,7 +9,6 @@ import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.net.URL;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -303,7 +302,6 @@ public class GUIElements extends JFrame {
 				"/plane-images/plane-nolan.png", "/plane-images/plane-white.png", "/plane-images/plane-will.png" };
 
 		private Graphics2D g2d;
-		private Tower tower;
 
 		/* Initialises Airport and Window Components X and Y */
 		private int windowWidth, windowHeight; // Initialises the windows width (720) and height (600)
@@ -338,7 +336,6 @@ public class GUIElements extends JFrame {
 		protected void paintComponent(Graphics g) {
 			super.paintComponent(g);
 			g2d = (Graphics2D) g;
-			tower = new Tower();
 
 			int taxiWayXPos = taxiWayXPos(windowWidth, RUNWAY_WIDTH);
 			int taxiWayYPos = taxiWayYPos(windowHeight, RUNWAY_HEIGHT);
@@ -528,6 +525,7 @@ public class GUIElements extends JFrame {
 
 			Image = ImageIO.read(getClass().getResource(url));
 			
+			System.out.println("Lol");
 			
 			for (PlaneAttributes plane : tower.getPlanes()) {
 				double xPlane = plane.getPosition()[0];
