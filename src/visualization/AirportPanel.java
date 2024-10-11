@@ -154,7 +154,7 @@ class AirportPanel extends JPanel {
 		if (runwayAmount > 1 && runwayAmount <= 2) {
 			drawALLTaxiWays(taxiWayData);
 
-			darwALLRunways(runwayData);
+			drawALLRunways(runwayData);
 		} else { // If RUNWAY_AMOUNT is less than 1 it draws the taxi way and than runway
 			drawTaxiWays(taxiWayXPos + 138, taxiWayYPos - 62, TAXIWAY_WIDTH, 159, 150);
 
@@ -178,7 +178,7 @@ class AirportPanel extends JPanel {
 	 * 
 	 * @param runwayData takes in runway data
 	 */
-	private void darwALLRunways(int[][] runwayData) {
+	private void drawALLRunways(int[][] runwayData) {
 		for (int[] data : runwayData) {
 			drawRunways(data[0], data[1], data[2]);
 		}
@@ -274,7 +274,8 @@ class AirportPanel extends JPanel {
 		String url = imageLocation[rand.nextInt(imageLocation.length)];
 
 		Image = ImageIO.read(getClass().getResource(url));
-
+		
+		
 		for (PlaneAttributes plane : tower.getPlanes()) {
 			double xPlane = plane.getPosition()[0];
 			double yPlane = plane.getPosition()[1];
@@ -282,7 +283,7 @@ class AirportPanel extends JPanel {
 
 			System.out.println("Created plane");
 
-//	        g2d.drawRect((int) xPlane, (int) yPlane, Image.getWidth(), Image.getHeight()); // Check plane position 
+	        g2d.drawRect((int) xPlane, (int) yPlane, Image.getWidth(), Image.getHeight()); // Check plane position 
 
 			rotateObject(g2d, (int) xPlane, (int) yPlane, (int) anglePlane);
 

@@ -104,7 +104,9 @@ public class GUIElements extends JFrame {
 																				// airportVisuals
 
 		airportVisuals.add(createChangeRunwayAmount()); // Adds changeRunwayAmount to airportVisuals
-
+		
+		
+			
 		add(airportVisuals); // Add the runway panel to the current frame
 		setVisible(true); // Sets window to visible
 
@@ -220,6 +222,7 @@ public class GUIElements extends JFrame {
 				planeAmountDisplay.setText(String.valueOf(planeAmount)); // Sets the planeAmountDisplay to the value of
 																			// planeAmount
 				tower.spawnPlane(); // Spawns plane and places it on JPanel
+				airportVisuals.add(addPlane);
 			}
 
 		});
