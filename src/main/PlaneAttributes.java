@@ -115,6 +115,10 @@ public class PlaneAttributes extends PlaneBehavior {
 		}
 		return z;
 	}
+	
+	public double getVel() {
+		return vel;
+	}
 
 	/*
 	 * turns the plane
