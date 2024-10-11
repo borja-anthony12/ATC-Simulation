@@ -18,15 +18,14 @@ public class PlaneAttributes extends PlaneBehavior {
 	int ran;
 
 	public PlaneAttributes() {
-		/*x = 155;
-		y = 375;
-		z = 300;*/
+		/*
+		 * x = 155; y = 375; z = 300;
+		 */
 		x = 720;
 		y = 305;
 		z = 300;
 		dir = 0;
-		
-		
+
 	}
 
 	// make a list of letters and choose a random one
@@ -79,9 +78,10 @@ public class PlaneAttributes extends PlaneBehavior {
 			landing = false;
 		}
 	}
-	
+
 	/**
 	 * moves the plane
+	 * 
 	 * @param x: change of x
 	 * @param y: change of y
 	 */
@@ -128,7 +128,7 @@ public class PlaneAttributes extends PlaneBehavior {
 
 		return coords;
 	}
-	
+
 	public double getDirection() {
 		return dir;
 	}
