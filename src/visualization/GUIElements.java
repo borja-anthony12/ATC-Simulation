@@ -29,9 +29,9 @@ public class GUIElements extends JFrame {
 	JComboBox<Integer> changeRunwayAmount; // Creates an JCombox for changing the amount of planes
 
 	// Creates JLabels
-	JLabel gateAmountDisplay; // Creates a JLabel for displaying the amount of gates (Gate Amount: )
-	JLabel runwayAmountDisplay; // Creates a JLabel for displaying the amount of runways (Runway Amount: )
-	JLabel planeAmountDisplay; // Creates a JLabel for displaying the amount of planes (0)
+	JLabel planeAmountDisplay = new JLabel(); // Creates a JLabel for displaying the amount of planes (0)
+	JLabel gateAmountDisplay = new JLabel(); // Creates a JLabel for displaying the amount of gates (Gate Amount: )
+	JLabel runwayAmountDisplay = new JLabel(); // Creates a JLabel for displaying the amount of runways (Runway Amount: )
 
 	// Creates JButtons
 	JButton addPlane; // Creates a JButton for adding a plane
@@ -91,115 +91,20 @@ public class GUIElements extends JFrame {
 		setLocationRelativeTo(null); // Sets the Location of the window to the centre of the screen
 
 		airportVisuals = new AirportPanel(windowWidth, windowHeight); // Creates an instance of JPanel by calling
-																		// AirportPanel
+																		// AirportPanel		
+		airportVisuals.add(createAddPlane()); // Adds addPlane to airportVisuals
 
-		// Creates addPlane Button
-		addPlane = new JButton("Add Plane"); // Creates a JButton and sets the button text to "Add PLane"
-		// Adds Action Listener to addPLane button. When button is pressed adds one to
-		// planeAmount and spawns plane
-		addPlane.addActionListener(new ActionListener() {
+		airportVisuals.add(createLabel(planeAmountDisplay, String.valueOf(planeAmount))); // Adds planeAmountDisplay to airportVisuals
 
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				planeAmount += 1; // Adds one to planeAmount and sets planeAmount to that value
-				planeAmountDisplay.setText(String.valueOf(planeAmount)); // Sets the planeAmountDisplay to the value of
-																			// planeAmount
-				tower.spawnPlane(); // Spawns plane and places it on JPanel
-			}
+		airportVisuals.add(createRemovePlane()); // Adds removePlane to airportVisuals
 
-		});
+		airportVisuals.add(createLabel(gateAmountDisplay, "Gate Amount:")); // Adds gateAmountDisplay to airportVisuals
 
-		airportVisuals.add(addPlane); // Adds addPlane to airportVisuals
+		airportVisuals.add(createChangeGateAmount()); // Adds changeGateAmount to airportVisuals
 
-		// Creates planeAmountDisplay Label
-		planeAmountDisplay = new JLabel(String.valueOf(planeAmount)); // Creates planeAmountDisplay and sets text to
-																		// planeAmount
-		planeAmountDisplay.setFont(font); // Sets font to font
-		planeAmountDisplay.setForeground(Color.WHITE); // Sets text colour to white
+		airportVisuals.add(createLabel(runwayAmountDisplay, "Runway Amount:")); // Adds runwayAmountDisplay to airportVisuals
 
-		airportVisuals.add(planeAmountDisplay); // Adds planeAmountDisplay to airportVisuals
-
-		// Creates removePlane Button
-		removePlane = new JButton("Remove Plane"); // Creates a JButton and sets the button text to "Remove Plane"
-		// Adds Action Listener to removePLane . When button is pressed it removes one
-		// from planeAmount and removes plane
-		removePlane.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// Checks if plane amount does not equal zero
-				if (planeAmount > 0) {
-					planeAmount -= 1; // Removes one to planeAmount and sets palneAmount to that value
-					tower.despawnPlane();
-					planeAmountDisplay.setText(String.valueOf(planeAmount)); // Sets the planeAmountDisplay to the value
-																				// of planeAmount
-				}
-
-			}
-
-		});
-
-		airportVisuals.add(removePlane); // Adds removePlane to airportVisuals
-
-		// Creates gateAmountDisplay label
-		gateAmountDisplay = new JLabel("Gate Amount:"); // Creates Label with text "Gate Amount:"
-
-		gateAmountDisplay.setFont(font); // Sets the font to font
-		gateAmountDisplay.setForeground(Color.WHITE); // Sets text colour to white
-
-		airportVisuals.add(gateAmountDisplay); // Adds gateAmountDisplay to airportVisuals
-
-		// Creates JComboBox for setting the amount of gates
-		changeGateAmount = new JComboBox<Integer>(setGateAmount); // Creates JCombobox (Drop down) and sets the value to
-																	// setGateAmount list
-		changeGateAmount.setSelectedIndex(3); // Sets the start selected index to 3
-
-		// adds ActionListener to changeGateAmount to check how many gates there will be
-		changeGateAmount.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				gateAmount = (int) changeGateAmount.getSelectedItem(); // Sets gateAmount to the selected item from the
-																		// JComboBox(Drop
-																		// down)
-
-			}
-
-		});
-
-		changeGateAmount.setFont(font); // Sets font to font
-
-		airportVisuals.add(changeGateAmount); // Adds changeGateAmount to airportVisuals
-
-		// Creates JLabel for displaying the amount of runways
-		runwayAmountDisplay = new JLabel("Runway Amount:"); // Sets label text to "Runway Amount:"
-
-		runwayAmountDisplay.setFont(font); // Sets the font to font
-		runwayAmountDisplay.setForeground(Color.WHITE); // Sets the text colour to white
-
-		airportVisuals.add(runwayAmountDisplay); // Adds runwayAmountDisplay to airportVisuals
-
-		// Creates a JComboBox for setting the amount of runways
-		changeRunwayAmount = new JComboBox<Integer>(setRunwayAmount);
-
-		changeRunwayAmount.setSelectedIndex(0); // Sets the start selected index to 0
-
-		// Adds ActionListener to changeRunwayAmount to check how many runways there
-		// will be
-		changeRunwayAmount.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				runwayAmount = (int) changeRunwayAmount.getSelectedItem(); // Sets runwayAmount to the selected item
-																			// from the JComboBox (Drop down)
-			}
-		});
-
-		changeRunwayAmount.setFont(font); // Sets font of JComboBox to font
-		changeRunwayAmount.setForeground(Color.WHITE); // Sets the text colour to white
-		changeRunwayAmount.setBackground(Color.DARK_GRAY); // Sets the background colour to dark gray
-
-		airportVisuals.add(changeRunwayAmount); // Adds changeRunwayAmount to airportVisuals
+		airportVisuals.add(createChangeRunwayAmount()); // Adds changeRunwayAmount to airportVisuals
 
 		add(airportVisuals); // Add the runway panel to the current frame
 		setVisible(true); // Sets window to visible
@@ -220,7 +125,108 @@ public class GUIElements extends JFrame {
 		WindowUpdate update = new WindowUpdate(airportVisuals, tower);
 
 	}
+	
+	private JComboBox<Integer> createChangeGateAmount() {
+		// Creates JComboBox for setting the amount of gates
+		changeGateAmount = new JComboBox<Integer>(setGateAmount); // Creates JCombobox (Drop down) and sets the value to
+																	// setGateAmount list
+		changeGateAmount.setSelectedIndex(3); // Sets the start selected index to 3
 
+		// adds ActionListener to changeGateAmount to check how many gates there will be
+		changeGateAmount.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				gateAmount = (int) changeGateAmount.getSelectedItem(); // Sets gateAmount to the selected item from the
+																		// JComboBox(Drop
+																		// down)
+
+			}
+
+		});
+
+		changeGateAmount.setFont(font); // Sets font to font
+		
+		return changeGateAmount;
+	}
+	
+	private JComboBox<Integer> createChangeRunwayAmount() {
+		// Creates JComboBox for setting the amount of gates
+		changeRunwayAmount = new JComboBox<Integer>(setRunwayAmount); // Creates JCombobox (Drop down) and sets the value to
+																	// setGateAmount list
+		changeRunwayAmount.setSelectedIndex(0); // Sets the start selected index to 3
+
+		// adds ActionListener to changeGateAmount to check how many gates there will be
+		changeRunwayAmount.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				runwayAmount = (int) changeRunwayAmount.getSelectedItem(); // Sets gateAmount to the selected item from the
+																		// JComboBox(Drop
+																		// down)
+
+			}
+
+		});
+
+		changeRunwayAmount.setFont(font); // Sets font to font
+		
+		return changeRunwayAmount;
+	}
+	
+	private JLabel createLabel(JLabel label, String text) {
+		// Creates planeAmountDisplay Label
+			label.setText(text); // Creates planeAmountDisplay and sets text to
+																			// planeAmount
+			label.setFont(font); // Sets font to font
+			label.setForeground(Color.WHITE); // Sets text colour to white
+		
+		return label;
+	}
+
+	private JButton createAddPlane() {
+		// Creates addPlane Button
+		addPlane = new JButton("Add Plane"); // Creates a JButton and sets the button text to "Add PLane"
+		// Adds Action Listener to addPLane button. When button is pressed adds one to
+		// planeAmount and spawns plane
+		addPlane.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				planeAmount += 1; // Adds one to planeAmount and sets planeAmount to that value
+				planeAmountDisplay.setText(String.valueOf(planeAmount)); // Sets the planeAmountDisplay to the value of
+																			// planeAmount
+				tower.spawnPlane(); // Spawns plane and places it on JPanel
+			}
+
+		});
+		
+		return addPlane;
+	}
+	
+	private JButton createRemovePlane() {
+		// Creates removePlane Button
+		removePlane = new JButton("Remove Plane"); // Creates a JButton and sets the button text to "Remove Plane"
+		// Adds Action Listener to removePLane . When button is pressed it removes one
+		// from planeAmount and removes plane
+		removePlane.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// Checks if plane amount does not equal zero
+				if (planeAmount > 0) {
+					planeAmount -= 1; // Removes one to planeAmount and sets palneAmount to that value
+					tower.despawnPlane();
+					planeAmountDisplay.setText(String.valueOf(planeAmount)); // Sets the planeAmountDisplay to the value
+																				// of planeAmount
+				}
+
+			}
+
+		});
+		return removePlane;
+	}
+	
 	/**
 	 * Class that extends JPanel and creates runways
 	 */
