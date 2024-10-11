@@ -399,7 +399,6 @@ public class GUIElements extends JFrame {
 		 * @return returns calculated Y value
 		 */
 		private int taxiWayYPos(int windowHeight, int objectHeight) {
-			// TODO Auto-generated method stub
 			return (windowHeight - objectHeight) / 2;
 		}
 
