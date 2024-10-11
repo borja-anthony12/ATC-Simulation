@@ -31,6 +31,9 @@ public class WindowUpdate extends JFrame {
 				for (PlaneAttributes plane : tower.getPlanes()) {
 					plane.move(-5, -2.9);
 					//plane.turn(60);
+					double x = plane.getVel() * Math.sin(90 - plane.getDirection());
+					double y = plane.getVel() * Math.sin(plane.getDirection());
+					plane.move(x, y);
 				}
 				
 				mainPanel.repaint();
