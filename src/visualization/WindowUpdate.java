@@ -29,7 +29,7 @@ public class WindowUpdate extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				
 				for (PlaneAttributes plane : tower.getPlanes()) {
-					//plane.move(-5, -2.9);
+					plane.move(-5, -2.9);
 					//plane.turn(60);
 				}
 				
