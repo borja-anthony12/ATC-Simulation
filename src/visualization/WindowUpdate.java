@@ -27,13 +27,14 @@ public class WindowUpdate extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-
+				
 				for (PlaneAttributes plane : tower.getPlanes()) {
-//					plane.move(-5, -2.9);
-					plane.move(2.5, -1.45);
-					plane.turn(2);
+					//plane.move(-5, -2.9);
+					//plane.turn(60);
 				}
+				
 				mainPanel.repaint();
+				
 
 				/*
 				 * one.takeoff(takeoff); one.landing(landing);

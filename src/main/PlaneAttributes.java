@@ -21,7 +21,7 @@ public class PlaneAttributes extends PlaneBehavior {
 		/*
 		 * x = 155; y = 375; z = 300;
 		 */
-		x = 720;
+		x = 185;
 		y = 305;
 		z = 300;
 		dir = 0;

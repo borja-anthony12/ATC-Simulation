@@ -2,6 +2,7 @@ package src.main;
 
 import java.util.ArrayList;
 
+
 /*
  * Class for handling all logic and detection of crashes
  */
@@ -94,7 +95,7 @@ public class Tower {
 	public void spawnPlane() {
 		PlaneAttributes plane = new PlaneAttributes();
 		planes.add(plane);
-		plane.turn(300);
+		plane.turn(120);
 	}
 	
 	/**
