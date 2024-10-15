@@ -3,146 +3,151 @@ package src.main;
 import java.util.Random;
 
 public class PlaneAttributes extends PlaneBehavior {
-	double x, y, z;
-	double dir = 0;
-	public double vel = 0;
-	double v = 1.1;
-	double accel = 0;
-	double altaccel = 0;
-	double takeoffvel;
-	String a, b, c, d, e;
-	String call;
-	boolean power = false;
+    private static final String[] AIRLINE_CODES = {"AYO",
+            "BYK",
+            "CQY",
+            "DAS",
+            "ETE",
+            "FAS",
+            "GIV",
+            "HMS",
+            "IHR",
+            "JUI",
+            "KVY",
+            "LXE",
+            "MTH",
+            "NRS",
+            "OHP",
+            "PQW",
+            "QTO",
+            "RQU",
+            "SVN",
+            "TDX",
+            "UIM",
+            "VOX",
+            "WZE",
+            "XKF",
+            "YSD",
+            "ZUS"};
 
-	// String[] digits = (a, b, c, d, e);
-	int ran;
+    public double vel = 0;
+    double x, y, z;
+    double dir = 0;
+    double v = 1.1;
+    double accel = 0;
+    double altaccel = 0;
+    double takeoffvel;
+    String callSign;
+    boolean power = false;
 
-	public PlaneAttributes() {
-		/*
-		 * x = 155; y = 375; z = 300;
-		 */
-		x = 185;
-		y = 305;
-		z = 300;
-		dir = 0;
+    public PlaneAttributes() {
+        /*
+         * x = 155; y = 375; z = 300;
+         */
+        this.x = 185;
+        this.y = 305;
+        this.z = 300;
+        this.dir = 0;
+        this.callSign = getCallSign();
+    }
 
-	}
+    // make a list of letters and choose a random one
+    public String getCallSign() {
+        Random rand = new Random();
+        String airlineCode = AIRLINE_CODES[rand.nextInt(AIRLINE_CODES.length)];
+        int flightNumber = rand.nextInt(9999) + 100;
 
-	// make a list of letters and choose a random one
-	public String getCallSign() {
-		// n c f g
-		String[] digits = { a, b, c, d, e };
-		Random r = new Random();
-		ran = r.nextInt(4) + 1;
+        return airlineCode + flightNumber;
+    }
 
-		if (ran == 1) {
-			a = "c";
-		} else if (ran == 2) {
-			a = "f";
-		} else if (ran == 3) {
-			a = "g";
-		} else if (ran == 4) {
-			a = "n";
-		} else {
-			a = "z";
-		}
+    // 160 - 180 mph takeoff speed
+    // increases velocity rate
+    public void upVelocity(double vel, boolean takeoff) {
 
-		for (int i = 1; i < 5; i++) {
-			ran = r.nextInt(10) + 1;
-			digits[i] = Integer.toString(ran);
-		}
-		call = a + "-" + b + c + d + e;
+        if (vel < 500) {
 
-		return call;
-	}
+            vel += 2.5;
 
-	// 160 - 180 mph takeoff speed
-	// increases velocity rate
-	public void upVelocity(double vel, boolean takeoff) {
+        } else if (vel >= 180) {
+            takeoff = false;
+            cruise = true;
+        }
+    }
 
-		if (vel < 500) {
+    // decreases velocity rate
+    public void downVelocity(double vel, boolean landing) {
+        if (vel > 0) {
+            vel -= 2.5;
+        } else if (vel <= 0) {
+            landing = false;
+        }
+    }
 
-			vel += 2.5;
+    /**
+     * moves the plane
+     *
+     * @param x: change of x
+     * @param y: change of y
+     */
+    public void move(double x, double y) {
+        this.x += x;
+        this.y += y;
+    }
 
-		} else if (vel >= 180) {
-			takeoff = false;
-			cruise = true;
-		}
-	}
+    // increases z coordinate
+    public void upAlt(double z) {
 
-	// decreases velocity rate
-	public void downVelocity(double vel, boolean landing) {
-		if (vel > 0) {
-			vel -= 2.5;
-		} else if (vel <= 0) {
-			landing = false;
-		}
-	}
+        if (z < 500 && vel >= 150) {
+            // z *= 1.3;
 
-	/**
-	 * moves the plane
-	 * 
-	 * @param x: change of x
-	 * @param y: change of y
-	 */
-	public void move(double x, double y) {
-		this.x += x;
-		this.y += y;
-	}
+            takeoffvel = vel - 150;
+            z = Math.pow(takeoffvel, 2);
+        }
+    }
 
-	// increases z coordinate
-	public void upAlt(double z) {
+    // reduces z coordinate
+    public void downAlt(double z) {
 
-		if (z < 500 && vel >= 150) {
-			// z *= 1.3;
+        if (z > 0) {
+            z /= 1.4;
+        }
+    }
 
-			takeoffvel = vel - 150;
-			z = Math.pow(takeoffvel, 2);
-		}
-	}
+    public int getAltitude(int z) {
+        if (vel >= 150) {
+            z *= altaccel;
+        }
+        return z;
+    }
 
-	// reduces z coordinate
-	public void downAlt(double z) {
+    public double getVel() {
+        return vel;
+    }
 
-		if (z > 0) {
-			z /= 1.4;
-		}
-	}
+    /*
+     * turns the plane
+     */
+    public void turn(double degrees) {
+        dir += degrees;
+    }
 
-	public int getAltitude(int z) {
-		if (vel >= 150) {
-			z *= altaccel;
-		}
-		return z;
-	}
+    public double[] getPosition() {
+        double[] coords = {x, y, z};
 
-	public double getVel() {
-		return vel;
-	}
+        return coords;
+    }
 
-	/*
-	 * turns the plane
-	 */
-	public void turn(double degrees) {
-		dir += degrees;
-	}
+    /**
+     * returns direction
+     *
+     * @return
+     */
+    public double getDirection() {
+        return dir;
+    }
 
-	public double[] getPosition() {
-		double[] coords = { x, y, z };
-
-		return coords;
-	}
-
-	/**
-	 * returns direction
-	 * @return
-	 */
-	public double getDirection() {
-		return dir;
-	}
-
-	public int getDirectionQuadrant() {
-		int quadrant = (int) Math.floor((dir % 360) / 90) + 1;
-		return quadrant;
-	}
+    public int getDirectionQuadrant() {
+        int quadrant = (int) Math.floor((dir % 360) / 90) + 1;
+        return quadrant;
+    }
 }

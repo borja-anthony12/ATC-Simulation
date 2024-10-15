@@ -1,5 +1,6 @@
 package src.visualization;
 
+import java.util.Objects;
 import java.util.Random;
 
 import java.awt.*;
@@ -24,6 +25,7 @@ public class GUIElements extends JFrame {
 	// Creates instances of classes
 	Tower tower; // Creates an instance of tower class
 	AirportPanel airportVisuals; // Creates an instance of the AirportPanel class
+	PlaneAttributes plane;
 
 	// Creates JComboBox (Creates a drop down)
 	JComboBox<Integer> changeGateAmount; // Creates a JCombox for changing the amount of gates
@@ -66,7 +68,7 @@ public class GUIElements extends JFrame {
 		this.gateAmount = gateAmount; // Sets the gateAmount to gateAmount
 
 		tower = new Tower(); // Creates an instance of tower class
-
+		plane = new PlaneAttributes();
 		window(windowWidth, windowHeight); // Calls the initializeWindow method and creates a window setting the width
 											// and height to windowWidth and windowHeight
 	}
@@ -303,10 +305,8 @@ public class GUIElements extends JFrame {
 
 		/**
 		 * Constructor of Airport Panel and initialises the background as black
-		 * 
-		 * @param windowWidth  Takes in window Width
-		 * @param windowHeight Takes in window Height
-		 */
+		 *
+         */
 		public AirportPanel() {
 			setBackground(background); // Sets the panel background to black
 		}
@@ -519,8 +519,9 @@ public class GUIElements extends JFrame {
 
 			String url = imageLocation[rand.nextInt(imageLocation.length)];
 
-			Image = ImageIO.read(getClass().getResource(url));
+			Image = ImageIO.read(Objects.requireNonNull(getClass().getResource(url)));
 
+			System.out.println(plane.getCallSign());
 
 			for (PlaneAttributes plane : tower.getPlanes()) {
 				double xPlane = plane.getPosition()[0];
