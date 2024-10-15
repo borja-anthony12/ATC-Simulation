@@ -571,7 +571,7 @@ public class GUIElements extends JFrame {
 																											// height
 			drawObject(g2d, runwayVisual);
 
-			// Resets any canvas transformation
+			//Resets any canvas transformation
 			resetTransformation(g2d);
 		}
 

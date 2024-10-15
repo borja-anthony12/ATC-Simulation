@@ -133,6 +133,10 @@ public class PlaneAttributes extends PlaneBehavior {
 		return coords;
 	}
 
+	/**
+	 * returns direction
+	 * @return
+	 */
 	public double getDirection() {
 		return dir;
 	}
