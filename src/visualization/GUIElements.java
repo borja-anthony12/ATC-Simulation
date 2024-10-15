@@ -226,8 +226,13 @@ public class GUIElements extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				planeAmount += 1; // Adds one to planeAmount and sets planeAmount to that value
 				planeAmountDisplay.setText(String.valueOf(planeAmount)); // Sets the planeAmountDisplay to the value of
-																			// planeAmount
-				tower.spawnPlane(); // Spawns plane and places it on JPanel
+																			// planeAmount\
+                try {
+                    airportVisuals.getPlaneImage();
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
+                tower.spawnPlane(); // Spawns plane and places it on JPanel
 			}
 
 		});
@@ -293,6 +298,8 @@ public class GUIElements extends JFrame {
 		private final int BUILDING_ROTATION = -30;
 
 		private final int TAXIWAY_WIDTH = RUNWAY_WIDTH / 2;
+		private String url;
+		private BufferedImage Image;
 
 		private final String[] imageLocation = { "/plane-images/plane-blue.png", "/plane-images/plane-jared.png",
 				"/plane-images/plane-cyan.png", "/plane-images/plane-green.png", "/plane-images/plane-purple.png",
@@ -506,22 +513,21 @@ public class GUIElements extends JFrame {
 			return centrePos; // Returns the list
 		}
 
-		/**
-		 * draws the planes
-		 * 
-		 * @throws IOException
-		 */
-		public void drawPlanes() throws IOException {
+		public void getPlaneImage() throws IOException {
 
 			BufferedImage Image;
 
 			Random rand = new Random();
 
-			String url = imageLocation[rand.nextInt(imageLocation.length)];
+			this.url = imageLocation[rand.nextInt(imageLocation.length)];
+			this.Image = ImageIO.read(Objects.requireNonNull(getClass().getResource(url)));
+        }
 
-			Image = ImageIO.read(Objects.requireNonNull(getClass().getResource(url)));
-
-			System.out.println(plane.getCallSign());
+		/**
+		 * draws the planes
+		 *
+         */
+		public void drawPlanes() throws IOException {
 
 			for (PlaneAttributes plane : tower.getPlanes()) {
 				double xPlane = plane.getPosition()[0];
