@@ -34,7 +34,6 @@ public class WindowUpdate extends JFrame {
 					plane.vel = 1;
 					double vel = plane.getVel();
 					double dir = plane.getDirection() % 360;
-					plane.turn(0.1);
 
 					//movement
 					switch (plane.getDirectionQuadrant()) {
