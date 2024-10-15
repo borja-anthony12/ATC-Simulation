@@ -115,7 +115,7 @@ public class PlaneAttributes extends PlaneBehavior {
 		}
 		return z;
 	}
-	
+
 	public double getVel() {
 		return vel;
 	}
@@ -136,7 +136,7 @@ public class PlaneAttributes extends PlaneBehavior {
 	public double getDirection() {
 		return dir;
 	}
-	
+
 	public int getDirectionQuadrant() {
 		int quadrant = (int) Math.floor((dir % 360) / 90) + 1;
 		return quadrant;
