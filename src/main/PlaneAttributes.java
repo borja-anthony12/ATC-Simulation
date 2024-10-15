@@ -132,4 +132,18 @@ public class PlaneAttributes extends PlaneBehavior {
 	public double getDirection() {
 		return dir;
 	}
+	
+	public void setPlane(int x, int y, int z) {
+		this.x = x;
+		this.y = y;
+		this.z = z;
+		
+		
+	}
+	
+	/*public void setPlaneAngle(int dir, int runwayAmount) {
+		PlaneAttributes plane = new PlaneAttributes();
+		
+		
+	}*/
 }

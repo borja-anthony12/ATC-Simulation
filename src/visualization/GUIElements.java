@@ -229,7 +229,7 @@ public class GUIElements extends JFrame {
 				planeAmount += 1; // Adds one to planeAmount and sets planeAmount to that value
 				planeAmountDisplay.setText(String.valueOf(planeAmount)); // Sets the planeAmountDisplay to the value of
 																			// planeAmount
-				tower.spawnPlane(); // Spawns plane and places it on JPanel
+				tower.spawnPlane(runwayAmount, gateAmount); // Spawns plane and places it on JPanel
 			}
 
 		});
@@ -525,14 +525,10 @@ public class GUIElements extends JFrame {
 
 			Image = ImageIO.read(getClass().getResource(url));
 			
-			System.out.println("Lol");
-			
 			for (PlaneAttributes plane : tower.getPlanes()) {
 				double xPlane = plane.getPosition()[0];
 				double yPlane = plane.getPosition()[1];
 				double anglePlane = -plane.getDirection();
-
-				System.out.println("Created plane");
 
 		        g2d.drawRect((int) xPlane, (int) yPlane, Image.getWidth(), Image.getHeight()); // Check plane position 
 
