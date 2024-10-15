@@ -29,9 +29,38 @@ public class WindowUpdate extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				
 				for (PlaneAttributes plane : tower.getPlanes()) {
-					double x = plane.getVel() * Math.sin(90 - plane.getDirection());
-					double y = plane.getVel() * Math.sin(plane.getDirection());
-					plane.move(x, y);
+					double dx = 0;
+					double dy = 0;
+					plane.vel = 1;
+					double vel = plane.getVel();
+					double dir = plane.getDirection() % 360;
+					plane.turn(0.1);
+					
+					
+
+					switch(plane.getDirectionQuadrant()) {
+					
+					case 1:
+						dx =  vel * Math.sin(dir);
+						dy = -vel * Math.cos(dir);
+						break;
+					case 2:
+						dx = -vel * Math.cos(180 - dir);
+						dy = -vel * Math.sin(180 - dir);
+						break;
+					case 3:
+						dx = -vel * Math.sin(dir - 180);
+						dy =  vel * Math.cos(dir - 180);
+						break;
+					case 4:
+						dx =  vel * Math.cos(360 - dir);
+						dy =  vel * Math.sin(360 - dir);
+						break;
+					default: System.out.println("Stupid error");
+					}
+					
+					System.out.println("Direction: " + dir);
+					plane.move(dx, dy);
 				}
 				
 				mainPanel.repaint();

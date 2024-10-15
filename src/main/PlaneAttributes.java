@@ -5,7 +5,7 @@ import java.util.Random;
 public class PlaneAttributes extends PlaneBehavior {
 	double x, y, z;
 	double dir = 0;
-	double vel = 0;
+	public double vel = 0;
 	double v = 1.1;
 	double accel = 0;
 	double altaccel = 0;
@@ -135,5 +135,10 @@ public class PlaneAttributes extends PlaneBehavior {
 
 	public double getDirection() {
 		return dir;
+	}
+	
+	public int getDirectionQuadrant() {
+		int quadrant = (int) Math.floor((dir % 360) / 90) + 1;
+		return quadrant;
 	}
 }
