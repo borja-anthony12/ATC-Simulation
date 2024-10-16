@@ -539,13 +539,7 @@ public class GUIElements extends JFrame {
 				double yPlane = plane.getPosition()[1];
 				double anglePlane = -plane.getDirection();
 
-
-				g2d.drawRect((int) xPlane, (int) yPlane, Image.getWidth(), Image.getHeight()); // Check plane position
-				g2d.drawRect((int) xPlane, (int) yPlane, Image.getWidth(), Image.getHeight()); // Check plane position
-
-
-				g2d.drawRect((int) xPlane, (int) yPlane, Image.getWidth(), Image.getHeight()); // Check plane position
-
+				g2d.drawRect((int) xPlane - Image.getWidth() / 2, (int) yPlane - Image.getHeight() / 2, Image.getWidth(), Image.getHeight()); // Check plane position
 
 				rotateObject(g2d, (int) xPlane, (int) yPlane, (int) anglePlane);
 
