@@ -15,8 +15,6 @@ import javax.swing.*;
 
 import src.main.*;
 
-
-
 /**
  * Class which creates all of the ATC Simulation Visuals
  */
@@ -112,9 +110,7 @@ public class GUIElements extends JFrame {
 																				// airportVisuals
 
 		airportVisuals.add(createChangeRunwayAmount()); // Adds changeRunwayAmount to airportVisuals
-		
-		
-			
+
 		add(airportVisuals); // Add the runway panel to the current frame
 		setVisible(true); // Sets window to visible
 
@@ -134,7 +130,7 @@ public class GUIElements extends JFrame {
 		WindowUpdate update = new WindowUpdate(airportVisuals, tower);
 
 	}
-	
+
 	/**
 	 * Creates a drop for changing the amount of gates
 	 * 
@@ -265,7 +261,6 @@ public class GUIElements extends JFrame {
 		return removePlane;
 	}
 
-
 	/**
 	 * Class that extends JPanel and creates runways
 	 */
@@ -340,7 +335,8 @@ public class GUIElements extends JFrame {
 			int taxiWayXPos = taxiWayXPos(windowWidth, RUNWAY_WIDTH);
 			int taxiWayYPos = taxiWayYPos(windowHeight, RUNWAY_HEIGHT);
 
-			int[][] taxiWayData = { { taxiWayXPos - 85, taxiWayYPos - 160, TAXIWAY_WIDTH, RUNWAY_HEIGHT, RUNWAY_ROTATION },
+			int[][] taxiWayData = {
+					{ taxiWayXPos - 85, taxiWayYPos - 160, TAXIWAY_WIDTH, RUNWAY_HEIGHT, RUNWAY_ROTATION },
 					{ taxiWayXPos - 15, taxiWayYPos - 40, TAXIWAY_WIDTH, RUNWAY_HEIGHT, RUNWAY_ROTATION },
 					{ taxiWayXPos - 237, taxiWayYPos + 156, TAXIWAY_WIDTH, 155, -30 },
 					{ taxiWayXPos - 190, taxiWayYPos + 126, TAXIWAY_WIDTH, 155, -30 },
@@ -524,18 +520,28 @@ public class GUIElements extends JFrame {
 			String url = imageLocation[rand.nextInt(imageLocation.length)];
 
 			Image = ImageIO.read(getClass().getResource(url));
-			
+
+
+
+
 			for (PlaneAttributes plane : tower.getPlanes()) {
 				double xPlane = plane.getPosition()[0];
 				double yPlane = plane.getPosition()[1];
 				double anglePlane = -plane.getDirection();
 
+
+
+				g2d.drawRect((int) xPlane, (int) yPlane, Image.getWidth(), Image.getHeight()); // Check plane position
+
+
 		        g2d.drawRect((int) xPlane, (int) yPlane, Image.getWidth(), Image.getHeight()); // Check plane position 
+
 
 				rotateObject(g2d, (int) xPlane, (int) yPlane, (int) anglePlane);
 
 				// Draw the image after applying the transform
-				g2d.drawImage(Image, (int) xPlane - (Image.getWidth() / 2), (int) yPlane - (Image.getHeight() / 2), null);
+				g2d.drawImage(Image, (int) xPlane - (Image.getWidth() / 2), (int) yPlane - (Image.getHeight() / 2),
+						null);
 
 				resetTransformation(g2d);
 			}
@@ -574,7 +580,7 @@ public class GUIElements extends JFrame {
 																											// height
 			drawObject(g2d, runwayVisual);
 
-			// Resets any canvas transformation
+			//Resets any canvas transformation
 			resetTransformation(g2d);
 		}
 

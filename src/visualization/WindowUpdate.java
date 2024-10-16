@@ -27,14 +27,38 @@ public class WindowUpdate extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+
 				for (PlaneAttributes plane : tower.getPlanes()) {
-					//plane.move(-5, -2.9);
-					//plane.turn(60);
+					double dx = 0;
+					double dy = 0;
+					plane.vel = 1;
+					double vel = plane.getVel();
+					double dir = plane.getDirection() % 360;
+
+					//movement
+					switch (plane.getDirectionQuadrant()) {
+					case 1:
+						dx = vel * Math.sin(dir);
+						dy = -vel * Math.cos(dir);
+						break;
+					case 2:
+						dx = -vel * Math.cos(180 - dir);
+						dy = -vel * Math.sin(180 - dir);
+						break;
+					case 3:
+						dx = -vel * Math.sin(dir - 180);
+						dy = vel * Math.cos(dir - 180);
+						break;
+					case 4:
+						dx = vel * Math.cos(360 - dir);
+						dy = vel * Math.sin(360 - dir);
+						break;
+					default:
+						System.out.println("Stupid error");
+					}
 				}
-				
+
 				mainPanel.repaint();
-				
 
 				/*
 				 * one.takeoff(takeoff); one.landing(landing);

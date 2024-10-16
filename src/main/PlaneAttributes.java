@@ -5,7 +5,7 @@ import java.util.Random;
 public class PlaneAttributes extends PlaneBehavior {
 	double x, y, z;
 	double dir = 0;
-	double vel = 0;
+	public double vel = 0;
 	double v = 1.1;
 	double accel = 0;
 	double altaccel = 0;
@@ -116,6 +116,10 @@ public class PlaneAttributes extends PlaneBehavior {
 		return z;
 	}
 
+	public double getVel() {
+		return vel;
+	}
+
 	/*
 	 * turns the plane
 	 */
@@ -129,9 +133,14 @@ public class PlaneAttributes extends PlaneBehavior {
 		return coords;
 	}
 
+	/**
+	 * returns direction
+	 * @return
+	 */
 	public double getDirection() {
 		return dir;
 	}
+
 	
 	public void setPlane(int x, int y, int z) {
 		this.x = x;
@@ -146,4 +155,11 @@ public class PlaneAttributes extends PlaneBehavior {
 		
 		
 	}*/
+
+
+	public int getDirectionQuadrant() {
+		int quadrant = (int) Math.floor((dir % 360) / 90) + 1;
+		return quadrant;
+	}
+
 }
