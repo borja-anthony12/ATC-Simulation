@@ -1,22 +1,21 @@
 package src.visualization;
 
-// Module imports from src.main
-import src.main.*;
-
 public class Main {
 	/* Width and Height */
-	private static final int WIDTH = 720; 	// Width for window
-	private static final int HEIGHT = 600;	// Height for window
+	private static final int WIDTH = 720; 	// Width for a window
+	private static final int HEIGHT = 600;	// Height for a window
 
-	private static int runwayAmount = 1; // Maximum amount of runways is 2
-	private static int gateAmount = 4; // Maximum amount of gates is 4
-	public static final int UPDATE_INTERAVAL = 1;
+    public static final int UPDATE_INTERVAL = 1;
 	
 	public static void main(String[] args) {
-		// Creates instances of all of the imported modules
-		Tower tower = new Tower();
-		PlaneAttributes planeAttributes = new PlaneAttributes();
-		GUIElements apVisuals = new GUIElements(WIDTH, HEIGHT, runwayAmount, gateAmount);
+		// Creates instances of all the imported modules
+//		Tower tower = new Tower();
+//		PlaneAttributes planeAttributes = new PlaneAttributes();
+        // The Maximum number of runways is 2
+        int runwayAmount = 1;
+        // The Maximum number of gates is 4
+        int gateAmount = 4;
+        GUIElements apVisuals = new GUIElements(WIDTH, HEIGHT, runwayAmount, gateAmount);
 
 	}
 }

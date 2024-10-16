@@ -1,14 +1,15 @@
 package src.visualization;
 
 import src.main.*;
-import src.visualization.*;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.Serial;
 
 import javax.swing.*;
 
 public class WindowUpdate extends JFrame {
+	@Serial
 	private static final long serialVersionUID = 1435203151832523191L;
 
 	/**
@@ -18,7 +19,7 @@ public class WindowUpdate extends JFrame {
 	 * @param tower     Takes in tower class for creating planes
 	 */
 	public WindowUpdate(JPanel mainPanel, Tower tower) {
-		Timer timer = new Timer(Main.UPDATE_INTERAVAL, new ActionListener() {
+		Timer timer = new Timer(Main.UPDATE_INTERVAL, new ActionListener() {
 			// PlaneAttributes one = new PlaneAttributes();
 			PlaneBehavior two = new PlaneBehavior();
 			int vel;
