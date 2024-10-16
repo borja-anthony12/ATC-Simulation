@@ -1,5 +1,6 @@
 package src.visualization;
 
+import java.io.Serial;
 import java.util.Objects;
 import java.util.Random;
 
@@ -20,6 +21,7 @@ import src.main.*;
  * Class which creates all of the ATC Simulation Visuals
  */
 public class GUIElements extends JFrame {
+	@Serial
 	private static final long serialVersionUID = 2178084625298728326L;
 
 	// Creates instances of classes
@@ -35,7 +37,7 @@ public class GUIElements extends JFrame {
 	JLabel planeAmountDisplay = new JLabel(); // Creates a JLabel for displaying the amount of planes (0)
 	JLabel gateAmountDisplay = new JLabel(); // Creates a JLabel for displaying the amount of gates (Gate Amount: )
 	JLabel runwayAmountDisplay = new JLabel(); // Creates a JLabel for displaying the amount of runways (Runway Amount:
-												// )
+	// )
 
 	// Creates JButtons
 	JButton addPlane; // Creates a JButton for adding a plane
@@ -50,18 +52,17 @@ public class GUIElements extends JFrame {
 	public int planeAmount; // Initialises the plane amount variable
 
 	// Initialises lists
-	private Integer[] setRunwayAmount = { 1, 2 }; // Creates a 1D list for the available runways
-	private Integer[] setGateAmount = { 1, 2, 3, 4 }; // Creates a 1D list for the available gates
+	private final Integer[] setRunwayAmount = { 1, 2 }; // Creates a 1D list for the available runways
+	private final Integer[] setGateAmount = { 1, 2, 3, 4 }; // Creates a 1D list for the available gates
 
 	/**
 	 * Constructor of class AirportVisuals. Calls the method initializeWindow to
 	 * create the window within the constructor
-	 * 
+	 *
 	 * @param windowWidth  Takes in the width of the window
 	 * @param windowHeight Takes in the height of the window
 	 * @param runwayAmount Takes in the amount of runways
-	 * @param gateAmount
-	 */
+     */
 	public GUIElements(int windowWidth, int windowHeight, int runwayAmount, int gateAmount) {
 		// Creates variables
 		this.runwayAmount = runwayAmount; // Sets the runwayAmount to runwayAmount
@@ -70,12 +71,12 @@ public class GUIElements extends JFrame {
 		tower = new Tower(); // Creates an instance of tower class
 		plane = new PlaneAttributes();
 		window(windowWidth, windowHeight); // Calls the initializeWindow method and creates a window setting the width
-											// and height to windowWidth and windowHeight
+		// and height to windowWidth and windowHeight
 	}
 
 	/**
 	 * Method that initialises the creation of the window
-	 * 
+	 *
 	 * @param windowWidth  Takes in the width given by the constructor
 	 * @param windowHeight Takes in the height given by the constructor
 	 */
@@ -95,13 +96,13 @@ public class GUIElements extends JFrame {
 		setLocationRelativeTo(null); // Sets the Location of the window to the centre of the screen
 
 		airportVisuals = new AirportPanel(); // Creates an instance of JPanel by calling
-												// AirportPanel
+		// AirportPanel
 		airportVisuals.getWindowSize(windowWidth, windowHeight);
 
 		airportVisuals.add(createAddPlane()); // Adds addPlane to airportVisuals
 
 		airportVisuals.add(createLabel(planeAmountDisplay, String.valueOf(planeAmount))); // Adds planeAmountDisplay to
-																							// airportVisuals
+		// airportVisuals
 		airportVisuals.add(createRemovePlane()); // Adds removePlane to airportVisuals
 
 		airportVisuals.add(createLabel(gateAmountDisplay, "Gate Amount:")); // Adds gateAmountDisplay to airportVisuals
@@ -109,7 +110,7 @@ public class GUIElements extends JFrame {
 		airportVisuals.add(createChangeGateAmount()); // Adds changeGateAmount to airportVisuals
 
 		airportVisuals.add(createLabel(runwayAmountDisplay, "Runway Amount:")); // Adds runwayAmountDisplay to
-																				// airportVisuals
+		// airportVisuals
 
 		airportVisuals.add(createChangeRunwayAmount()); // Adds changeRunwayAmount to airportVisuals
 
@@ -122,7 +123,7 @@ public class GUIElements extends JFrame {
 			public void componentResized(ComponentEvent e) {
 				Dimension newSize = getSize(); // Gets the new size of the window when it changes
 				airportVisuals.updateRunwayPosition(newSize.width, newSize.height); // Sets the new position of all
-																					// JComponents
+				// JComponents
 				airportVisuals.repaint(); // Updates the window
 			}
 		});
@@ -135,13 +136,13 @@ public class GUIElements extends JFrame {
 
 	/**
 	 * Creates a drop for changing the amount of gates
-	 * 
+	 *
 	 * @return changeGateAmount for adding to panel
 	 */
 	private JComboBox<Integer> createChangeGateAmount() {
 		// Creates JComboBox for setting the amount of gates
-		changeGateAmount = new JComboBox<Integer>(setGateAmount); // Creates JCombobox (Drop down) and sets the value to
-																	// setGateAmount list
+		changeGateAmount = new JComboBox<>(setGateAmount); // Creates JCombobox (Drop down) and sets the value to
+		// setGateAmount list
 		changeGateAmount.setSelectedIndex(3); // Sets the start selected index to 3
 
 		// adds ActionListener to changeGateAmount to check how many gates there will be
@@ -150,8 +151,8 @@ public class GUIElements extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				gateAmount = (int) changeGateAmount.getSelectedItem(); // Sets gateAmount to the selected item from the
-																		// JComboBox(Drop
-																		// down)
+				// JComboBox(Drop
+				// down)
 				airportVisuals.getGateAmount(gateAmount);
 			}
 
@@ -164,14 +165,14 @@ public class GUIElements extends JFrame {
 
 	/**
 	 * Creates a drop down for changing the amount of gates
-	 * 
+	 *
 	 * @return drop down for being added to the panel
 	 */
 	private JComboBox<Integer> createChangeRunwayAmount() {
 		// Creates JComboBox for setting the amount of gates
 		changeRunwayAmount = new JComboBox<Integer>(setRunwayAmount); // Creates JCombobox (Drop down) and sets the
-																		// value to
-																		// setGateAmount list
+		// value to
+		// setGateAmount list
 		changeRunwayAmount.setSelectedIndex(0); // Sets the start selected index to 3
 
 		// adds ActionListener to changeGateAmount to check how many gates there will be
@@ -180,9 +181,9 @@ public class GUIElements extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				runwayAmount = (int) changeRunwayAmount.getSelectedItem(); // Sets gateAmount to the selected item from
-																			// the
-																			// JComboBox(Drop
-																			// down)
+				// the
+				// JComboBox(Drop
+				// down)
 				airportVisuals.getRunwayAmount(runwayAmount);
 			}
 
@@ -195,7 +196,7 @@ public class GUIElements extends JFrame {
 
 	/**
 	 * Made a function which creates a JLabel
-	 * 
+	 *
 	 * @param label Takes in the initialised label
 	 * @param text  Takes in the text which is going to be displayed on the label
 	 * @return label for displaying on the panel
@@ -203,7 +204,7 @@ public class GUIElements extends JFrame {
 	private JLabel createLabel(JLabel label, String text) {
 		// Creates planeAmountDisplay Label
 		label.setText(text); // Creates planeAmountDisplay and sets text to
-								// planeAmount
+		// planeAmount
 		label.setFont(font); // Sets font to font
 		label.setForeground(Color.WHITE); // Sets text colour to white
 
@@ -212,7 +213,7 @@ public class GUIElements extends JFrame {
 
 	/**
 	 * Creates a JButton for adding 1 plane
-	 * 
+	 *
 	 * @return JButton for being displayed on the panel
 	 */
 	private JButton createAddPlane() {
@@ -226,18 +227,16 @@ public class GUIElements extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				planeAmount += 1; // Adds one to planeAmount and sets planeAmount to that value
 				planeAmountDisplay.setText(String.valueOf(planeAmount)); // Sets the planeAmountDisplay to the value of
-<<<<<<< HEAD
+
 																			// planeAmount
 				tower.spawnPlane(runwayAmount, gateAmount); // Spawns plane and places it on JPanel
-=======
-																			// planeAmount\
-                try {
-                    airportVisuals.getPlaneImage();
-                } catch (IOException ex) {
-                    throw new RuntimeException(ex);
-                }
-                tower.spawnPlane(); // Spawns plane and places it on JPanel
->>>>>>> branch 'main' of https://github.com/borja-anthony12/ATC-Simulation.git
+				// planeAmount\
+				try {
+					airportVisuals.getPlaneImage();
+				} catch (IOException ex) {
+					throw new RuntimeException(ex);
+				}
+				tower.spawnPlane(runwayAmount, gateAmount); // Spawns plane and places it on JPanel
 			}
 
 		});
@@ -247,7 +246,7 @@ public class GUIElements extends JFrame {
 
 	/**
 	 * Creates a JButton for removing 1 plane
-	 * 
+	 *
 	 * @return JButton to be added to panel
 	 */
 	private JButton createRemovePlane() {
@@ -264,7 +263,7 @@ public class GUIElements extends JFrame {
 					planeAmount -= 1; // Removes one to planeAmount and sets palneAmount to that value
 					tower.despawnPlane();
 					planeAmountDisplay.setText(String.valueOf(planeAmount)); // Sets the planeAmountDisplay to the value
-																				// of planeAmount
+					// of planeAmount
 				}
 
 			}
@@ -318,7 +317,7 @@ public class GUIElements extends JFrame {
 		/**
 		 * Constructor of Airport Panel and initialises the background as black
 		 *
-         */
+		 */
 		public AirportPanel() {
 			setBackground(background); // Sets the panel background to black
 		}
@@ -373,7 +372,7 @@ public class GUIElements extends JFrame {
 
 		/**
 		 * Updates the Airport Components whenever the window is size is changed
-		 * 
+		 *
 		 * @param newWidth  Takes in the windows new width
 		 * @param newHeight Takes in the windows new height
 		 */
@@ -397,7 +396,7 @@ public class GUIElements extends JFrame {
 
 		/**
 		 * Checks what the selected amount of runways are available
-		 * 
+		 *
 		 * @param runwayAmount takes in the amount of runways
 		 * @param taxiWayXPos  takes in taxiWayXPos
 		 * @param taxiWayYPos  takes in taxiWayYPos
@@ -422,7 +421,7 @@ public class GUIElements extends JFrame {
 
 		/**
 		 * Creates all of the taxi ways
-		 * 
+		 *
 		 * @param taxiWayData takes in the data of taxi ways
 		 */
 		private void drawALLTaxiWays(int[][] taxiWayData) {
@@ -433,7 +432,7 @@ public class GUIElements extends JFrame {
 
 		/**
 		 * Creates all of the runways
-		 * 
+		 *
 		 * @param runwayData takes in runway data
 		 */
 		private void drawALLRunways(int[][] runwayData) {
@@ -444,7 +443,7 @@ public class GUIElements extends JFrame {
 
 		/**
 		 * Calculates the centred X position relative to an object
-		 * 
+		 *
 		 * @param windowWidth takes in the window width
 		 * @param objectWidth takes in the object width (i.e., building width and runway
 		 *                    width)
@@ -456,7 +455,7 @@ public class GUIElements extends JFrame {
 
 		/**
 		 * Calculates the centred Y position relative to an object
-		 * 
+		 *
 		 * @param windowHeight takes in the window height
 		 * @param objectHeight takes in the object height (i.e., building height and
 		 *                     runway height)
@@ -468,7 +467,7 @@ public class GUIElements extends JFrame {
 
 		/**
 		 * Rotates the object i.e., runways and taxi ways
-		 * 
+		 *
 		 * @param g2d      Takes in the graphics component from method
 		 * @param xPos     Takes in the desired x Position
 		 * @param yPos     Takes in the desired y Position
@@ -482,7 +481,7 @@ public class GUIElements extends JFrame {
 
 		/**
 		 * Draws the object and displays it
-		 * 
+		 *
 		 * @param g2d    Gets the Graphics2D component from method
 		 * @param visual Gets the visual
 		 */
@@ -493,7 +492,7 @@ public class GUIElements extends JFrame {
 
 		/**
 		 * Resets panel so any changes done (i.e., rotating/translating) will be reset
-		 * 
+		 *
 		 * @param g2d Takes in the Graphics2D component from method
 		 */
 		public void resetTransformation(Graphics2D g2d) {
@@ -502,7 +501,7 @@ public class GUIElements extends JFrame {
 
 		/**
 		 * Does the calculation for centring an object when translating the object
-		 * 
+		 *
 		 * @param xPos   Takes in the desired X position
 		 * @param yPos   Takes in the desired Y position
 		 * @param width  Takes in the width
@@ -526,36 +525,26 @@ public class GUIElements extends JFrame {
 
 			this.url = imageLocation[rand.nextInt(imageLocation.length)];
 			this.Image = ImageIO.read(Objects.requireNonNull(getClass().getResource(url)));
-        }
-
-<<<<<<< HEAD
-			Image = ImageIO.read(getClass().getResource(url));
+		}
 
 
-
-=======
 		/**
 		 * draws the planes
 		 *
-         */
+		 */
 		public void drawPlanes() throws IOException {
->>>>>>> branch 'main' of https://github.com/borja-anthony12/ATC-Simulation.git
 
 			for (PlaneAttributes plane : tower.getPlanes()) {
 				double xPlane = plane.getPosition()[0];
 				double yPlane = plane.getPosition()[1];
 				double anglePlane = -plane.getDirection();
 
-<<<<<<< HEAD
+
+				g2d.drawRect((int) xPlane, (int) yPlane, Image.getWidth(), Image.getHeight()); // Check plane position
+				g2d.drawRect((int) xPlane, (int) yPlane, Image.getWidth(), Image.getHeight()); // Check plane position
 
 
 				g2d.drawRect((int) xPlane, (int) yPlane, Image.getWidth(), Image.getHeight()); // Check plane position
-
-=======
-				g2d.drawRect((int) xPlane, (int) yPlane, Image.getWidth(), Image.getHeight()); // Check plane position
->>>>>>> branch 'main' of https://github.com/borja-anthony12/ATC-Simulation.git
-
-		        g2d.drawRect((int) xPlane, (int) yPlane, Image.getWidth(), Image.getHeight()); // Check plane position 
 
 
 				rotateObject(g2d, (int) xPlane, (int) yPlane, (int) anglePlane);
@@ -570,7 +559,7 @@ public class GUIElements extends JFrame {
 
 		/**
 		 * Draws runways and calculates the position/centres the runways
-		 * 
+		 *
 		 * @param rotation Takes in variable for rotation
 		 * @param xPos     Takes in the offset X position
 		 * @param yPos     Takes in the offset Y position
@@ -579,9 +568,9 @@ public class GUIElements extends JFrame {
 
 			/* Calculates runway X & Y position */
 			runwayXPos = (windowWidth - (RUNWAY_WIDTH)) / 2 + xPos; // Calculates the runway's X position on the X axis
-																	// and offsets by xPos
+			// and offsets by xPos
 			runwayYPos = (windowHeight - RUNWAY_HEIGHT) / 2 + yPos; // Calculates the runway's Y position on the Y axis
-																	// and offsets by yPos
+			// and offsets by yPos
 			int[] getCentredPos = centreObject(runwayXPos, runwayYPos, RUNWAY_WIDTH, RUNWAY_HEIGHT);
 
 			/* Calculates the runway's position when centred */
@@ -593,12 +582,12 @@ public class GUIElements extends JFrame {
 			rotateObject(g2d, centreXRunway, centreYRunway, rotation);
 
 			Rectangle runwayVisual = new Rectangle(runwayXPos, runwayYPos, RUNWAY_WIDTH, RUNWAY_HEIGHT); // Creates the
-																											// runway
-																											// and sets
-																											// the X, Y,
-																											// runway
-																											// width and
-																											// height
+			// runway
+			// and sets
+			// the X, Y,
+			// runway
+			// width and
+			// height
 			drawObject(g2d, runwayVisual);
 
 			//Resets any canvas transformation
@@ -615,30 +604,30 @@ public class GUIElements extends JFrame {
 			/* Calculates the buildings X & Y position */
 			buildingXPos = (windowWidth - BUILDING_WIDTH) / 2; // Calculates the buildings X position on the X axis
 			buildingYPos = (windowHeight - (BUILDING_HEIGHT)) / 2 + offsetY; // Calculates the buildings Y position on
-																				// the Y axis and offsets by 100
+			// the Y axis and offsets by 100
 			int[] getCentredPos = centreObject(buildingXPos, buildingYPos, 350, 115);
 
 			/* Calculates the buildings position when centred */
 			int centreXBuilding = getCentredPos[0]; // Calculates the building centre. (350 is what got to the
-													// position I wanted)
+			// position I wanted)
 			int centreYBuilding = getCentredPos[1]; // Calculates the building centre. (115 is what got the the
-													// position on I wanted)
+			// position on I wanted)
 
 			g2d.setColor(buildingColour); // Sets the building colour to light gray
 
 			rotateObject(g2d, centreXBuilding, centreYBuilding, BUILDING_ROTATION);
 
 			Rectangle building = new Rectangle(buildingXPos, buildingYPos, BUILDING_WIDTH, BUILDING_HEIGHT); // Creates
-																												// the
-																												// building
-																												// and
-																												// sets
-																												// the
-																												// X, Y,
-																												// building
-																												// width
-																												// and
-																												// height
+			// the
+			// building
+			// and
+			// sets
+			// the
+			// X, Y,
+			// building
+			// width
+			// and
+			// height
 
 			drawObject(g2d, building);
 
@@ -658,9 +647,9 @@ public class GUIElements extends JFrame {
 
 			/* Calculates the Gates centre */
 			int centreXBuilding = getCentredPos[0]; // Calculates the buildings X position on the X
-													// axis
+			// axis
 			int centreYBuilding = getCentredPos[1]; // Calculates the buildings Y position on the Y
-													// axis
+			// axis
 
 			rotateObject(g2d, centreXBuilding, centreYBuilding, BUILDING_ROTATION);
 
@@ -672,8 +661,8 @@ public class GUIElements extends JFrame {
 
 				g2d.setColor(buildingColour); // Sets the gates colour to light gray
 				Rectangle gate = new Rectangle(gateXPos, gateYPos, GATE_WIDTH, GATE_HEIGHT); // Creates the gate and
-																								// sets the X, Y, gate
-																								// width and height
+				// sets the X, Y, gate
+				// width and height
 				drawObject(g2d, gate);
 			}
 
@@ -682,7 +671,7 @@ public class GUIElements extends JFrame {
 
 		/**
 		 * Creates the taxi ways with the given information
-		 * 
+		 *
 		 * @param xPos          Takes in the desired X position
 		 * @param yPos          Takes in the desired Y position
 		 * @param width         Takes in the desired width
