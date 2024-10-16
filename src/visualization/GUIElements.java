@@ -1,5 +1,6 @@
 package src.visualization;
 
+import java.util.Objects;
 import java.util.Random;
 
 import java.awt.*;
@@ -24,6 +25,7 @@ public class GUIElements extends JFrame {
 	// Creates instances of classes
 	Tower tower; // Creates an instance of tower class
 	AirportPanel airportVisuals; // Creates an instance of the AirportPanel class
+	PlaneAttributes plane;
 
 	// Creates JComboBox (Creates a drop down)
 	JComboBox<Integer> changeGateAmount; // Creates a JCombox for changing the amount of gates
@@ -66,7 +68,7 @@ public class GUIElements extends JFrame {
 		this.gateAmount = gateAmount; // Sets the gateAmount to gateAmount
 
 		tower = new Tower(); // Creates an instance of tower class
-
+		plane = new PlaneAttributes();
 		window(windowWidth, windowHeight); // Calls the initializeWindow method and creates a window setting the width
 											// and height to windowWidth and windowHeight
 	}
@@ -224,8 +226,18 @@ public class GUIElements extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				planeAmount += 1; // Adds one to planeAmount and sets planeAmount to that value
 				planeAmountDisplay.setText(String.valueOf(planeAmount)); // Sets the planeAmountDisplay to the value of
+<<<<<<< HEAD
 																			// planeAmount
 				tower.spawnPlane(runwayAmount, gateAmount); // Spawns plane and places it on JPanel
+=======
+																			// planeAmount\
+                try {
+                    airportVisuals.getPlaneImage();
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
+                tower.spawnPlane(); // Spawns plane and places it on JPanel
+>>>>>>> branch 'main' of https://github.com/borja-anthony12/ATC-Simulation.git
 			}
 
 		});
@@ -291,6 +303,8 @@ public class GUIElements extends JFrame {
 		private final int BUILDING_ROTATION = -30;
 
 		private final int TAXIWAY_WIDTH = RUNWAY_WIDTH / 2;
+		private String url;
+		private BufferedImage Image;
 
 		private final String[] imageLocation = { "/plane-images/plane-blue.png", "/plane-images/plane-jared.png",
 				"/plane-images/plane-cyan.png", "/plane-images/plane-green.png", "/plane-images/plane-purple.png",
@@ -303,10 +317,8 @@ public class GUIElements extends JFrame {
 
 		/**
 		 * Constructor of Airport Panel and initialises the background as black
-		 * 
-		 * @param windowWidth  Takes in window Width
-		 * @param windowHeight Takes in window Height
-		 */
+		 *
+         */
 		public AirportPanel() {
 			setBackground(background); // Sets the panel background to black
 		}
@@ -506,33 +518,42 @@ public class GUIElements extends JFrame {
 			return centrePos; // Returns the list
 		}
 
-		/**
-		 * draws the planes
-		 * 
-		 * @throws IOException
-		 */
-		public void drawPlanes() throws IOException {
+		public void getPlaneImage() throws IOException {
 
 			BufferedImage Image;
 
 			Random rand = new Random();
 
-			String url = imageLocation[rand.nextInt(imageLocation.length)];
+			this.url = imageLocation[rand.nextInt(imageLocation.length)];
+			this.Image = ImageIO.read(Objects.requireNonNull(getClass().getResource(url)));
+        }
 
+<<<<<<< HEAD
 			Image = ImageIO.read(getClass().getResource(url));
 
 
 
+=======
+		/**
+		 * draws the planes
+		 *
+         */
+		public void drawPlanes() throws IOException {
+>>>>>>> branch 'main' of https://github.com/borja-anthony12/ATC-Simulation.git
 
 			for (PlaneAttributes plane : tower.getPlanes()) {
 				double xPlane = plane.getPosition()[0];
 				double yPlane = plane.getPosition()[1];
 				double anglePlane = -plane.getDirection();
 
+<<<<<<< HEAD
 
 
 				g2d.drawRect((int) xPlane, (int) yPlane, Image.getWidth(), Image.getHeight()); // Check plane position
 
+=======
+				g2d.drawRect((int) xPlane, (int) yPlane, Image.getWidth(), Image.getHeight()); // Check plane position
+>>>>>>> branch 'main' of https://github.com/borja-anthony12/ATC-Simulation.git
 
 		        g2d.drawRect((int) xPlane, (int) yPlane, Image.getWidth(), Image.getHeight()); // Check plane position 
 
