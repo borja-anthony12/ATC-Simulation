@@ -537,7 +537,7 @@ public class GUIElements extends JFrame {
 			for (PlaneAttributes plane : tower.getPlanes()) {
 				double xPlane = plane.getPosition()[0];
 				double yPlane = plane.getPosition()[1];
-				double anglePlane = -plane.getDirection();
+				double anglePlane = -plane.getDirection() - 90;
 
 				g2d.drawRect((int) xPlane - Image.getWidth() / 2, (int) yPlane - Image.getHeight() / 2, Image.getWidth(), Image.getHeight()); // Check plane position
 

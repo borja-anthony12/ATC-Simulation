@@ -3,15 +3,15 @@ package src.main;
 import java.util.Random;
 
 public class PlaneAttributes extends PlaneBehavior {
-	double x, y, z;
-	double dir = 0;
-	public double vel = 0;
-	double v = 1.1;
-	double accel = 0;
-	double altaccel = 0;
-	double takeoffvel;
-	boolean power = false;
-	String callSign;
+	private double x, y, z;
+	private double dir = 0;
+	private double vel = 0;
+	private double v = 1.1;
+	private double accel = 0;
+	private double altaccel = 0;
+	private double takeoffvel;
+	private boolean power = false;
+	private String callSign;
 	
     private static final String[] AIRLINE_CODES = {"AYO",
             "BYK",
