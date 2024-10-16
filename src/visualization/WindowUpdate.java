@@ -79,8 +79,6 @@ public class WindowUpdate extends JFrame {
 					default:
 						System.out.println("Stupid error");
 					}
-					
-					System.out.println(dir);
 					plane.move(dx, dy);
 				}
 

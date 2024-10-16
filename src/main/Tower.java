@@ -93,6 +93,7 @@ public class Tower {
 	 * adds a new plane to simulation
 	 */
 	public void spawnPlane(int runwayAmount, int gateAmount) {
+		
 		PlaneAttributes plane = new PlaneAttributes();
 		Random r = new Random();
 		int chooseRunway;
@@ -121,7 +122,7 @@ public class Tower {
 			System.out.println("*Sighs*");
 			break;
 		}
-		
+		System.out.println("Total planes: " + planes.size());
 	}
 	
 	/**
@@ -129,6 +130,7 @@ public class Tower {
 	 */
 	public void despawnPlane() {
 		planes.remove(planes.size() - 1);
+		System.out.println("Total planes: " + planes.size());
 	}
 
 	/*

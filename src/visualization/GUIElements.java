@@ -225,7 +225,6 @@ public class GUIElements extends JFrame {
 			planeAmountDisplay.setText(String.valueOf(planeAmount)); // Sets the planeAmountDisplay to the value of
 
 																		// planeAmount
-			tower.spawnPlane(runwayAmount, gateAmount); // Spawns plane and places it on JPanel
 			// planeAmount\
 			try {
 				airportVisuals.getPlaneImage();
