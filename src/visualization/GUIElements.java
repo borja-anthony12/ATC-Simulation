@@ -3,10 +3,11 @@ package src.visualization;
 import java.io.Serial;
 import java.util.Objects;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.image.BufferedImage;
@@ -55,6 +56,8 @@ public class GUIElements extends JFrame {
 	private final Integer[] setRunwayAmount = { 1, 2 }; // Creates a 1D list for the available runways
 	private final Integer[] setGateAmount = { 1, 2, 3, 4 }; // Creates a 1D list for the available gates
 
+	private static final Logger logger = Logger.getLogger(GUIElements.class.getName());
+
 	/**
 	 * Constructor of class AirportVisuals. Calls the method initializeWindow to
 	 * create the window within the constructor
@@ -64,6 +67,7 @@ public class GUIElements extends JFrame {
 	 * @param runwayAmount Takes in the amount of runways
      */
 	public GUIElements(int windowWidth, int windowHeight, int runwayAmount, int gateAmount) {
+
 		// Creates variables
 		this.runwayAmount = runwayAmount; // Sets the runwayAmount to runwayAmount
 		this.gateAmount = gateAmount; // Sets the gateAmount to gateAmount
@@ -146,10 +150,8 @@ public class GUIElements extends JFrame {
 		changeGateAmount.setSelectedIndex(3); // Sets the start selected index to 3
 
 		// adds ActionListener to changeGateAmount to check how many gates there will be
-		changeGateAmount.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
+		changeGateAmount.addActionListener(e -> {
+			if(changeGateAmount.getSelectedItem() != null && airportVisuals != null) {
 				gateAmount = (int) changeGateAmount.getSelectedItem(); // Sets gateAmount to the selected item from the
 				// JComboBox(Drop
 				// down)
@@ -170,23 +172,20 @@ public class GUIElements extends JFrame {
 	 */
 	private JComboBox<Integer> createChangeRunwayAmount() {
 		// Creates JComboBox for setting the amount of gates
-		changeRunwayAmount = new JComboBox<Integer>(setRunwayAmount); // Creates JCombobox (Drop down) and sets the
+		changeRunwayAmount = new JComboBox<>(setRunwayAmount); // Creates JCombobox (Drop down) and sets the
 		// value to
 		// setGateAmount list
 		changeRunwayAmount.setSelectedIndex(0); // Sets the start selected index to 3
 
 		// adds ActionListener to changeGateAmount to check how many gates there will be
-		changeRunwayAmount.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
+		changeRunwayAmount.addActionListener(e ->  {
+			if (changeRunwayAmount.getSelectedItem() != null && airportVisuals != null) {
 				runwayAmount = (int) changeRunwayAmount.getSelectedItem(); // Sets gateAmount to the selected item from
 				// the
 				// JComboBox(Drop
 				// down)
 				airportVisuals.getRunwayAmount(runwayAmount);
 			}
-
 		});
 
 		changeRunwayAmount.setFont(font); // Sets font to font
@@ -221,24 +220,19 @@ public class GUIElements extends JFrame {
 		addPlane = new JButton("Add Plane"); // Creates a JButton and sets the button text to "Add PLane"
 		// Adds Action Listener to addPLane button. When button is pressed adds one to
 		// planeAmount and spawns plane
-		addPlane.addActionListener(new ActionListener() {
+		addPlane.addActionListener(e -> {
+			planeAmount += 1; // Adds one to planeAmount and sets planeAmount to that value
+			planeAmountDisplay.setText(String.valueOf(planeAmount)); // Sets the planeAmountDisplay to the value of
 
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				planeAmount += 1; // Adds one to planeAmount and sets planeAmount to that value
-				planeAmountDisplay.setText(String.valueOf(planeAmount)); // Sets the planeAmountDisplay to the value of
-
-																			// planeAmount
-				tower.spawnPlane(runwayAmount, gateAmount); // Spawns plane and places it on JPanel
-				// planeAmount\
-				try {
-					airportVisuals.getPlaneImage();
-				} catch (IOException ex) {
-					throw new RuntimeException(ex);
-				}
-				tower.spawnPlane(runwayAmount, gateAmount); // Spawns plane and places it on JPanel
+																		// planeAmount
+			tower.spawnPlane(runwayAmount, gateAmount); // Spawns plane and places it on JPanel
+			// planeAmount\
+			try {
+				airportVisuals.getPlaneImage();
+			} catch (IOException ex) {
+				throw new RuntimeException(ex);
 			}
-
+			tower.spawnPlane(runwayAmount, gateAmount); // Spawns plane and places it on JPanel
 		});
 
 		return addPlane;
@@ -254,10 +248,8 @@ public class GUIElements extends JFrame {
 		removePlane = new JButton("Remove Plane"); // Creates a JButton and sets the button text to "Remove Plane"
 		// Adds Action Listener to removePLane . When button is pressed it removes one
 		// from planeAmount and removes plane
-		removePlane.addActionListener(new ActionListener() {
+		removePlane.addActionListener(e -> {
 
-			@Override
-			public void actionPerformed(ActionEvent e) {
 				// Checks if plane amount does not equal zero
 				if (planeAmount > 0) {
 					planeAmount -= 1; // Removes one to planeAmount and sets palneAmount to that value
@@ -265,9 +257,6 @@ public class GUIElements extends JFrame {
 					planeAmountDisplay.setText(String.valueOf(planeAmount)); // Sets the planeAmountDisplay to the value
 					// of planeAmount
 				}
-
-			}
-
 		});
 		return removePlane;
 	}
@@ -276,14 +265,14 @@ public class GUIElements extends JFrame {
 	 * Class that extends JPanel and creates runways
 	 */
 	class AirportPanel extends JPanel {
+		@Serial
 		private static final long serialVersionUID = 2853523647566452733L;
 
 		private final Color taxiWayColour = Color.DARK_GRAY;
 		private final Color runwayColour = Color.GRAY;
 		private final Color buildingColour = Color.LIGHT_GRAY;
-		private final Color background = Color.BLACK;
 
-		/* Initialises Airports X & Y positions */
+        /* Initialises Airports X & Y positions */
 		private int runwayXPos, runwayYPos; // Initialises the runways X and Y
 		private int buildingXPos, buildingYPos; // Initialises the buildings X and Y
 		private int gateXPos, gateYPos; // Initialises the gates X and Y
@@ -302,8 +291,7 @@ public class GUIElements extends JFrame {
 		private final int BUILDING_ROTATION = -30;
 
 		private final int TAXIWAY_WIDTH = RUNWAY_WIDTH / 2;
-		private String url;
-		private BufferedImage Image;
+        private BufferedImage Image;
 
 		private final String[] imageLocation = { "/plane-images/plane-blue.png", "/plane-images/plane-jared.png",
 				"/plane-images/plane-cyan.png", "/plane-images/plane-green.png", "/plane-images/plane-purple.png",
@@ -319,7 +307,8 @@ public class GUIElements extends JFrame {
 		 *
 		 */
 		public AirportPanel() {
-			setBackground(background); // Sets the panel background to black
+            Color background = Color.BLACK;
+            setBackground(background); // Sets the panel background to black
 		}
 
 		void getWindowSize(int windowWidth, int windowHeight) {
@@ -366,7 +355,7 @@ public class GUIElements extends JFrame {
 			try {
 				drawPlanes();
 			} catch (IOException e) {
-				e.printStackTrace();
+				logger.log(Level.SEVERE, "An error has occurred", e);
 			}
 		}
 
@@ -408,7 +397,7 @@ public class GUIElements extends JFrame {
 			int[][] runwayData = { { RUNWAY_ROTATION, -60, -100 }, { -RUNWAY_ROTATION, 40, -155 } };
 
 			// Checks the runway amount and makes sure that it's not greater than two
-			if (runwayAmount > 1 && runwayAmount <= 2) {
+			if (runwayAmount == 2) {
 				drawALLTaxiWays(taxiWayData);
 
 				drawALLRunways(runwayData);
@@ -512,18 +501,15 @@ public class GUIElements extends JFrame {
 			int centreXPos = xPos + (width / 2); // Calculates X centred
 			int centreYPos = yPos + (height / 2); // Calculates Y centred
 
-			int[] centrePos = { centreXPos, centreYPos }; // Initialises a list which contains X and Y centred
+            // Initialises a list which contains X and Y centred
 
-			return centrePos; // Returns the list
+            return new int[]{ centreXPos, centreYPos }; // Returns the list
 		}
 
 		public void getPlaneImage() throws IOException {
-
-			BufferedImage Image;
-
 			Random rand = new Random();
 
-			this.url = imageLocation[rand.nextInt(imageLocation.length)];
+            String url = imageLocation[rand.nextInt(imageLocation.length)];
 			this.Image = ImageIO.read(Objects.requireNonNull(getClass().getResource(url)));
 		}
 
