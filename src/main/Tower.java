@@ -1,7 +1,7 @@
 package src.main;
 
 import java.util.ArrayList;
-
+import java.util.Random;
 
 /*
  * Class for handling all logic and detection of crashes
@@ -92,10 +92,36 @@ public class Tower {
 	/**
 	 * adds a new plane to simulation
 	 */
-	public void spawnPlane() {
+	public void spawnPlane(int runwayAmount, int gateAmount) {
 		PlaneAttributes plane = new PlaneAttributes();
-		planes.add(plane);
-		plane.turn(120);
+		Random r = new Random();
+		int chooseRunway;
+		
+		switch(runwayAmount){
+		case 1:
+			plane.setPlane(125, 300, 0);
+			planes.add(plane);
+			plane.turn(300);
+			break;
+		case 2: 
+			chooseRunway = r.nextInt(2)+1;
+			if(chooseRunway == 1) {
+				plane.setPlane(125, 300, 0);
+				planes.add(plane);
+				plane.turn(300);
+			}else if(chooseRunway == 2) {
+				plane.setPlane(230, 45, 0);
+				planes.add(plane);
+				plane.turn(240);
+			}
+			
+			
+			break;
+		default:
+			System.out.println("*Sighs*");
+			break;
+		}
+		
 	}
 	
 	/**
