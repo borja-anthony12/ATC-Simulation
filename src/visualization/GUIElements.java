@@ -226,18 +226,15 @@ public class GUIElements extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				planeAmount += 1; // Adds one to planeAmount and sets planeAmount to that value
 				planeAmountDisplay.setText(String.valueOf(planeAmount)); // Sets the planeAmountDisplay to the value of
-<<<<<<< HEAD
 																			// planeAmount
 				tower.spawnPlane(runwayAmount, gateAmount); // Spawns plane and places it on JPanel
-=======
 																			// planeAmount\
                 try {
                     airportVisuals.getPlaneImage();
                 } catch (IOException ex) {
                     throw new RuntimeException(ex);
                 }
-                tower.spawnPlane(); // Spawns plane and places it on JPanel
->>>>>>> branch 'main' of https://github.com/borja-anthony12/ATC-Simulation.git
+                tower.spawnPlane(runwayAmount, gateAmount); // Spawns plane and places it on JPanel
 			}
 
 		});
@@ -526,43 +523,22 @@ public class GUIElements extends JFrame {
 
 			this.url = imageLocation[rand.nextInt(imageLocation.length)];
 			this.Image = ImageIO.read(Objects.requireNonNull(getClass().getResource(url)));
-        }
-
-<<<<<<< HEAD
 			Image = ImageIO.read(getClass().getResource(url));
-
-
-
-=======
+        }
+			
 		/**
 		 * draws the planes
 		 *
          */
 		public void drawPlanes() throws IOException {
->>>>>>> branch 'main' of https://github.com/borja-anthony12/ATC-Simulation.git
 
 			for (PlaneAttributes plane : tower.getPlanes()) {
 				double xPlane = plane.getPosition()[0];
 				double yPlane = plane.getPosition()[1];
 				double anglePlane = -plane.getDirection();
 
-<<<<<<< HEAD
 				g2d.drawRect((int) xPlane - Image.getWidth() / 2, (int) yPlane - Image.getHeight() / 2, Image.getWidth(), Image.getHeight()); // Check plane position		
-				
-=======
-<<<<<<< HEAD
 
-
-				g2d.drawRect((int) xPlane, (int) yPlane, Image.getWidth(), Image.getHeight()); // Check plane position
-
-=======
-				g2d.drawRect((int) xPlane, (int) yPlane, Image.getWidth(), Image.getHeight()); // Check plane position
->>>>>>> branch 'main' of https://github.com/borja-anthony12/ATC-Simulation.git
-
-		        g2d.drawRect((int) xPlane, (int) yPlane, Image.getWidth(), Image.getHeight()); // Check plane position 
-
-
->>>>>>> refs/remotes/origin/main
 				rotateObject(g2d, (int) xPlane, (int) yPlane, (int) anglePlane);
 
 				// Draw the image after applying the transform
