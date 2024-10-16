@@ -171,7 +171,7 @@ public class GUIElements extends JFrame {
 	 * @return drop down for being added to the panel
 	 */
 	private JComboBox<Integer> createChangeRunwayAmount() {
-		// Creates JComboBox for setting the amount of gates
+		// Creates JComboBox for setting the number of gates
 		changeRunwayAmount = new JComboBox<>(setRunwayAmount); // Creates JCombobox (Drop down) and sets the
 		// value to
 		// setGateAmount list
@@ -248,7 +248,6 @@ public class GUIElements extends JFrame {
 		// Adds Action Listener to removePLane . When button is pressed it removes one
 		// from planeAmount and removes plane
 		removePlane.addActionListener(e -> {
-
 				// Checks if plane amount does not equal zero
 				if (planeAmount > 0) {
 					planeAmount -= 1; // Removes one to planeAmount and sets palneAmount to that value
