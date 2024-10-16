@@ -10,6 +10,30 @@ import javax.swing.*;
 
 public class WindowUpdate extends JFrame {
 	private static final long serialVersionUID = 1435203151832523191L;
+	
+	/**
+	 * turns an angle into a reference angle
+	 * @param angle is the given angle
+	 * @return returns the reference, returns -1 if an error occurs
+	 */
+	public static double toReferenceAngle(double angle) {
+		int quadrant = (int) ((angle % 360) / 90) + 1;
+		
+		switch(quadrant) {
+		case 1:
+			return angle;
+		case 2:
+			return 180 - angle;
+		case 3:
+			return angle - 180;
+		case 4:
+			return 360 - angle;
+		default: 
+			System.out.println("Error: reference angle calculation bad");
+		}
+		
+		return -1;
+	}
 
 	/**
 	 * Updates the screen constantly
@@ -31,27 +55,26 @@ public class WindowUpdate extends JFrame {
 				for (PlaneAttributes plane : tower.getPlanes()) {
 					double dx = 0;
 					double dy = 0;
-					plane.vel = 1;
 					double vel = plane.getVel();
 					double dir = plane.getDirection() % 360;
 
 					//movement
 					switch (plane.getDirectionQuadrant()) {
 					case 1:
-						dx = vel * Math.sin(dir);
-						dy = -vel * Math.cos(dir);
+						dx = vel * Math.sin(toReferenceAngle(dir));
+						dy = -vel * Math.cos(toReferenceAngle(dir));
 						break;
 					case 2:
-						dx = -vel * Math.cos(180 - dir);
-						dy = -vel * Math.sin(180 - dir);
+						dx = -vel * Math.cos(toReferenceAngle(dir));
+						dy = -vel * Math.sin(toReferenceAngle(dir));
 						break;
 					case 3:
-						dx = -vel * Math.sin(dir - 180);
-						dy = vel * Math.cos(dir - 180);
+						dx = -vel * Math.sin(toReferenceAngle(dir));
+						dy = vel * Math.cos(toReferenceAngle(dir));
 						break;
 					case 4:
-						dx = vel * Math.cos(360 - dir);
-						dy = vel * Math.sin(360 - dir);
+						dx = vel * Math.cos(toReferenceAngle(dir));
+						dy = vel * Math.sin(toReferenceAngle(dir));
 						break;
 					default:
 						System.out.println("Stupid error");
