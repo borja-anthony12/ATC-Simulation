@@ -3,6 +3,18 @@ package src.main;
 import java.util.Random;
 
 public class PlaneAttributes extends PlaneBehavior {
+<<<<<<< HEAD
+	double x, y, z;
+	double dir = 0;
+	public double vel = 0;
+	double v = 1.1;
+	double accel = 0;
+	double altaccel = 0;
+	double takeoffvel;
+	String a, b, c, d, e;
+	String call;
+	boolean power = false;
+=======
     private static final String[] AIRLINE_CODES = {"AYO",
             "BYK",
             "CQY",
@@ -29,6 +41,7 @@ public class PlaneAttributes extends PlaneBehavior {
             "XKF",
             "YSD",
             "ZUS"};
+>>>>>>> branch 'main' of https://github.com/borja-anthony12/ATC-Simulation.git
 
     public double vel = 0;
     double x, y, z;
@@ -134,8 +147,21 @@ public class PlaneAttributes extends PlaneBehavior {
     public double[] getPosition() {
         double[] coords = {x, y, z};
 
+<<<<<<< HEAD
+	public double getVel() {
+		return vel;
+	}
+
+	/*
+	 * turns the plane
+	 */
+	public void turn(double degrees) {
+		dir += degrees;
+	}
+=======
         return coords;
     }
+>>>>>>> branch 'main' of https://github.com/borja-anthony12/ATC-Simulation.git
 
     /**
      * returns direction
@@ -146,8 +172,43 @@ public class PlaneAttributes extends PlaneBehavior {
         return dir;
     }
 
+<<<<<<< HEAD
+		return coords;
+	}
+
+	/**
+	 * returns direction
+	 * @return
+	 */
+	public double getDirection() {
+		return dir;
+	}
+
+	
+	public void setPlane(int x, int y, int z) {
+		this.x = x;
+		this.y = y;
+		this.z = z;
+		
+		
+	}
+	
+	/*public void setPlaneAngle(int dir, int runwayAmount) {
+		PlaneAttributes plane = new PlaneAttributes();
+		
+		
+	}*/
+
+
+	public int getDirectionQuadrant() {
+		int quadrant = (int) Math.floor((dir % 360) / 90) + 1;
+		return quadrant;
+	}
+
+=======
     public int getDirectionQuadrant() {
         int quadrant = (int) Math.floor((dir % 360) / 90) + 1;
         return quadrant;
     }
+>>>>>>> branch 'main' of https://github.com/borja-anthony12/ATC-Simulation.git
 }
