@@ -31,7 +31,6 @@ public class WindowUpdate extends JFrame {
 		default: 
 			System.out.println("Error: reference angle calculation bad");
 		}
-		
 		return -1;
 	}
 
