@@ -5,7 +5,7 @@ public class Main {
 	private static final int WIDTH = 720; 	// Width for a window
 	private static final int HEIGHT = 600;	// Height for a window
 
-    public static final int UPDATE_INTERVAL = 1;
+    public static final int UPDATE_INTERVAL = 100;
 	
 	public static void main(String[] args) {
 		// Creates instances of all the imported modules

@@ -140,14 +140,8 @@ public class PlaneAttributes extends PlaneBehavior {
 
 
     }
-	
-	/*public void setPlaneAngle(int dir, int runwayAmount) {
-		PlaneAttributes plane = new PlaneAttributes();
-		
-		
-	}*/
 
     public int getDirectionQuadrant() {
-        return (int) Math.floor((dir % 360) / 90) + 1;
+        return (int) (Math.floor(((dir % 360) / 90)) + 1);
     }
 }
