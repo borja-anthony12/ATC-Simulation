@@ -28,36 +28,38 @@ public class WindowUpdate extends JFrame {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-
+            	
                 for (PlaneAttributes plane : tower.getPlanes()) {
                     double dx = 0;
                     double dy = 0;
-                    plane.vel = 1;
                     double velocity = plane.getVel();
                     double dir = plane.getDirection() % 360;
-                    plane.turn(1);
+                    //plane.turn(1);
                     //movement
                     switch (plane.getDirectionQuadrant()) {
+  
                         case 1:
-                            dx = velocity * Math.cos(toReferenceAngle(dir));
-                            dy = velocity * Math.sin(toReferenceAngle(dir));
+                            dx = velocity * Math.cos(Math.toRadians(dir));
+                            dy = velocity * Math.sin(Math.toRadians(dir));
                             break;
                         case 2:
-                            dx = -velocity * Math.cos(toReferenceAngle(dir));
-                            dy = velocity * Math.sin(toReferenceAngle(dir));
+                            dx = velocity * Math.cos(Math.toRadians(dir));
+                            dy = velocity * Math.sin(Math.toRadians(dir));
                             break;
                         case 3:
-                            dx = -velocity * Math.cos(toReferenceAngle(dir));
-                            dy = -velocity * Math.sin(toReferenceAngle(dir));
+                            dx = velocity * Math.cos(Math.toRadians(dir));
+                            dy = velocity * Math.sin(Math.toRadians(dir));
                             break;
                         case 4:
-                            dx = velocity * Math.cos(toReferenceAngle(dir));
-                            dy = -velocity * Math.sin(toReferenceAngle(dir));
+                            dx = velocity * Math.cos(Math.toRadians(dir));
+                            dy = velocity * Math.sin(Math.toRadians(dir));
                             break;
                         default:
                             System.out.println("Stupid error");
                     }
+                    System.out.println("Dir: " + dir + " Velocity: "+ velocity+ "Quadrant: "+ plane.getDirectionQuadrant());
                     System.out.println("Move: " + dx + ", " + dy);
+                    System.out.println();
                     plane.move(dx, dy);
                 }
 
