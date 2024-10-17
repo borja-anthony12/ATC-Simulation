@@ -34,47 +34,15 @@ public class WindowUpdate extends JFrame {
                     double dy = 0;
                     double velocity = plane.getVel();
                     double dir = plane.getDirection() % 360;
-                    //plane.turn(1);
-                    //movement
-                    switch (plane.getDirectionQuadrant()) {
-  
-                        case 1:
-                            dx = velocity * Math.cos(Math.toRadians(dir));
-                            dy = velocity * Math.sin(Math.toRadians(dir));
-                            break;
-                        case 2:
-                            dx = velocity * Math.cos(Math.toRadians(dir));
-                            dy = velocity * Math.sin(Math.toRadians(dir));
-                            break;
-                        case 3:
-                            dx = velocity * Math.cos(Math.toRadians(dir));
-                            dy = velocity * Math.sin(Math.toRadians(dir));
-                            break;
-                        case 4:
-                            dx = velocity * Math.cos(Math.toRadians(dir));
-                            dy = velocity * Math.sin(Math.toRadians(dir));
-                            break;
-                        default:
-                            System.out.println("Stupid error");
-                    }
-                    System.out.println("Dir: " + dir + " Velocity: "+ velocity+ "Quadrant: "+ plane.getDirectionQuadrant());
-                    System.out.println("Move: " + dx + ", " + dy);
-                    System.out.println();
+
+                    dx = velocity * Math.cos(Math.toRadians(dir));
+                    dy = -velocity * Math.sin(Math.toRadians(dir));
+
+                    System.out.println("Dir: " + dir + " Velocity: "+ velocity);
+                    System.out.println("Move: " + dx + ", " + dy+"\n");
                     plane.move(dx, dy);
                 }
-
                 mainPanel.repaint();
-
-                /*
-                 * one.takeoff(takeoff); one.landing(landing);
-                 *
-                 * this.takeoff = takeoff; this.landing = landing;
-                 *
-                 *
-                 * if(takeoff == true) { one.upVelocity(vel, takeoff); one.upAlt(z); }else
-                 * if(landing == true) one.downVelocity(vel, landing); one.downAlt(z);
-                 */
-
             }
         });
         timer.start();
@@ -86,6 +54,7 @@ public class WindowUpdate extends JFrame {
      * @param angle is the given angle
      * @return returns the reference, returns -1 if an error occurs
      */
+    @Deprecated
     public static double toReferenceAngle(double angle) {
         int quadrant = (int) ((angle % 360) / 90) + 1;
 
