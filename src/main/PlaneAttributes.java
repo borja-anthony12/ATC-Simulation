@@ -9,7 +9,7 @@ public class PlaneAttributes extends PlaneBehavior {
     private static final String[] AIRLINE_CODES = {"AYO", "BYK", "CQY", "DAS", "ETE", "FAS", "GIV", "HMS", "IHR", "JUI", "KVY", "LXE", "MTH", "NRS", "OHP", "PQW", "QTO", "RQU", "SVN", "TDX", "UIM", "VOX", "WZE", "XKF", "YSD", "ZUS"};
     private double x, y, z;
     private double dir = 0;
-    private double vel = 0;
+    public double vel = 0;
     private double v = 1.1;
     private double accel = 0;
     private double altaccel = 0;
