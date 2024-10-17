@@ -26,7 +26,7 @@ public class GUIElements extends JFrame {
     private static final long serialVersionUID = 2178084625298728326L;
 
     private static final Logger logger = Logger.getLogger(GUIElements.class.getName());
-
+    static AirportPanel airportVisuals; // Creates an instance of the AirportPanel class
     // Initialises lists
     private final Integer[] setRunwayAmount = {1, 2}; // Creates a 1D list for the available runways
     private final Integer[] setGateAmount = {1, 2, 3, 4}; // Creates a 1D list for the available gates
@@ -38,8 +38,6 @@ public class GUIElements extends JFrame {
     public int windowHeight;
     // Creates instances of classes
     Tower tower; // Creates an instance of tower class
-    static AirportPanel airportVisuals; // Creates an instance of the AirportPanel class
-    PlaneAttributes plane;
     // Creates JComboBox (Creates a drop-down)
     JComboBox<Integer> changeGateAmount; // Creates a Combo box for changing the number of gates
     JComboBox<Integer> changeRunwayAmount; // Creates a Combo box for changing the number of planes
@@ -58,7 +56,6 @@ public class GUIElements extends JFrame {
      * Constructor of class AirportVisuals.
      * Calls the method initializeWindow to
      * create the window within the constructor
-     *
      */
     public GUIElements() {
     }
@@ -260,11 +257,6 @@ public class GUIElements extends JFrame {
             }
         });
         return removePlane;
-    }
-
-    public static BufferedImage getPlaneImage() throws IOException {
-
-        return airportVisuals.getImage();
     }
 
     /**
