@@ -1,5 +1,6 @@
 package src.visualization;
 
+import java.awt.geom.Ellipse2D;
 import java.io.Serial;
 import java.util.Objects;
 import java.util.Random;
@@ -26,7 +27,7 @@ public class GUIElements extends JFrame {
     private static final long serialVersionUID = 2178084625298728326L;
 
     private static final Logger logger = Logger.getLogger(GUIElements.class.getName());
-
+    static AirportPanel airportVisuals; // Creates an instance of the AirportPanel class
     // Initialises lists
     private final Integer[] setRunwayAmount = {1, 2}; // Creates a 1D list for the available runways
     private final Integer[] setGateAmount = {1, 2, 3, 4}; // Creates a 1D list for the available gates
@@ -38,8 +39,6 @@ public class GUIElements extends JFrame {
     public int windowHeight;
     // Creates instances of classes
     Tower tower; // Creates an instance of tower class
-    static AirportPanel airportVisuals; // Creates an instance of the AirportPanel class
-    PlaneAttributes plane;
     // Creates JComboBox (Creates a drop-down)
     JComboBox<Integer> changeGateAmount; // Creates a Combo box for changing the number of gates
     JComboBox<Integer> changeRunwayAmount; // Creates a Combo box for changing the number of planes
@@ -58,7 +57,6 @@ public class GUIElements extends JFrame {
      * Constructor of class AirportVisuals.
      * Calls the method initializeWindow to
      * create the window within the constructor
-     *
      */
     public GUIElements() {
     }
@@ -90,7 +88,7 @@ public class GUIElements extends JFrame {
         tower = new Tower(); // Creates an instance of tower class
 
         // Styles the Drop-down menu (JComboBox)
-        UIManager.put("ComboBox.background", Color.DARK_GRAY); // Sets the background to dark gray
+        UIManager.put("ComboBox.background", Color.DARK_GRAY); // Sets the background to dark grey
         UIManager.put("ComboBox.foreground", Color.WHITE); // Sets the text to white
         UIManager.put("ComboBox.buttonBackground", Color.WHITE); // Sets the button background to white
         UIManager.put("ComboBox.selectionBackground", Color.WHITE); // Sets the selection background to white
@@ -213,7 +211,7 @@ public class GUIElements extends JFrame {
     }
 
     /**
-     * Creates a JButton for adding 1 plane
+     * Creates a JButton for adding one plane
      *
      * @return JButton for being displayed on the panel
      */
@@ -240,7 +238,7 @@ public class GUIElements extends JFrame {
     }
 
     /**
-     * Creates a JButton for removing 1 plane
+     * Creates a JButton for removing one plane
      *
      * @return JButton to be added to panel
      */
@@ -262,17 +260,23 @@ public class GUIElements extends JFrame {
         return removePlane;
     }
 
-    public static BufferedImage getPlaneImage() throws IOException {
-
-        return airportVisuals.getImage();
-    }
-
     /**
      * Class that extends JPanel and creates runways
      */
     class AirportPanel extends JPanel {
         @Serial
         private static final long serialVersionUID = 2853523647566452733L;
+
+        private final String[] imageLocation = {
+                "/plane-images/plane-blue.png",
+                "/plane-images/plane-jared.png",
+                "/plane-images/plane-cyan.png",
+                "/plane-images/plane-green.png",
+                "/plane-images/plane-purple.png",
+                "/plane-images/plane-nolan.png",
+                "/plane-images/plane-white.png",
+                "/plane-images/plane-will.png"
+        };
 
         private final Color taxiWayColour = Color.DARK_GRAY;
         private final Color runwayColour = Color.GRAY;
@@ -285,10 +289,8 @@ public class GUIElements extends JFrame {
         private final int BUILDING_WIDTH = 340; // Initialises the building width
         private final int BUILDING_HEIGHT = 110; // Initialises the building height
         private final int BUILDING_ROTATION = -30;
+
         private final int TAXIWAY_WIDTH = RUNWAY_WIDTH / 2;
-        private final String[] imageLocation = {"/plane-images/plane-blue.png", "/plane-images/plane-jared.png",
-                "/plane-images/plane-cyan.png", "/plane-images/plane-green.png", "/plane-images/plane-purple.png",
-                "/plane-images/plane-nolan.png", "/plane-images/plane-white.png", "/plane-images/plane-will.png"};
         /* Initialises Airports X & Y positions */
         private int runwayXPos, runwayYPos; // Initialises the runways X and Y
         private int buildingXPos, buildingYPos; // Initialises the buildings X and Y
@@ -420,7 +422,7 @@ public class GUIElements extends JFrame {
         }
 
         /**
-         * Creates all of the runways
+         * Creates all the runways
          *
          * @param runwayData takes in runway data
          */
@@ -434,7 +436,7 @@ public class GUIElements extends JFrame {
          * Calculates the centred X position relative to an object
          *
          * @param windowWidth takes in the window width
-         * @param objectWidth takes in the object width (i.e., building width and runway
+         * @param objectWidth takes in the object width (i.e. building width and runway
          *                    width)
          * @return returns calculated X value
          */
@@ -446,7 +448,7 @@ public class GUIElements extends JFrame {
          * Calculates the centred Y position relative to an object
          *
          * @param windowHeight takes in the window height
-         * @param objectHeight takes in the object height (i.e., building height and
+         * @param objectHeight takes in the object height (i.e. building height and
          *                     runway height)
          * @return returns calculated Y value
          */
@@ -455,7 +457,7 @@ public class GUIElements extends JFrame {
         }
 
         /**
-         * Rotates the object i.e., runways and taxiways
+         * Rotates the object i.e. runways and taxiways
          *
          * @param g2d      Takes in the graphics component from method
          * @param xPos     Takes in the desired x Position
@@ -474,13 +476,19 @@ public class GUIElements extends JFrame {
          * @param g2d    Gets the Graphics2D component from method
          * @param visual Gets the visual
          */
-        public void drawObject(Graphics2D g2d, Rectangle visual) {
-            g2d.draw(visual); // Draws the desired visual
-            g2d.fill(visual); // Fills the desired visual
+        public void drawObject(Graphics2D g2d, Rectangle visual, Ellipse2D circle) {
+            if (visual != null) {
+                g2d.draw(visual); // Draws the desired visual
+                g2d.fill(visual); // Fills the desired visual
+            }else{
+                g2d.draw(circle);
+                g2d.fill(circle);
+            }
+
         }
 
         /**
-         * Resets a panel, so any changes done (i.e., rotating/translating) will be reset
+         * Resets a panel, so any changes done (i.e. rotating/translating) will be reset
          *
          * @param g2d Takes in the Graphics2D component from method
          */
@@ -521,7 +529,7 @@ public class GUIElements extends JFrame {
             for (PlaneAttributes plane : tower.getPlanes()) {
                 double xPlane = plane.getPosition()[0];
                 double yPlane = plane.getPosition()[1];
-                double anglePlane = -plane.getDirection() - 90;
+                double anglePlane = -plane.getDirection();
 
                 g2d.drawRect((int) xPlane - Image.getWidth() / 2, (int) yPlane - Image.getHeight() / 2, Image.getWidth(), Image.getHeight()); // Check plane position
 
@@ -555,7 +563,7 @@ public class GUIElements extends JFrame {
             int centreXRunway = getCentredPos[0]; // Centres the runway on the X axis
             int centreYRunway = getCentredPos[1]; // Centres the runway on the Y axis
 
-            g2d.setColor(runwayColour); // Sets the runway colour to dark gray
+            g2d.setColor(runwayColour); // Sets the runway colour to dark grey
 
             rotateObject(g2d, centreXRunway, centreYRunway, rotation);
 
@@ -566,17 +574,31 @@ public class GUIElements extends JFrame {
             // runway
             // width and
             // height
-            drawObject(g2d, runwayVisual);
+            drawObject(g2d, runwayVisual, null);
 
             //Resets any canvas transformation
             resetTransformation(g2d);
         }
 
         public void drawTower() {
-            // towerXPos = (windowWidth - TOWER_WIDTH) / 2;
-            // towerYPos = (windowHeight - (BUILDING_HEIGHT)) / 2;
+            int TOWER_SIZE = 75;
+            int towerXPos = (windowWidth - TOWER_SIZE) / 2 - 250;
+            int towerYPos = (windowHeight - TOWER_SIZE) / 2 - 200;
 
-            // int[] getCentredPos = centredPos(buildingXPos, buildingYPos, 350, 115);
+             int[] getCentredPos = centreObject(towerXPos, towerYPos, TOWER_SIZE, TOWER_SIZE);
+
+             int centreXTower = getCentredPos[0];
+             int centreYTower = getCentredPos[1];
+
+             g2d.setColor(buildingColour);
+
+             rotateObject(g2d, centreXTower, centreYTower, 0);
+
+             Ellipse2D tower = new Ellipse2D.Double(towerXPos, towerYPos, TOWER_SIZE, TOWER_SIZE);
+
+             drawObject(g2d, null, tower);
+
+             resetTransformation(g2d);
         }
 
         /**
@@ -598,14 +620,14 @@ public class GUIElements extends JFrame {
             int centreYBuilding = getCentredPos[1]; // Calculates the building centre. (115 is what got the
             // position on I wanted)
 
-            g2d.setColor(buildingColour); // Sets the building colour to light gray
+            g2d.setColor(buildingColour); // Sets the building colour to light grey
 
             rotateObject(g2d, centreXBuilding, centreYBuilding, BUILDING_ROTATION);
 
             // Creates the building and sets the X, Y, building width and height
             Rectangle building = new Rectangle(buildingXPos, buildingYPos, BUILDING_WIDTH, BUILDING_HEIGHT);
 
-            drawObject(g2d, building);
+            drawObject(g2d, building, null);
 
             resetTransformation(g2d);
         }
@@ -635,11 +657,11 @@ public class GUIElements extends JFrame {
                 gateXPos = buildingXPos + (i * gateSpacing) - gateOffsetX; // Evenly spaces gates along the building
                 gateYPos = buildingYPos + gateOffsetY; // Position gates relative to the building
 
-                g2d.setColor(buildingColour); // Sets the gate colour to light gray
+                g2d.setColor(buildingColour); // Sets the gate colour to light grey
                 Rectangle gate = new Rectangle(gateXPos, gateYPos, GATE_WIDTH, GATE_HEIGHT); // Creates the gate and
                 // sets the X, Y, gate
                 // width and height
-                drawObject(g2d, gate);
+                drawObject(g2d, gate, null);
             }
 
             resetTransformation(g2d);
@@ -667,7 +689,7 @@ public class GUIElements extends JFrame {
 
             g2d.setColor(taxiWayColour);
 
-            drawObject(g2d, taxiWayVisual);
+            drawObject(g2d, taxiWayVisual, null);
 
             resetTransformation(g2d);
         }
