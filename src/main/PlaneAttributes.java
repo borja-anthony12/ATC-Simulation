@@ -1,54 +1,36 @@
 package src.main;
 
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.Random;
+import src.visualization.*;
 
 public class PlaneAttributes extends PlaneBehavior {
-	private double x, y, z;
-	private double dir = 0;
-	private double vel = 0;
-	private double v = 1.1;
-	private double accel = 0;
-	private double altaccel = 0;
-	private double takeoffvel;
-	private boolean power = false;
-	private String callSign;
-	
-    private static final String[] AIRLINE_CODES = {"AYO",
-            "BYK",
-            "CQY",
-            "DAS",
-            "ETE",
-            "FAS",
-            "GIV",
-            "HMS",
-            "IHR",
-            "JUI",
-            "KVY",
-            "LXE",
-            "MTH",
-            "NRS",
-            "OHP",
-            "PQW",
-            "QTO",
-            "RQU",
-            "SVN",
-            "TDX",
-            "UIM",
-            "VOX",
-            "WZE",
-            "XKF",
-            "YSD",
-            "ZUS"};
+    private static final String[] AIRLINE_CODES = {"AYO", "BYK", "CQY", "DAS", "ETE", "FAS", "GIV", "HMS", "IHR", "JUI", "KVY", "LXE", "MTH", "NRS", "OHP", "PQW", "QTO", "RQU", "SVN", "TDX", "UIM", "VOX", "WZE", "XKF", "YSD", "ZUS"};
+    private double x, y, z;
+    private double dir = 0;
+    private double vel = 0;
+    private double v = 1.1;
+    private double accel = 0;
+    private double altaccel = 0;
+    private double takeoffvel;
+    private boolean power = false;
+    private String callSign;
 
-    public PlaneAttributes() {
+    private BufferedImage planeSprite;
+
+    public PlaneAttributes(BufferedImage image) {
         /*
          * x = 155; y = 375; z = 300;
          */
+
         this.x = 185;
         this.y = 305;
         this.z = 300;
         this.dir = 0;
         this.callSign = getCallSign();
+
+        planeSprite = image;
     }
 
     // make a list of letters and choose a random one
@@ -59,6 +41,12 @@ public class PlaneAttributes extends PlaneBehavior {
 
         return airlineCode + flightNumber;
     }
+
+    public BufferedImage getPlaneImage() {
+            return planeSprite;
+    }
+
+
 
     // 160 - 180 mph takeoff speed
     // increases velocity rate
@@ -107,7 +95,6 @@ public class PlaneAttributes extends PlaneBehavior {
 
     // reduces z coordinate
     public void downAlt(double z) {
-
         if (z > 0) {
             z /= 1.4;
         }
@@ -132,27 +119,27 @@ public class PlaneAttributes extends PlaneBehavior {
     }
 
     public double[] getPosition() {
-        double[] coords = {x, y, z};
-        
-        return coords;
-    }
-    
-	/**
-	 * returns direction
-	 * @return
-	 */
-	public double getDirection() {
-		return dir;
-	}
 
-	
-	public void setPlane(int x, int y, int z) {
-		this.x = x;
-		this.y = y;
-		this.z = z;
-		
-		
-	}
+        return new double[]{x, y, z};
+    }
+
+    /**
+     * returns direction
+     *
+     * @return the direction of the plane
+     */
+    public double getDirection() {
+        return dir;
+    }
+
+
+    public void setPlane(int x, int y, int z) {
+        this.x = x;
+        this.y = y;
+        this.z = z;
+
+
+    }
 	
 	/*public void setPlaneAngle(int dir, int runwayAmount) {
 		PlaneAttributes plane = new PlaneAttributes();
@@ -161,7 +148,6 @@ public class PlaneAttributes extends PlaneBehavior {
 	}*/
 
     public int getDirectionQuadrant() {
-        int quadrant = (int) Math.floor((dir % 360) / 90) + 1;
-        return quadrant;
+        return (int) Math.floor((dir % 360) / 90) + 1;
     }
 }

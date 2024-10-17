@@ -1,5 +1,6 @@
 package src.main;
 
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -67,7 +68,7 @@ public class Tower {
 	}
 
 	/**
-	 * moves a plane to a gate from the run way
+	 * moves a plane to a gate from the runway
 	 */
 	public void taxiPlaneToGate(PlaneAttributes plane) {
 		for (int i = 0; i < gates.length; i++) {
@@ -79,7 +80,7 @@ public class Tower {
 	}
 
 	/**
-	 * moves a plane to the run way from a gate
+	 * moves a plane to the runway from a gate
 	 */
 	public void taxiPlaneToRunway(PlaneAttributes plane) {
 		for (int i = 0; i < gates.length; i++) {
@@ -92,9 +93,9 @@ public class Tower {
 	/**
 	 * adds a new plane to simulation
 	 */
-	public void spawnPlane(int runwayAmount, int gateAmount) {
+	public void spawnPlane(int runwayAmount, int gateAmount, BufferedImage image) {
 		
-		PlaneAttributes plane = new PlaneAttributes();
+		PlaneAttributes plane = new PlaneAttributes(image);
 		Random r = new Random();
 		int chooseRunway;
 		

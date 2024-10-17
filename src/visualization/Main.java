@@ -15,7 +15,9 @@ public class Main {
         int runwayAmount = 1;
         // The Maximum number of gates is 4
         int gateAmount = 4;
-        GUIElements apVisuals = new GUIElements(WIDTH, HEIGHT, runwayAmount, gateAmount);
-
+        GUIElements apVisuals = new GUIElements();
+		apVisuals.getWindowProportions(WIDTH, HEIGHT);
+		apVisuals.getAirportDetails(runwayAmount, gateAmount);
+		apVisuals.startWindow();
 	}
 }
