@@ -4,10 +4,10 @@ public class PlaneBehavior {
 	int vel = 0;
 	boolean takeoff = false;
 	boolean landing = false;
-	boolean cruise = false;
+	boolean cruise = true;
 	//PlaneAttributes plane = new PlaneAttributes();
-	public void takeoff() {
-		
+	public void takeOff() {
+
 		
 		
 	}

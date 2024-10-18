@@ -1,8 +1,13 @@
 package src.main;
 
+
+import java.awt.*;
+import java.awt.geom.Area;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Random;
+
+import src.visualization.*;
 
 /*
  * Class for handling all logic and detection of crashes
@@ -10,10 +15,15 @@ import java.util.Random;
 public class Tower {
 
 	protected ArrayList<PlaneAttributes> planes;
+	protected GUIElements.AirportPanel apVisuals = new GUIElements.AirportPanel();
 	private PlaneAttributes[] gatePlanes;
 	private boolean[] gates;
 	private final int MINIMUM_SPACE_BETWEEN_PLANES = 10; // ADJUST THESE VALUES
 	private final int CRASH_DIVERT_DISTANCE = 40; // ADJUST THESE VALUES
+	private int runwayXPos, runwayYPos;
+	private int runwayWidth, runwayHeight;
+	private int runwayRotation;
+	private int runwayAmount;
 
 	/**
 	 * Initializes the tower
@@ -88,6 +98,42 @@ public class Tower {
 				gates[i] = false;
 			}
 		}
+	}
+
+	public boolean planeOnRunway(PlaneAttributes plane) {
+		// Get the polygons for both the runway and the plane
+		Polygon planePolygon = apVisuals.getPlanePolygon(plane);
+
+		// Check if the polygons intersect
+		Area planeArea = new Area(planePolygon);
+
+		switch(runwayAmount){
+			case 1:
+				Polygon runwayPolygon = apVisuals.getRunwayPolygon(runwayXPos, runwayYPos, runwayWidth, runwayHeight, runwayRotation);
+				System.out.println(runwayXPos + " " + runwayYPos);
+				Area runwayArea = new Area(runwayPolygon);
+				planeArea.intersect(runwayArea);
+				break;
+			case 2:
+				break;
+			default:
+				System.out.println("Spicy");
+		}
+
+
+
+
+
+		return !planeArea.isEmpty();  // If not empty, there's an overlap
+	}
+
+	public void getRunwayParam(int runwayXPos, int runwayYPos, int runwayWidth, int runwayHeight, int runwayRotation, int runwayAmount) {
+		this.runwayXPos = runwayXPos;
+		this.runwayYPos = runwayYPos;
+		this.runwayWidth = runwayWidth;
+		this.runwayHeight = runwayHeight;
+		this.runwayRotation = runwayRotation;
+		this.runwayAmount = runwayAmount;
 	}
 
 	/**
