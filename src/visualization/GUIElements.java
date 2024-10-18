@@ -3,6 +3,7 @@ package src.visualization;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
 import java.io.Serial;
+import java.util.Arrays;
 import java.util.Objects;
 import java.util.Random;
 import java.util.logging.Level;
@@ -380,8 +381,13 @@ public class GUIElements extends JFrame {
             // Runways
             runwayOneXPos = (windowWidth - RUNWAY_WIDTH) / 2; // Adjust X position to centre runway
             runwayOneYPos = (windowHeight - RUNWAY_HEIGHT) / 2; // Adjust Y position to centre runway
+
+            System.out.println("Runway One X Pos (UpdateRunwayPosition): " + runwayOneXPos + "\nRunway One Y Pos (UpdateRunwayPosition): " + runwayOneYPos);
+
             runwayTwoXPos = (windowWidth - RUNWAY_WIDTH) / 2;
             runwayTwoYPos = (windowHeight - RUNWAY_HEIGHT) / 2;
+
+            System.out.println("Runway One X Pos (UpdateRunwayPosition): " + runwayTwoXPos + "\nRunway One Y Pos (UpdateRunwayPosition): " + runwayTwoYPos);
 
             // Building
             buildingXPos = (windowWidth - BUILDING_WIDTH) / 2; // Adjusts the X position to centre the building
@@ -403,8 +409,10 @@ public class GUIElements extends JFrame {
         private void checkIfRunway(int runwayAmount, int taxiWayXPos, int taxiWayYPos) {
             int[][] taxiWayData = {{taxiWayXPos + 170, taxiWayYPos - 50, TAXIWAY_WIDTH, 260, 150},
                     {taxiWayXPos - 144, taxiWayYPos - 25, TAXIWAY_WIDTH, 155, 30},};
+            System.out.println("Runway One X Pos: " + runwayOneXPos + "\nRunway One Y Pos: " + runwayOneYPos);
+            System.out.println("Runway Two X Pos: " + runwayTwoXPos + "\nRunway Two Y Pos: " + runwayTwoYPos);
 
-            int[][] runwayData = {{runwayOneXPos, runwayOneYPos, RUNWAY_ROTATION, -60, -100}, {runwayTwoXPos, runwayTwoYPos-RUNWAY_ROTATION, 40, -155}};
+            int[][] runwayData = {{runwayOneXPos, runwayOneYPos, RUNWAY_ROTATION, -60, -100}, {runwayTwoXPos, runwayTwoYPos, -RUNWAY_ROTATION, 40, -155}};
 
             // Checks the runway amount and makes sure that it's not greater than two
             if (runwayAmount == 2) {
@@ -437,6 +445,7 @@ public class GUIElements extends JFrame {
         private void drawALLRunways(int[][] runwayData) {
 
             for (int[] data : runwayData) {
+                System.out.println(Arrays.toString(data));
                 drawRunways(data[0], data[1], data[2], data[3], data[4]);
             }
         }
@@ -565,12 +574,16 @@ public class GUIElements extends JFrame {
          * @param yPos     Takes in the offset Y position
          */
         public void drawRunways(int runwayXPos, int runwayYPos, int rotation, int xPos, int yPos) {
-            //            int[][] runwayData = {{RUNWAY_ROTATION, -60, -100}, {-RUNWAY_ROTATION, 40, -155}};
+    //            int[][] runwayData = {{runwayOneXPos, runwayOneYPos, RUNWAY_ROTATION,
+            //            -60, -100}, {runwayTwoXPos, runwayTwoYPos, -RUNWAY_ROTATION, 40, -155}};
             /* Calculates runway X & Y position */
             runwayXPos = (windowWidth - (RUNWAY_WIDTH)) / 2 + xPos; // Calculates the runway's X position on the X axis
             // and offsets by xPos
             runwayYPos = (windowHeight - RUNWAY_HEIGHT) / 2 + yPos; // Calculates the runway's Y position on the Y axis
             // and offsets by yPos
+
+            System.out.println(runwayXPos + " " +  runwayYPos);
+            System.out.println();
             int[] getCentredPos = centreObject(runwayXPos, runwayYPos, RUNWAY_WIDTH, RUNWAY_HEIGHT);
             tower.getRunwayParam(runwayXPos, runwayYPos, RUNWAY_WIDTH, RUNWAY_HEIGHT, RUNWAY_ROTATION, runwayAmount);
             /* Calculates the runway's position when centred */
@@ -594,9 +607,6 @@ public class GUIElements extends JFrame {
             resetTransformation(g2d);
         }
 
-        public Rectangle getRunwayBoundBox(int runwayXPos, int runwayYPos) {
-            return new Rectangle(runwayXPos, runwayYPos, RUNWAY_WIDTH, RUNWAY_HEIGHT);
-        }
         public void drawTower() {
             int TOWER_SIZE = 75;
             int towerXPos = (windowWidth - TOWER_SIZE) / 2 - 250;

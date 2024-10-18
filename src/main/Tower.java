@@ -110,7 +110,6 @@ public class Tower {
 		switch(runwayAmount){
 			case 1:
 				Polygon runwayPolygon = apVisuals.getRunwayPolygon(runwayXPos, runwayYPos, runwayWidth, runwayHeight, runwayRotation);
-				System.out.println(runwayXPos + " " + runwayYPos);
 				Area runwayArea = new Area(runwayPolygon);
 				planeArea.intersect(runwayArea);
 				break;
