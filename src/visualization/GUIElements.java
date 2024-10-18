@@ -557,6 +557,9 @@ public class GUIElements extends JFrame {
             // and offsets by xPos
             runwayYPos = (windowHeight - RUNWAY_HEIGHT) / 2 + yPos; // Calculates the runway's Y position on the Y axis
             // and offsets by yPos
+            
+            System.out.println(runwayXPos + " " + runwayYPos);
+            
             int[] getCentredPos = centreObject(runwayXPos, runwayYPos, RUNWAY_WIDTH, RUNWAY_HEIGHT);
 
             /* Calculates the runway's position when centred */

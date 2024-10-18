@@ -4,6 +4,7 @@ import src.main.*;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.io.Serial;
 
 import javax.swing.*;
@@ -23,6 +24,7 @@ public class WindowUpdate extends JFrame {
             // PlaneAttributes one = new PlaneAttributes();
             PlaneBehavior two = new PlaneBehavior();
             int vel;
+            int count = 0;
             double z;
             boolean takeoff, landing;
 
@@ -34,13 +36,19 @@ public class WindowUpdate extends JFrame {
                     double dy = 0;
                     double velocity = plane.getVel();
                     double dir = plane.getDirection() % 360;
-
+                    
                     dx = velocity * Math.cos(Math.toRadians(dir));
                     dy = -velocity * Math.sin(Math.toRadians(dir));
 
                     System.out.println("Dir: " + dir + " Velocity: "+ velocity);
                     System.out.println("Move: " + dx + ", " + dy+"\n");
                     plane.move(dx, dy);
+                    
+                    count++;
+                    System.out.println(count);
+                    if(count == 100) {
+                    	two.flying(plane.getPlaneImage());
+                    }
                 }
                 mainPanel.repaint();
             }
