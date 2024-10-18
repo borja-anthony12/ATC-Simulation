@@ -103,6 +103,9 @@ public class Tower {
 	}
 
 	public boolean planeOnRunway(PlaneAttributes plane) {
+		//TODO Fix bug where the runway One is offset
+		// and runway Two is only being detected at the intersect point of the two runways
+
 		// Get the polygons for both the runway and the plane
 		Polygon planePolygon = apVisuals.getPlanePolygon(plane);
 
