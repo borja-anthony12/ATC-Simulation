@@ -294,8 +294,7 @@ public class GUIElements extends JFrame {
 
         private final int TAXIWAY_WIDTH = RUNWAY_WIDTH / 2;
         /* Initialises Airports X & Y positions */
-        public int runwayOneXPos, runwayOneYPos; // Initialises the runways X and Y
-        public int runwayTwoXPos, runwayTwoYPos;
+
         private int buildingXPos, buildingYPos; // Initialises the buildings X and Y
         private int gateXPos, gateYPos; // Initialises the gates X and Y
         private final int imageWidth = 28;
@@ -307,6 +306,10 @@ public class GUIElements extends JFrame {
 
         /* Initialises Airport and Window Components X and Y */
         private int windowWidth, windowHeight; // Initialises the windows width (720) and height (600)
+		public int runwayOneXPos = (windowWidth / RUNWAY_WIDTH) - 60;
+		public int runwayOneYPos = (windowWidth / RUNWAY_WIDTH) - 100 ;
+		public int runwayTwoXPos = (windowHeight / RUNWAY_WIDTH) + 40;
+		public int runwayTwoYPos = (windowHeight / RUNWAY_WIDTH) - 155;
 
         /**
          * Constructor of Airport Panel and initialises the background as black
@@ -379,15 +382,11 @@ public class GUIElements extends JFrame {
 
             /* Updates Airport Components positions dynamically */
             // Runways
-            runwayOneXPos = (windowWidth - RUNWAY_WIDTH) / 2; // Adjust X position to centre runway
-            runwayOneYPos = (windowHeight - RUNWAY_HEIGHT) / 2; // Adjust Y position to centre runway
+            runwayOneXPos = (windowWidth - RUNWAY_WIDTH) / 2 - 60; // Adjust X position to centre runway
+            runwayOneYPos = (windowHeight - RUNWAY_HEIGHT) / 2 - 100; // Adjust Y position to centre runway
 
-            System.out.println("Runway One X Pos (UpdateRunwayPosition): " + runwayOneXPos + "\nRunway One Y Pos (UpdateRunwayPosition): " + runwayOneYPos);
-
-            runwayTwoXPos = (windowWidth - RUNWAY_WIDTH) / 2;
-            runwayTwoYPos = (windowHeight - RUNWAY_HEIGHT) / 2;
-
-            System.out.println("Runway One X Pos (UpdateRunwayPosition): " + runwayTwoXPos + "\nRunway One Y Pos (UpdateRunwayPosition): " + runwayTwoYPos);
+            runwayTwoXPos = (windowWidth - RUNWAY_WIDTH) / 2 + 40;
+            runwayTwoYPos = (windowHeight - RUNWAY_HEIGHT) / 2 - 155;
 
             // Building
             buildingXPos = (windowWidth - BUILDING_WIDTH) / 2; // Adjusts the X position to centre the building
@@ -395,8 +394,8 @@ public class GUIElements extends JFrame {
             // Gate
             gateXPos = (windowWidth - GATE_WIDTH) / 2; // Adjusts the X position to centre the building
             gateYPos = (windowHeight - GATE_HEIGHT) / 2; // Adjusts the Y position to centre the building
-            tower.getRunwayParam(runwayOneXPos, runwayOneYPos, RUNWAY_WIDTH, RUNWAY_HEIGHT, RUNWAY_ROTATION, runwayAmount);
-            tower.getRunwayParam(runwayTwoXPos, runwayTwoYPos, RUNWAY_WIDTH, RUNWAY_HEIGHT, RUNWAY_ROTATION, runwayAmount);
+            tower.getRunwayParam(runwayOneXPos, runwayOneYPos, runwayTwoXPos, runwayTwoYPos, RUNWAY_WIDTH, RUNWAY_HEIGHT, RUNWAY_ROTATION, runwayAmount);
+            tower.getRunwayParam(runwayTwoXPos, runwayTwoYPos, runwayTwoXPos, runwayTwoYPos, RUNWAY_WIDTH, RUNWAY_HEIGHT, RUNWAY_ROTATION, runwayAmount);
         }
 
         /**
@@ -409,10 +408,8 @@ public class GUIElements extends JFrame {
         private void checkIfRunway(int runwayAmount, int taxiWayXPos, int taxiWayYPos) {
             int[][] taxiWayData = {{taxiWayXPos + 170, taxiWayYPos - 50, TAXIWAY_WIDTH, 260, 150},
                     {taxiWayXPos - 144, taxiWayYPos - 25, TAXIWAY_WIDTH, 155, 30},};
-            System.out.println("Runway One X Pos: " + runwayOneXPos + "\nRunway One Y Pos: " + runwayOneYPos);
-            System.out.println("Runway Two X Pos: " + runwayTwoXPos + "\nRunway Two Y Pos: " + runwayTwoYPos);
 
-            int[][] runwayData = {{runwayOneXPos, runwayOneYPos, RUNWAY_ROTATION, -60, -100}, {runwayTwoXPos, runwayTwoYPos, -RUNWAY_ROTATION, 40, -155}};
+            int[][] runwayData = {{runwayOneXPos, runwayOneYPos, RUNWAY_ROTATION}, {runwayTwoXPos, runwayTwoYPos, -RUNWAY_ROTATION}};
 
             // Checks the runway amount and makes sure that it's not greater than two
             if (runwayAmount == 2) {
@@ -422,7 +419,7 @@ public class GUIElements extends JFrame {
             } else { // If RUNWAY_AMOUNT is less than 1, it draws the taxiway and then runway
                 drawTaxiWays(taxiWayXPos + 138, taxiWayYPos - 62, TAXIWAY_WIDTH, 159, 150);
 
-                drawRunways(runwayOneXPos, runwayOneYPos, RUNWAY_ROTATION, -60, -100); // Creates the first runway
+                drawRunways(runwayOneXPos, runwayOneYPos, RUNWAY_ROTATION); // Creates the first runway
             }
         }
 
@@ -445,8 +442,7 @@ public class GUIElements extends JFrame {
         private void drawALLRunways(int[][] runwayData) {
 
             for (int[] data : runwayData) {
-                System.out.println(Arrays.toString(data));
-                drawRunways(data[0], data[1], data[2], data[3], data[4]);
+                drawRunways(data[0], data[1], data[2]);
             }
         }
 
@@ -570,22 +566,17 @@ public class GUIElements extends JFrame {
          * Draws runways and calculates the position/centres the runways
          *
          * @param rotation Takes in variable for rotation
-         * @param xPos     Takes in the offset X position
-         * @param yPos     Takes in the offset Y position
+         * @param runwayXPos     Takes in the value of Runway One or Two X Position
+         * @param runwayYPos     Takes in the value of Runway One or Two Y Position
          */
-        public void drawRunways(int runwayXPos, int runwayYPos, int rotation, int xPos, int yPos) {
+        public void drawRunways(int runwayXPos, int runwayYPos, int rotation) {
     //            int[][] runwayData = {{runwayOneXPos, runwayOneYPos, RUNWAY_ROTATION,
             //            -60, -100}, {runwayTwoXPos, runwayTwoYPos, -RUNWAY_ROTATION, 40, -155}};
             /* Calculates runway X & Y position */
-            runwayXPos = (windowWidth - (RUNWAY_WIDTH)) / 2 + xPos; // Calculates the runway's X position on the X axis
-            // and offsets by xPos
-            runwayYPos = (windowHeight - RUNWAY_HEIGHT) / 2 + yPos; // Calculates the runway's Y position on the Y axis
             // and offsets by yPos
 
-            System.out.println(runwayXPos + " " +  runwayYPos);
-            System.out.println();
             int[] getCentredPos = centreObject(runwayXPos, runwayYPos, RUNWAY_WIDTH, RUNWAY_HEIGHT);
-            tower.getRunwayParam(runwayXPos, runwayYPos, RUNWAY_WIDTH, RUNWAY_HEIGHT, RUNWAY_ROTATION, runwayAmount);
+
             /* Calculates the runway's position when centred */
             int centreXRunway = getCentredPos[0]; // Centres the runway on the X axis
             int centreYRunway = getCentredPos[1]; // Centres the runway on the Y axis
@@ -594,7 +585,7 @@ public class GUIElements extends JFrame {
 
             rotateObject(g2d, centreXRunway, centreYRunway, rotation);
 
-            Rectangle runwayVisual = new Rectangle(this.runwayOneXPos, this.runwayOneYPos, RUNWAY_WIDTH, RUNWAY_HEIGHT); // Creates the
+            Rectangle runwayVisual = new Rectangle(runwayXPos, runwayYPos, RUNWAY_WIDTH, RUNWAY_HEIGHT); // Creates the
             // runway
             // and sets
             // the X, Y,

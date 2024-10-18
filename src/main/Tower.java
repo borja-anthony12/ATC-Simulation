@@ -20,10 +20,12 @@ public class Tower {
 	private boolean[] gates;
 	private final int MINIMUM_SPACE_BETWEEN_PLANES = 10; // ADJUST THESE VALUES
 	private final int CRASH_DIVERT_DISTANCE = 40; // ADJUST THESE VALUES
-	private int runwayXPos, runwayYPos;
+	private int runwayOneXPos, runwayOneYPos;
+	private int runwayTwoXPos, runwayTwoYPos;
 	private int runwayWidth, runwayHeight;
 	private int runwayRotation;
 	private int runwayAmount;
+
 
 	/**
 	 * Initializes the tower
@@ -109,11 +111,20 @@ public class Tower {
 
 		switch(runwayAmount){
 			case 1:
-				Polygon runwayPolygon = apVisuals.getRunwayPolygon(runwayXPos, runwayYPos, runwayWidth, runwayHeight, runwayRotation);
+				Polygon runwayPolygon = apVisuals.getRunwayPolygon(runwayOneXPos, runwayOneYPos, runwayWidth, runwayHeight, runwayRotation);
 				Area runwayArea = new Area(runwayPolygon);
 				planeArea.intersect(runwayArea);
 				break;
 			case 2:
+				Polygon runwayOnePoly = apVisuals.getRunwayPolygon(runwayOneXPos, runwayOneYPos, runwayWidth, runwayHeight, runwayRotation);
+				Polygon runwayTwoPoly = apVisuals.getRunwayPolygon(runwayTwoXPos, runwayTwoYPos, runwayWidth, runwayHeight, runwayRotation);
+				Area runwayOneArea = new Area(runwayOnePoly);
+				Area runwayTwoArea = new Area(runwayTwoPoly);
+				planeArea.intersect(runwayOneArea);
+				planeArea.intersect(runwayTwoArea);
+
+				System.out.println("There are two runways");
+
 				break;
 			default:
 				System.out.println("Spicy");
@@ -126,9 +137,11 @@ public class Tower {
 		return !planeArea.isEmpty();  // If not empty, there's an overlap
 	}
 
-	public void getRunwayParam(int runwayXPos, int runwayYPos, int runwayWidth, int runwayHeight, int runwayRotation, int runwayAmount) {
-		this.runwayXPos = runwayXPos;
-		this.runwayYPos = runwayYPos;
+	public void getRunwayParam(int runwayOneXPos, int runwayOneYPos, int runwayTwoXPos, int runwayTwoYPos, int runwayWidth, int runwayHeight, int runwayRotation, int runwayAmount) {
+		this.runwayOneXPos = runwayOneXPos;
+		this.runwayOneYPos = runwayOneYPos;
+		this.runwayTwoXPos = runwayTwoXPos;
+		this.runwayTwoYPos = runwayTwoYPos;
 		this.runwayWidth = runwayWidth;
 		this.runwayHeight = runwayHeight;
 		this.runwayRotation = runwayRotation;

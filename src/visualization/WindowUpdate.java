@@ -39,12 +39,14 @@ public class WindowUpdate extends JFrame {
                     dx = velocity * Math.cos(Math.toRadians(dir));
                     dy = -velocity * Math.sin(Math.toRadians(dir));
 
-                    System.out.println("Dir: " + dir + " Velocity: "+ velocity);
-                    System.out.println("Move: " + dx + ", " + dy+"\n");
+//                    System.out.println("Dir: " + dir + " Velocity: "+ velocity);
+//                    System.out.println("Move: " + dx + ", " + dy + "\n");
 
                     if(tower.planeOnRunway(plane)) {
+						System.out.println("Plane is on runway");
                         plane.takeOff();
                     }else {
+						System.out.println("PLane is in the air");
                         plane.flying();
                     }
                     plane.move(dx, dy);
