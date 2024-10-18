@@ -28,14 +28,17 @@ public class GUIElements extends JFrame {
 	private static final Logger logger = Logger.getLogger(GUIElements.class.getName());
 	static AirportPanel airportVisuals; // Creates an instance of the AirportPanel class
 	// Initialises lists
+	
 	private final Integer[] setRunwayAmount = { 1, 2 }; // Creates a 1D list for the available runways
 	private final Integer[] setGateAmount = { 1, 2, 3, 4 }; // Creates a 1D list for the available gates
 	// Initialises variables
+	
 	public int runwayAmount; // Initialises the runway amount variable
 	public int gateAmount; // Initialises the gate amount variable
 	public int planeAmount; // Initialises the plane amount variable
 	public int windowWidth;
 	public int windowHeight;
+	
 	// Creates instances of classes
 	Tower tower; // Creates an instance of tower class
 	// Creates JComboBox (Creates a drop-down)
