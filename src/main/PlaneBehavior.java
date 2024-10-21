@@ -1,5 +1,7 @@
 package src.main;
 
+import java.awt.image.BufferedImage;
+
 public class PlaneBehavior {
 	int vel = 0;
 	boolean takeoff = false;
@@ -7,6 +9,15 @@ public class PlaneBehavior {
 	boolean cruise = true;
 	//PlaneAttributes plane = new PlaneAttributes();
 	public void takeOff() {
+
+	boolean cruise = false;
+	
+	public PlaneBehavior(/*BufferedImage image*/) {
+		//PlaneAttributes plane = new PlaneAttributes(image);
+	}
+	
+	public void takeoff() {
+		
 
 		
 		
@@ -16,11 +27,11 @@ public class PlaneBehavior {
 		
 	}
 	
-	public void flying() {
-		if(cruise == true) {
-			vel = 180;
-			
-		}
+	public void flying(BufferedImage image) {
+		PlaneAttributes plane = new PlaneAttributes(image);
+		plane.turn(120);
+		
+		
 	}
 	
 	protected boolean isCrashed() {
