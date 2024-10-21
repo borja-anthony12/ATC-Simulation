@@ -113,31 +113,24 @@ public class Tower {
 
 		// Check if the polygons intersect
 		Area planeArea = new Area(planePolygon);
-
-		switch(runwayAmount){
-			case 1:
-				Polygon runwayPolygon = apVisuals.getRunwayPolygon(runwayOneXPos, runwayOneYPos, runwayWidth, runwayHeight, runwayRotation);
-				Area runwayArea = new Area(runwayPolygon);
-				planeArea.intersect(runwayArea);
-				break;
-			case 2:
-				Polygon runwayOnePoly = apVisuals.getRunwayPolygon(runwayOneXPos, runwayOneYPos, runwayWidth, runwayHeight, runwayRotation);
-				Polygon runwayTwoPoly = apVisuals.getRunwayPolygon(runwayTwoXPos, runwayTwoYPos, runwayWidth, runwayHeight, runwayRotation);
-				Area runwayOneArea = new Area(runwayOnePoly);
-				Area runwayTwoArea = new Area(runwayTwoPoly);
-				planeArea.intersect(runwayOneArea);
-				planeArea.intersect(runwayTwoArea);
-
-				System.out.println("There are two runways");
-
-				break;
-			default:
-				System.out.println("Spicy");
+		System.out.println(runwayAmount);
+		if(runwayAmount == 1) {
+			Polygon runwayPolygon = apVisuals.getRunwayPolygon(runwayOneXPos, runwayOneYPos, runwayWidth, runwayHeight, runwayRotation);
+			Area runwayArea = new Area(runwayPolygon);
+			System.out.println("Entered");
+			planeArea.intersect(runwayArea);
 		}
-
-
-
-
+		if (runwayAmount == 2) {
+			System.out.println("Runway Rotation: " + runwayRotation);
+			Polygon runwayOnePoly = apVisuals.getRunwayPolygon(runwayOneXPos, runwayOneYPos, runwayWidth, runwayHeight, runwayRotation);
+			Polygon runwayTwoPoly = apVisuals.getRunwayPolygon(runwayTwoXPos, runwayTwoYPos, runwayWidth, runwayHeight, -runwayRotation);
+			Area runwayOneArea = new Area(runwayOnePoly);
+			Area runwayTwoArea = new Area(runwayTwoPoly);
+			planeArea.intersect(runwayOneArea);
+			planeArea.intersect(runwayTwoArea);
+			System.out.println("Runway One X: " + runwayOneXPos + " Runway One Y: " + runwayOneYPos);
+			System.out.println("Runway Two X: " + runwayTwoXPos + " Runway Two Y: " + runwayTwoYPos);
+		}
 
 		return !planeArea.isEmpty();  // If not empty, there's an overlap
 	}

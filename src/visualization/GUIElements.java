@@ -186,6 +186,7 @@ public class GUIElements extends JFrame {
                 // the
                 // JComboBox(Drop
                 // down)
+                tower.getRunwayParam(AirportPanel.runwayOneXPos, AirportPanel.runwayOneYPos, AirportPanel.runwayTwoXPos, AirportPanel.runwayTwoYPos, AirportPanel.RUNWAY_WIDTH, AirportPanel.RUNWAY_HEIGHT, AirportPanel.RUNWAY_ROTATION, runwayAmount);
                 airportVisuals.getRunwayAmount(runwayAmount);
             }
         });
@@ -283,9 +284,9 @@ public class GUIElements extends JFrame {
         private final Color taxiWayColour = Color.DARK_GRAY;
         private final Color runwayColour = Color.GRAY;
         private final Color buildingColour = Color.LIGHT_GRAY;
-        public final int RUNWAY_WIDTH = 40; // Initialises the runway width
-        public final int RUNWAY_HEIGHT = 450; // Initialises the runway height
-        public final int RUNWAY_ROTATION = 60; // Initialises the runway rotation
+        public static final int RUNWAY_WIDTH = 40; // Initialises the runway width
+        public static final int RUNWAY_HEIGHT = 450; // Initialises the runway height
+        public static final int RUNWAY_ROTATION = 60; // Initialises the runway rotation
         private final int GATE_WIDTH = 10; // Initialises the gate width
         private final int GATE_HEIGHT = 65; // Initialises the gate height
         private final int BUILDING_WIDTH = 340; // Initialises the building width
@@ -305,11 +306,12 @@ public class GUIElements extends JFrame {
         private Graphics2D g2d;
 
         /* Initialises Airport and Window Components X and Y */
-        private int windowWidth, windowHeight; // Initialises the windows width (720) and height (600)
-        public int runwayOneXPos = (windowWidth / RUNWAY_WIDTH) - 60;
-        public int runwayOneYPos = (windowWidth / RUNWAY_WIDTH) - 100 ;
-        public int runwayTwoXPos = (windowHeight / RUNWAY_WIDTH) + 40;
-        public int runwayTwoYPos = (windowHeight / RUNWAY_WIDTH) - 155;
+        private static int windowWidth;
+        private static int windowHeight; // Initialises the windows width (720) and height (600)
+        public static int runwayOneXPos = (windowWidth / RUNWAY_WIDTH) - 60;
+        public static int runwayOneYPos = (windowWidth / RUNWAY_WIDTH) - 100 ;
+        public static int runwayTwoXPos = (windowHeight / RUNWAY_WIDTH) + 40;
+        public static int runwayTwoYPos = (windowHeight / RUNWAY_WIDTH) - 155;
 
         /**
          * Constructor of Airport Panel and initialises the background as black
@@ -362,6 +364,8 @@ public class GUIElements extends JFrame {
 
             drawGates();
 
+
+
             try {
                 drawPlanes();
             } catch (IOException e) {
@@ -395,7 +399,7 @@ public class GUIElements extends JFrame {
             gateXPos = (windowWidth - GATE_WIDTH) / 2; // Adjusts the X position to centre the building
             gateYPos = (windowHeight - GATE_HEIGHT) / 2; // Adjusts the Y position to centre the building
             tower.getRunwayParam(runwayOneXPos, runwayOneYPos, runwayTwoXPos, runwayTwoYPos, RUNWAY_WIDTH, RUNWAY_HEIGHT, RUNWAY_ROTATION, runwayAmount);
-            tower.getRunwayParam(runwayTwoXPos, runwayTwoYPos, runwayTwoXPos, runwayTwoYPos, RUNWAY_WIDTH, RUNWAY_HEIGHT, RUNWAY_ROTATION, runwayAmount);
+
         }
 
         /**
