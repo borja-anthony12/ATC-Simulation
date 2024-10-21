@@ -76,8 +76,10 @@ public class PlaneAttributes extends PlaneBehavior {
      * @param y: change of y
      */
     public void move(double x, double y) {
-        this.x += x;
-        this.y += y;
+    	if(!isCrashed) {
+    		this.x += x;
+        	this.y += y;
+    	}
     }
 
     // increases z coordinate
@@ -113,7 +115,7 @@ public class PlaneAttributes extends PlaneBehavior {
      * turns the plane
      */
     public void turn(double degrees) {
-        dir += degrees;
+    	if(!isCrashed) dir += degrees;
     }
 
     public double[] getPosition() {

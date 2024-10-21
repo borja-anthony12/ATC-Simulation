@@ -40,11 +40,12 @@ public class WindowUpdate extends JFrame {
 					// System.out.println("Move: " + dx + ", " + dy+"\n");
 					plane.move(dx, dy);
 					count++;
-                    System.out.println(count);
                     if(count == 100) {
                     	two.flying(plane.getPlaneImage());
                     }
 				}
+                tower.divertPlanesFromCollision();
+                tower.checkPlaneCollision();
 				mainPanel.repaint();
 			}
 		});

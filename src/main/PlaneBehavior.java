@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 
 public class PlaneBehavior {
 	int vel = 0;
+	protected boolean isCrashed = false;
 	boolean takeoff = false;
 	boolean landing = false;
 	boolean cruise = false;
@@ -29,8 +30,8 @@ public class PlaneBehavior {
 		
 	}
 	
-	protected boolean isCrashed() {
-		return true;
+	public void crash() {
+		isCrashed = true;
 	}
 
 }

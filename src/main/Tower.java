@@ -12,8 +12,8 @@ public class Tower {
 	protected ArrayList<PlaneAttributes> planes;
 	private PlaneAttributes[] gatePlanes;
 	private boolean[] gates;
-	private final int MINIMUM_SPACE_BETWEEN_PLANES = 10; // ADJUST THESE VALUES
-	private final int CRASH_DIVERT_DISTANCE = 40; // ADJUST THESE VALUES
+	private final int MINIMUM_SPACE_BETWEEN_PLANES = 30; // ADJUST THESE VALUES
+	private final int CRASH_DIVERT_DISTANCE = 100; // ADJUST THESE VALUES
 
 	/**
 	 * Initializes the tower
@@ -37,9 +37,12 @@ public class Tower {
 			for (int j = 0; j < planeArray.length; j++) {
 				double dif = comparePlanePos(planeArray[i], planeArray[j]);
 
-				if (dif < MINIMUM_SPACE_BETWEEN_PLANES) {
-					planeArray[i].isCrashed();
-					planeArray[j].isCrashed();
+				if (dif < MINIMUM_SPACE_BETWEEN_PLANES && i != j && i < j) {
+					System.out.println("Planes crashed");
+					planeArray[i].crash();
+					planeArray[j].crash();
+					despawnPlane(planeArray[i]);
+					despawnPlane(planeArray[j]);
 				}
 			}
 		}
@@ -58,9 +61,9 @@ public class Tower {
 			for (int j = 0; j < planeArray.length; j++) {
 				double dif = comparePlanePos(planeArray[i], planeArray[j]);
 
-				if (dif < CRASH_DIVERT_DISTANCE) {
-					planeArray[i].turn(45);
-					planeArray[j].turn(-45);
+				if (dif < CRASH_DIVERT_DISTANCE && i != j && i < j) {
+					planeArray[i].turn(2.5);
+					planeArray[j].turn(-2.5);
 				}
 			}
 		}
@@ -134,6 +137,11 @@ public class Tower {
 		planes.remove(planes.size() - 1);
 		System.out.println("Total planes: " + planes.size());
 	}
+	
+	public void despawnPlane(PlaneAttributes plane) {
+		planes.remove(plane);
+		System.out.println("Total planes: " + planes.size());
+	}
 
 	/*
 	 * adjusts gate availability
@@ -154,7 +162,7 @@ public class Tower {
 	private double comparePlanePos(PlaneAttributes p1, PlaneAttributes p2) {
 		double deltaX = p1.getPosition()[0] - p2.getPosition()[0];
 		double deltaY = p1.getPosition()[1] - p2.getPosition()[1];
-		double dif = Math.sqrt(Math.pow(deltaX, deltaY));
+		double dif = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
 		return dif;
 	}
 
