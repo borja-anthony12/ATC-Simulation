@@ -1,8 +1,13 @@
 package src.main;
 
+
+import java.awt.*;
+import java.awt.geom.Area;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Random;
+
+import src.visualization.*;
 
 /*
  * Class for handling all logic and detection of crashes
@@ -10,10 +15,22 @@ import java.util.Random;
 public class Tower {
 
 	protected ArrayList<PlaneAttributes> planes;
+	protected GUIElements.AirportPanel apVisuals = new GUIElements.AirportPanel();
 	private PlaneAttributes[] gatePlanes;
 	private boolean[] gates;
+<<<<<<< HEAD
 	private final int MINIMUM_SPACE_BETWEEN_PLANES = 30; // ADJUST THESE VALUES
 	private final int CRASH_DIVERT_DISTANCE = 100; // ADJUST THESE VALUES
+=======
+	private final int MINIMUM_SPACE_BETWEEN_PLANES = 10; // ADJUST THESE VALUES
+	private final int CRASH_DIVERT_DISTANCE = 40; // ADJUST THESE VALUES
+	private int runwayOneXPos, runwayOneYPos;
+	private int runwayTwoXPos, runwayTwoYPos;
+	private int runwayWidth, runwayHeight;
+	private int runwayRotation;
+	private int runwayAmount;
+
+>>>>>>> branch 'main' of https://github.com/borja-anthony12/ATC-Simulation.git
 
 	/**
 	 * Initializes the tower
@@ -91,6 +108,55 @@ public class Tower {
 				gates[i] = false;
 			}
 		}
+	}
+
+	public boolean planeOnRunway(PlaneAttributes plane) {
+		//TODO Fix bug where the runway One is offset
+		// and runway Two is only being detected at the intersect point of the two runways
+
+		// Get the polygons for both the runway and the plane
+		Polygon planePolygon = apVisuals.getPlanePolygon(plane);
+
+		// Check if the polygons intersect
+		Area planeArea = new Area(planePolygon);
+
+		switch(runwayAmount){
+			case 1:
+				Polygon runwayPolygon = apVisuals.getRunwayPolygon(runwayOneXPos, runwayOneYPos, runwayWidth, runwayHeight, runwayRotation);
+				Area runwayArea = new Area(runwayPolygon);
+				planeArea.intersect(runwayArea);
+				break;
+			case 2:
+				Polygon runwayOnePoly = apVisuals.getRunwayPolygon(runwayOneXPos, runwayOneYPos, runwayWidth, runwayHeight, runwayRotation);
+				Polygon runwayTwoPoly = apVisuals.getRunwayPolygon(runwayTwoXPos, runwayTwoYPos, runwayWidth, runwayHeight, runwayRotation);
+				Area runwayOneArea = new Area(runwayOnePoly);
+				Area runwayTwoArea = new Area(runwayTwoPoly);
+				planeArea.intersect(runwayOneArea);
+				planeArea.intersect(runwayTwoArea);
+
+				System.out.println("There are two runways");
+
+				break;
+			default:
+				System.out.println("Spicy");
+		}
+
+
+
+
+
+		return !planeArea.isEmpty();  // If not empty, there's an overlap
+	}
+
+	public void getRunwayParam(int runwayOneXPos, int runwayOneYPos, int runwayTwoXPos, int runwayTwoYPos, int runwayWidth, int runwayHeight, int runwayRotation, int runwayAmount) {
+		this.runwayOneXPos = runwayOneXPos;
+		this.runwayOneYPos = runwayOneYPos;
+		this.runwayTwoXPos = runwayTwoXPos;
+		this.runwayTwoYPos = runwayTwoYPos;
+		this.runwayWidth = runwayWidth;
+		this.runwayHeight = runwayHeight;
+		this.runwayRotation = runwayRotation;
+		this.runwayAmount = runwayAmount;
 	}
 
 	/**

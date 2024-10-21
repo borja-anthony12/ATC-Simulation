@@ -7,31 +7,38 @@ public class PlaneBehavior {
 	protected boolean isCrashed = false;
 	boolean takeoff = false;
 	boolean landing = false;
-	boolean cruise = false;
+	boolean cruise = true;
+	//PlaneAttributes plane = new PlaneAttributes();
+	public void takeOff() {
+
+		boolean cruise = false;
+	}
 	
 	public PlaneBehavior(/*BufferedImage image*/) {
-		//PlaneAttributes plane = new PlaneAttributes(image);
+			//PlaneAttributes plane = new PlaneAttributes(image);
 	}
-	
-	public void takeoff() {
-		
-		
-		
+
+	public void takeoff () {
+
 	}
-	
-	public void landing() {
-		
+
+	public void landing () {
+
 	}
-	
-	public void flying(BufferedImage image) {
-		PlaneAttributes plane = new PlaneAttributes(image);
-		plane.turn(120);
-		
-		
+
+	public void flying () {
+
+
 	}
+<<<<<<< HEAD
 	
 	public void crash() {
 		isCrashed = true;
+=======
+
+	protected boolean isCrashed () {
+		return true;
+>>>>>>> branch 'main' of https://github.com/borja-anthony12/ATC-Simulation.git
 	}
 
 }

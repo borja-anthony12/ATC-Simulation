@@ -4,7 +4,6 @@ import src.main.*;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
 import java.io.Serial;
 
 import javax.swing.*;
@@ -27,6 +26,7 @@ public class WindowUpdate extends JFrame {
                 for (PlaneAttributes plane : tower.getPlanes()) {
                     double dx = 0;
                     double dy = 0;
+                    plane.vel = 3;
                     double velocity = plane.getVel();
                     double dir = plane.getDirection() % 360;
                     int count = 0;
@@ -36,13 +36,26 @@ public class WindowUpdate extends JFrame {
 					dy = -velocity * Math.sin(Math.toRadians(dir));
 
 
+<<<<<<< HEAD
 					// System.out.println("Dir: " + dir + " Velocity: "+ velocity);
 					// System.out.println("Move: " + dx + ", " + dy+"\n");
 					plane.move(dx, dy);
 					count++;
                     if(count == 100) {
                     	two.flying(plane.getPlaneImage());
+=======
+//                    System.out.println("Dir: " + dir + " Velocity: "+ velocity);
+//                    System.out.println("Move: " + dx + ", " + dy + "\n");
+
+                    if(tower.planeOnRunway(plane)) {
+						System.out.println("Plane is on runway");
+                        plane.takeOff();
+                    }else {
+						System.out.println("PLane is in the air");
+                        plane.flying();
+>>>>>>> branch 'main' of https://github.com/borja-anthony12/ATC-Simulation.git
                     }
+<<<<<<< HEAD
 				}
                 tower.divertPlanesFromCollision();
                 tower.checkPlaneCollision();
@@ -51,6 +64,16 @@ public class WindowUpdate extends JFrame {
 		});
 		timer.start();
 	}
+=======
+                    plane.move(dx, dy);
+                }
+                mainPanel.repaint();
+            }
+        });
+        timer.start();
+    }
+
+>>>>>>> branch 'main' of https://github.com/borja-anthony12/ATC-Simulation.git
 
 	/**
 	 * turns an angle into a reference angle
