@@ -6,6 +6,10 @@ public class PlaneBehavior {
 	int vel = 0;
 	boolean takeoff = false;
 	boolean landing = false;
+	boolean cruise = true;
+	//PlaneAttributes plane = new PlaneAttributes();
+	public void takeOff() {
+
 	boolean cruise = false;
 	
 	public PlaneBehavior(/*BufferedImage image*/) {
@@ -14,6 +18,7 @@ public class PlaneBehavior {
 	
 	public void takeoff() {
 		
+
 		
 		
 	}

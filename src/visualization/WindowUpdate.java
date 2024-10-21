@@ -27,6 +27,7 @@ public class WindowUpdate extends JFrame {
                 for (PlaneAttributes plane : tower.getPlanes()) {
                     double dx = 0;
                     double dy = 0;
+                    plane.vel = 3;
                     double velocity = plane.getVel();
                     double dir = plane.getDirection() % 360;
                     int count = 0;
@@ -36,6 +37,23 @@ public class WindowUpdate extends JFrame {
 					dy = -velocity * Math.sin(Math.toRadians(dir));
 
 
+//                    System.out.println("Dir: " + dir + " Velocity: "+ velocity);
+//                    System.out.println("Move: " + dx + ", " + dy + "\n");
+
+                    if(tower.planeOnRunway(plane)) {
+						System.out.println("Plane is on runway");
+                        plane.takeOff();
+                    }else {
+						System.out.println("PLane is in the air");
+                        plane.flying();
+                    }
+                    plane.move(dx, dy);
+                }
+                mainPanel.repaint();
+            }
+        });
+        timer.start();
+    }
 					// System.out.println("Dir: " + dir + " Velocity: "+ velocity);
 					// System.out.println("Move: " + dx + ", " + dy+"\n");
 					plane.move(dx, dy);
