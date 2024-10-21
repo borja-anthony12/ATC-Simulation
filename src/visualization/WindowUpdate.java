@@ -4,7 +4,6 @@ import src.main.*;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
 import java.io.Serial;
 
 import javax.swing.*;
@@ -54,20 +53,7 @@ public class WindowUpdate extends JFrame {
         });
         timer.start();
     }
-					// System.out.println("Dir: " + dir + " Velocity: "+ velocity);
-					// System.out.println("Move: " + dx + ", " + dy+"\n");
-					plane.move(dx, dy);
-					count++;
-                    System.out.println(count);
-                    if(count == 100) {
-                    	two.flying(plane.getPlaneImage());
-                    }
-				}
-				mainPanel.repaint();
-			}
-		});
-		timer.start();
-	}
+
 
 	/**
 	 * turns an angle into a reference angle

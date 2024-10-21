@@ -10,31 +10,27 @@ public class PlaneBehavior {
 	//PlaneAttributes plane = new PlaneAttributes();
 	public void takeOff() {
 
-	boolean cruise = false;
+		boolean cruise = false;
+	}
 	
 	public PlaneBehavior(/*BufferedImage image*/) {
-		//PlaneAttributes plane = new PlaneAttributes(image);
+			//PlaneAttributes plane = new PlaneAttributes(image);
 	}
-	
-	public void takeoff() {
-		
 
-		
-		
+	public void takeoff () {
+
 	}
-	
-	public void landing() {
-		
+
+	public void landing () {
+
 	}
-	
-	public void flying(BufferedImage image) {
-		PlaneAttributes plane = new PlaneAttributes(image);
-		plane.turn(120);
-		
-		
+
+	public void flying () {
+
+
 	}
-	
-	protected boolean isCrashed() {
+
+	protected boolean isCrashed () {
 		return true;
 	}
 
