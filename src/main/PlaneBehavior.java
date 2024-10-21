@@ -30,15 +30,9 @@ public class PlaneBehavior {
 
 
 	}
-<<<<<<< HEAD
 	
 	public void crash() {
 		isCrashed = true;
-=======
-
-	protected boolean isCrashed () {
-		return true;
->>>>>>> branch 'main' of https://github.com/borja-anthony12/ATC-Simulation.git
 	}
 
 }

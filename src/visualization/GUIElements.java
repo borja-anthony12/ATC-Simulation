@@ -574,11 +574,6 @@ public class GUIElements extends JFrame {
             //            -60, -100}, {runwayTwoXPos, runwayTwoYPos, -RUNWAY_ROTATION, 40, -155}};
             /* Calculates runway X & Y position */
             // and offsets by yPos
-<<<<<<< HEAD
-            
-=======
-
->>>>>>> branch 'main' of https://github.com/borja-anthony12/ATC-Simulation.git
             int[] getCentredPos = centreObject(runwayXPos, runwayYPos, RUNWAY_WIDTH, RUNWAY_HEIGHT);
 
             /* Calculates the runway's position when centred */

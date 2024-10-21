@@ -18,19 +18,13 @@ public class Tower {
 	protected GUIElements.AirportPanel apVisuals = new GUIElements.AirportPanel();
 	private PlaneAttributes[] gatePlanes;
 	private boolean[] gates;
-<<<<<<< HEAD
 	private final int MINIMUM_SPACE_BETWEEN_PLANES = 30; // ADJUST THESE VALUES
 	private final int CRASH_DIVERT_DISTANCE = 100; // ADJUST THESE VALUES
-=======
-	private final int MINIMUM_SPACE_BETWEEN_PLANES = 10; // ADJUST THESE VALUES
-	private final int CRASH_DIVERT_DISTANCE = 40; // ADJUST THESE VALUES
 	private int runwayOneXPos, runwayOneYPos;
 	private int runwayTwoXPos, runwayTwoYPos;
 	private int runwayWidth, runwayHeight;
 	private int runwayRotation;
 	private int runwayAmount;
-
->>>>>>> branch 'main' of https://github.com/borja-anthony12/ATC-Simulation.git
 
 	/**
 	 * Initializes the tower
