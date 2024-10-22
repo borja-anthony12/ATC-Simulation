@@ -102,6 +102,11 @@ public class GUIElements extends JFrame {
         setLocationRelativeTo(null); // Sets the Location of the window to the centre of the screen
 
         airportVisuals = new AirportPanel(); // Creates an instance of JPanel by calling
+        
+        // Create a WindowUpdate object and start the update process
+        @SuppressWarnings("unused")
+        WindowUpdate update = new WindowUpdate(airportVisuals, tower);
+        
         // AirportPanel
         airportVisuals.getWindowSize(windowWidth, windowHeight);
 
@@ -133,11 +138,6 @@ public class GUIElements extends JFrame {
                 airportVisuals.repaint(); // Updates the window
             }
         });
-
-        // Create a WindowUpdate object and start the update process
-        @SuppressWarnings("unused")
-        WindowUpdate update = new WindowUpdate(airportVisuals, tower);
-
     }
 
     /**
