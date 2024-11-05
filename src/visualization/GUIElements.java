@@ -3,7 +3,6 @@ package src.visualization;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
 import java.io.Serial;
-import java.util.Arrays;
 import java.util.Objects;
 import java.util.Random;
 import java.util.logging.Level;
@@ -226,8 +225,8 @@ public class GUIElements extends JFrame {
         // When the button is pressed adds one to
         // planeAmount and spawns plane
         addPlane.addActionListener(e -> {
-            planeAmount += 1; // Adds one to planeAmount and sets planeAmount to that value
-            planeAmountDisplay.setText(String.valueOf(planeAmount)); // Sets the planeAmountDisplay to the value of
+            planeAmount = 1 + tower.getPlaneAmount(); // Adds one to planeAmount and sets planeAmount to that value
+            planeAmountDisplay.setText(String.valueOf(tower.getPlaneAmount() + 1)); // Sets the planeAmountDisplay to the value of
             // planeAmount
             try {
                 BufferedImage planeImage = airportVisuals.getImage();
@@ -254,10 +253,10 @@ public class GUIElements extends JFrame {
         // from planeAmount and removes the plane
         removePlane.addActionListener(e -> {
             // Checks if plane amount does not equal zero
-            if (planeAmount > 0) {
-                planeAmount -= 1; // Removes one to planeAmount and sets planeAmount to that value
+            if (tower.getPlaneAmount() > 0) {
+                planeAmount = tower.getPlaneAmount() - 1; // Removes one to planeAmount and sets planeAmount to that value
                 tower.despawnPlane();
-                planeAmountDisplay.setText(String.valueOf(planeAmount)); // Sets the planeAmountDisplay to the value
+                planeAmountDisplay.setText(String.valueOf(tower.getPlaneAmount())); // Sets the planeAmountDisplay to the value
                 // of planeAmount
             }
         });
