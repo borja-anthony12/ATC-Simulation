@@ -42,10 +42,8 @@ public class WindowUpdate extends JFrame {
 
 					}
 					if (tower.planeOnRunway(plane)) {
-						System.out.println("Plane is on runway");
 						plane.takeOff();
 					} else {
-						System.out.println("Plane is in the air");
 						plane.flying();
 					}
 				}

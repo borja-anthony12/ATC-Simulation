@@ -22,9 +22,9 @@ public class PlaneAttributes extends PlaneBehavior {
          * x = 155; y = 375; z = 300;
          */
 
-        this.x = 185;
-        this.y = 305;
-        this.z = 300;
+        this.x = 0;
+        this.y = 0;
+        this.z = 0;
         this.dir = 0;
         this.callSign = getCallSign();
 

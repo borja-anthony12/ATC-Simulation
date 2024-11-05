@@ -3,6 +3,7 @@ package src.main;
 
 import java.awt.*;
 import java.awt.geom.Area;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Random;
@@ -15,6 +16,7 @@ import src.visualization.*;
 public class Tower {
 
 	protected ArrayList<PlaneAttributes> planes;
+	protected ArrayList<Rectangle2D> runways;
 	protected GUIElements.AirportPanel apVisuals = new GUIElements.AirportPanel();
 	private PlaneAttributes[] gatePlanes;
 	private boolean[] gates;
@@ -34,7 +36,7 @@ public class Tower {
 		gates = new boolean[4];
 		gatePlanes = new PlaneAttributes[4];
 	}
-	
+
 	/**
 	 * Checks if planes collide
 	 */
@@ -104,36 +106,39 @@ public class Tower {
 		}
 	}
 
-	public boolean planeOnRunway(PlaneAttributes plane) {
-		//TODO Fix bug where the runway One is offset
-		// and runway Two is only being detected at the intersect point of the two runways
+    public boolean planeOnRunway(PlaneAttributes plane) {
+        // Get the polygon for the plane
+        Polygon planePolygon = apVisuals.getPlanePolygon(plane);
+        Area planeArea = new Area(planePolygon);
 
-		// Get the polygons for both the runway and the plane
-		Polygon planePolygon = apVisuals.getPlanePolygon(plane);
+        if (runwayAmount == 1) {
+            // Single runway check
+            Polygon runwayPolygon = apVisuals.getRunwayPolygon(runwayOneXPos, runwayOneYPos, runwayWidth, runwayHeight, runwayRotation);
+            Area runwayArea = new Area(runwayPolygon);
 
-		// Check if the polygons intersect
-		Area planeArea = new Area(planePolygon);
-		System.out.println(runwayAmount);
-		if(runwayAmount == 1) {
-			Polygon runwayPolygon = apVisuals.getRunwayPolygon(runwayOneXPos, runwayOneYPos, runwayWidth, runwayHeight, runwayRotation);
-			Area runwayArea = new Area(runwayPolygon);
-			System.out.println("Entered");
-			planeArea.intersect(runwayArea);
-		}
-		if (runwayAmount == 2) {
-			System.out.println("Runway Rotation: " + runwayRotation);
-			Polygon runwayOnePoly = apVisuals.getRunwayPolygon(runwayOneXPos, runwayOneYPos, runwayWidth, runwayHeight, runwayRotation);
-			Polygon runwayTwoPoly = apVisuals.getRunwayPolygon(runwayTwoXPos, runwayTwoYPos, runwayWidth, runwayHeight, -runwayRotation);
-			Area runwayOneArea = new Area(runwayOnePoly);
-			Area runwayTwoArea = new Area(runwayTwoPoly);
-			planeArea.intersect(runwayOneArea);
-			planeArea.intersect(runwayTwoArea);
-			System.out.println("Runway One X: " + runwayOneXPos + " Runway One Y: " + runwayOneYPos);
-			System.out.println("Runway Two X: " + runwayTwoXPos + " Runway Two Y: " + runwayTwoYPos);
-		}
+            // Create a copy of planeArea for intersection
+            Area intersectionArea = new Area(planeArea);
+            intersectionArea.intersect(runwayArea);
+            return !intersectionArea.isEmpty();
+        } else if (runwayAmount == 2) {
+            // Check first runway
+            Polygon runwayOnePoly = apVisuals.getRunwayPolygon(runwayOneXPos, runwayOneYPos, runwayWidth, runwayHeight, runwayRotation);
+            Area runwayOneArea = new Area(runwayOnePoly);
+            Area intersectionOne = new Area(planeArea);
+            intersectionOne.intersect(runwayOneArea);
 
-		return !planeArea.isEmpty();  // If not empty, there's an overlap
-	}
+            // Check second runway
+            Polygon runwayTwoPoly = apVisuals.getRunwayPolygon(runwayTwoXPos, runwayTwoYPos, runwayWidth, runwayHeight, -runwayRotation);
+            Area runwayTwoArea = new Area(runwayTwoPoly);
+            Area intersectionTwo = new Area(planeArea);
+            intersectionTwo.intersect(runwayTwoArea);
+
+            // Return true if the plane intersects with either runway
+            return !intersectionOne.isEmpty() || !intersectionTwo.isEmpty();
+        }
+
+        return false;
+    }
 
 	public void getRunwayParam(int runwayOneXPos, int runwayOneYPos, int runwayTwoXPos, int runwayTwoYPos, int runwayWidth, int runwayHeight, int runwayRotation, int runwayAmount) {
 		this.runwayOneXPos = runwayOneXPos;
@@ -150,19 +155,19 @@ public class Tower {
 	 * adds a new plane to simulation
 	 */
 	public void spawnPlane(int runwayAmount, int gateAmount, BufferedImage image) {
-		
+
 		PlaneAttributes plane = new PlaneAttributes(image);
 		Random r = new Random();
 		int chooseRunway;
-		
+
 		switch(runwayAmount){
 		case 1:
-			
+
 			plane.setPlane(125, 300, 0);
 			planes.add(plane);
 			plane.turn(30);
 			break;
-		case 2: 
+		case 2:
 			chooseRunway = r.nextInt(2)+1;
 			if(chooseRunway == 1) {
 				plane.setPlane(125, 300, 0);
@@ -173,8 +178,8 @@ public class Tower {
 				planes.add(plane);
 				plane.turn(330);
 			}
-			
-			
+
+
 			break;
 		default:
 			System.out.println("*Sighs*");
@@ -182,18 +187,18 @@ public class Tower {
 		}
 		System.out.println("Total planes: " + planes.size());
 	}
-	
+
 	/**
 	 * deletes a plane
 	 */
 	public void despawnPlane() {
 		planes.remove(planes.size() - 1);
-		System.out.println("Total planes: " + planes.size());
+
 	}
-	
+
 	public void despawnPlane(PlaneAttributes plane) {
 		planes.remove(plane);
-		System.out.println("Total planes: " + planes.size());
+
 	}
 
 	/*
@@ -208,7 +213,7 @@ public class Tower {
 	/**
 	 * gets the difference the X Y values of two planes Receives positions in X Y
 	 * array format
-	 * 
+	 *
 	 * @param p1 is plane 1
 	 * @param p2 is plane 2
 	 */

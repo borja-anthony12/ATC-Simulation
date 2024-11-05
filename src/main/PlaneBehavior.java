@@ -10,7 +10,7 @@ public class PlaneBehavior {
 	boolean cruise = true;
 	//PlaneAttributes plane = new PlaneAttributes();
 	public void takeOff() {
-
+		System.out.println("Plane is taking off");
 		boolean cruise = false;
 	}
 	
@@ -18,16 +18,12 @@ public class PlaneBehavior {
 			//PlaneAttributes plane = new PlaneAttributes(image);
 	}
 
-	public void takeoff () {
-
-	}
-
 	public void landing () {
 
 	}
 
 	public void flying () {
-
+		System.out.println("Plane is flying");
 
 	}
 	
