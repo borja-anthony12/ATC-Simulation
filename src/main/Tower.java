@@ -193,12 +193,15 @@ public class Tower {
 	 */
 	public void despawnPlane() {
 		planes.remove(planes.size() - 1);
-
 	}
 
 	public void despawnPlane(PlaneAttributes plane) {
 		planes.remove(plane);
 
+	}
+	
+	public int getPlaneAmount() {
+		return planes.size();
 	}
 
 	/*
