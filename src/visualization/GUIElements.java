@@ -61,6 +61,7 @@ public class GUIElements extends JFrame {
      * create the window within the constructor
      */
     public GUIElements() {
+
     }
 
     public void getWindowProportions(int windowWidth, int windowHeight) {
