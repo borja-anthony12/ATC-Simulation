@@ -255,9 +255,8 @@ public class GUIElements extends JFrame {
             // Checks if plane amount does not equal zero
             if (tower.getPlaneAmount() > 0) {
                 planeAmount = tower.getPlaneAmount() - 1; // Removes one to planeAmount and sets planeAmount to that value
-                tower.despawnPlane();
                 planeAmountDisplay.setText(String.valueOf(tower.getPlaneAmount())); // Sets the planeAmountDisplay to the value
-                // of planeAmount
+                tower.despawnPlane();
             }
         });
         return removePlane;
