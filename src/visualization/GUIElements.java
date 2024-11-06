@@ -100,7 +100,7 @@ public class GUIElements extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Fully closes the Window
         setSize(windowWidth, windowHeight); // Initialise the Height and Width of the window
         setLocationRelativeTo(null); // Sets the Location of the window to the centre of the screen
-
+        setResizable(false); // TODO remove this if you're going to continue working on this project.
         airportVisuals = new AirportPanel(); // Creates an instance of JPanel by calling
         
         // Create a WindowUpdate object and start the update process
@@ -321,8 +321,8 @@ public class GUIElements extends JFrame {
         }
 
         void getWindowSize(int windowWidth, int windowHeight) {
-            this.windowWidth = windowWidth;
-            this.windowHeight = windowHeight;
+            AirportPanel.windowWidth = windowWidth;
+            AirportPanel.windowHeight = windowHeight;
         }
 
         void getRunwayAmount(int runwayAmount) {
@@ -561,10 +561,6 @@ public class GUIElements extends JFrame {
             }
         }
 
-        public Rectangle getPlaneBoundBox(PlaneAttributes plane) {
-            return new Rectangle((int) plane.getPosition()[0], (int) plane.getPosition()[1], imageWidth, imageHeight);
-        }
-
         /**
          * Draws runways and calculates the position/centres the runways
          *
@@ -573,10 +569,7 @@ public class GUIElements extends JFrame {
          * @param runwayYPos     Takes in the value of Runway One or Two Y Position
          */
         public void drawRunways(int runwayXPos, int runwayYPos, int rotation) {
-            //            int[][] runwayData = {{runwayOneXPos, runwayOneYPos, RUNWAY_ROTATION,
-            //            -60, -100}, {runwayTwoXPos, runwayTwoYPos, -RUNWAY_ROTATION, 40, -155}};
             /* Calculates runway X & Y position */
-            // and offsets by yPos
             int[] getCentredPos = centreObject(runwayXPos, runwayYPos, RUNWAY_WIDTH, RUNWAY_HEIGHT);
 
             /* Calculates the runway's position when centred */
