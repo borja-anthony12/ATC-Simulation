@@ -547,8 +547,8 @@ public class GUIElements extends JFrame {
                 double yPlane = plane.getPosition()[1];
                 double anglePlane = -plane.getDirection();
 
-
                 Rectangle boundBox = new Rectangle((int) xPlane - imageWidth / 2, (int) yPlane - imageHeight / 2, imageWidth, imageHeight); // Check plane position
+                g2d.setColor(new Color( 0, 0, 0, 0));
                 g2d.draw(boundBox);
                 g2d.fill(boundBox);
                 rotateObject(g2d, (int) xPlane, (int) yPlane, (int) anglePlane);
