@@ -50,7 +50,7 @@ public class Tower {
 			for (int j = 0; j < planeArray.length; j++) {
 				double dif = comparePlanePos(planeArray[i], planeArray[j]);
 
-				if (dif < MINIMUM_SPACE_BETWEEN_PLANES && i != j && i < j) {
+				if (!planeArray[i].isAtGate()&& !planeArray[j].isAtGate() && dif < MINIMUM_SPACE_BETWEEN_PLANES && i != j && i < j) {
 					System.out.println("Planes crashed");
 					planeArray[i].crash();
 					planeArray[j].crash();
@@ -74,9 +74,9 @@ public class Tower {
 			for (int j = 0; j < planeArray.length; j++) {
 				double dif = comparePlanePos(planeArray[i], planeArray[j]);
 
-				if (dif < CRASH_DIVERT_DISTANCE && i != j && i < j) {
-					planeArray[i].turn(2.5);
-					planeArray[j].turn(-2.5);
+				if (!planeArray[i].isAtGate()&& !planeArray[j].isAtGate() && dif < CRASH_DIVERT_DISTANCE && i != j && i < j) {
+					if(!planeArray[i].isAtGate()) planeArray[i].turn(2.5);
+					if(!planeArray[j].isAtGate()) planeArray[j].turn(-2.5);
 				}
 			}
 		}
@@ -158,6 +158,7 @@ public class Tower {
 
 		PlaneAttributes plane;
 		Random r = new Random();
+		boolean spawnedPlane = false;
 		int randNum;
 
 		if(r.nextInt(2) == 0) {
@@ -190,10 +191,12 @@ public class Tower {
 		else {
 			plane = new PlaneAttributes(image, true);
 			for(int i = 0; i < gateAmount; i++){
-				if(!gates[i]) {
-					plane.setPlane(160, 300, 0);
+				if(!gates[i] && !spawnedPlane) {
+					spawnedPlane = true;
+					gates[i] = true;
+					plane.setPlane(210 + 75 * i, 395 - 40 * i, 0);
 					planes.add(plane);
-					plane.turn(110);
+					plane.turn(120);
 				}
 			}
 		}

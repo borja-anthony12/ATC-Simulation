@@ -131,6 +131,10 @@ public class PlaneAttributes extends PlaneBehavior {
     public double getDirection() {
         return dir;
     }
+    
+    public boolean isAtGate() {
+    	return atGate;
+    }
 
 
     public void setPlane(int x, int y, int z) {
