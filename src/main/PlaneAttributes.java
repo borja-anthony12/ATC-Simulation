@@ -19,6 +19,12 @@ public class PlaneAttributes extends PlaneBehavior {
 
     private BufferedImage planeSprite;
 
+    /**
+     * initializes new plane
+     * @param image is the image of the plane being displayed
+     * @param atGate is true if its at gate, false if its not
+     * @param gate is the gate number its at, -1 if its not at a gate
+     */
     public PlaneAttributes(BufferedImage image, boolean atGate, int gate) {
         /*
          * x = 155; y = 375; z = 300;
@@ -35,7 +41,10 @@ public class PlaneAttributes extends PlaneBehavior {
         planeSprite = image;
     }
 
-    // make a list of letters and choose a random one
+    /**
+     * picks a random call sign
+     * @return is the call sign returned
+     */
     public String getCallSign() {
         Random rand = new Random();
         String airlineCode = AIRLINE_CODES[rand.nextInt(AIRLINE_CODES.length)];
@@ -44,18 +53,29 @@ public class PlaneAttributes extends PlaneBehavior {
         return airlineCode + flightNumber;
     }
     
+    /**
+     * @return gets gate number
+     */
     public int getGateNum() {
     	return gateNum;
     }
 
+    /**
+     * @return gets the plane image for rendering
+     */
     public BufferedImage getPlaneImage() {
             return planeSprite;
     }
 
-    // 160 - 180 mph takeoff speed
-    // increases velocity rate
+    /**
+     * increases the velocity of the plane
+     * @param vel
+     * @param takeoff
+     */
     public void upVelocity(double vel, boolean takeoff) {
-
+    	// 160 - 180 mph takeoff speed
+        // increases velocity rate
+    	
         if (vel < 500) {
 
             vel += 2.5;
@@ -66,7 +86,11 @@ public class PlaneAttributes extends PlaneBehavior {
         }
     }
 
-    // decreases velocity rate
+    /**
+     * decreases plane velocity
+     * @param vel
+     * @param landing
+     */
     public void downVelocity(double vel, boolean landing) {
         if (vel > 0) {
             vel -= 2.5;
@@ -88,7 +112,10 @@ public class PlaneAttributes extends PlaneBehavior {
     	}
     }
 
-    // increases z coordinate
+    /**
+     * increases plane altitude
+     * @param z
+     */
     public void upAlt(double z) {
 
         if (z < 500 && vel >= 150) {
@@ -99,64 +126,64 @@ public class PlaneAttributes extends PlaneBehavior {
         }
     }
 
-    // reduces z coordinate
+    /**
+     * reduces plane altitude
+     * @param z
+     */
     public void downAlt(double z) {
         if (z > 0) {
             z /= 1.4;
         }
     }
 
-    public int getAltitude(int z) {
-        if (vel >= 150) {
-            z *= altaccel;
-        }
-        return z;
-    }
-
+    /**
+     * returns velocity
+     * @return
+     */
     public double getVel() {
         return vel;
     }
 
-    /*
+    /**
      * turns the plane
+     * @param degrees is the degrees turned counter-clockwise
      */
     public void turn(double degrees) {
     	if(!isCrashed) dir += degrees;
     }
 
+    /**
+     * @return gets the position in an integer array {x, y, z}
+     */
     public double[] getPosition() {
-
         return new double[]{x, y, z};
     }
 
     /**
      * returns direction
-     *
      * @return the direction of the plane
      */
     public double getDirection() {
         return dir;
     }
     
+    /**
+     * checks if plane is at a gate
+     * @return 
+     */
     public boolean isAtGate() {
     	return atGate;
     }
 
-
+    /**
+     * sets the position of the plane
+     * @param x
+     * @param y
+     * @param z
+     */
     public void setPlane(int x, int y, int z) {
         this.x = x;
         this.y = y;
         this.z = z;
-
-
-    }
-
-    /**
-     * gets the quadrant that the plane is in
-     * @return
-     */
-    @Deprecated
-    public int getDirectionQuadrant() {
-        return (int) (Math.floor(((dir % 360) / 90)) + 1);
     }
 }

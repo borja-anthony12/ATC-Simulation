@@ -8,25 +8,40 @@ public class PlaneBehavior {
 	boolean takeoff = false;
 	boolean landing = false;
 	boolean cruise = true;
-	//PlaneAttributes plane = new PlaneAttributes();
+	
+	/**
+	 * init
+	 */
+	public PlaneBehavior(/*BufferedImage image*/) {
+			//PlaneAttributes plane = new PlaneAttributes(image);
+	}
+	
+	/**
+	 * makes plane take off
+	 */
 	public void takeOff() {
 		System.out.println("Plane is taking off");
 		boolean cruise = false;
 	}
-	
-	public PlaneBehavior(/*BufferedImage image*/) {
-			//PlaneAttributes plane = new PlaneAttributes(image);
-	}
 
+	/**
+	 * handles landing process
+	 */
 	public void landing () {
 
 	}
 
+	/**
+	 * handles flying logic
+	 */
 	public void flying () {
 		System.out.println("Plane is flying");
 
 	}
 	
+	/**
+	 * crashes plane
+	 */
 	public void crash() {
 		isCrashed = true;
 	}

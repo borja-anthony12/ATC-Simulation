@@ -106,6 +106,11 @@ public class Tower {
 		}
 	}
 
+	/**
+	 * checks if a planes on the runway
+	 * @param plane
+	 * @return
+	 */
     public boolean planeOnRunway(PlaneAttributes plane) {
         // Get the polygon for the plane
         Polygon planePolygon = apVisuals.getPlanePolygon(plane);
@@ -140,6 +145,17 @@ public class Tower {
         return false;
     }
 
+    /**
+     * gets the positions of runways to local variables for calculations
+     * @param runwayOneXPos
+     * @param runwayOneYPos
+     * @param runwayTwoXPos
+     * @param runwayTwoYPos
+     * @param runwayWidth
+     * @param runwayHeight
+     * @param runwayRotation
+     * @param runwayAmount
+     */
 	public void getRunwayParam(int runwayOneXPos, int runwayOneYPos, int runwayTwoXPos, int runwayTwoYPos, int runwayWidth, int runwayHeight, int runwayRotation, int runwayAmount) {
 		this.runwayOneXPos = runwayOneXPos;
 		this.runwayOneYPos = runwayOneYPos;
@@ -161,11 +177,11 @@ public class Tower {
 		boolean spawnedPlane = false;
 		int randNum;
 
+		// picks either runways or gates
 		if(r.nextInt(2) == 0) {
 			plane = new PlaneAttributes(image, false, -1);
 			switch(runwayAmount){
 			case 1:
-
 				plane.setPlane(125, 300, 0);
 				planes.add(plane);
 				plane.turn(30);
@@ -205,25 +221,33 @@ public class Tower {
 	}
 
 	/**
-	 * deletes a plane
+	 * delete last plane added
 	 */
 	public void despawnPlane() {
 		if(planes.get(planes.size() - 1).isAtGate()) gates[planes.get(planes.size() - 1).getGateNum()] = false;
 		planes.remove(planes.size() - 1);
 	}
 
+	/**
+	 * deletes specific plane
+	 * @param plane
+	 */
 	public void despawnPlane(PlaneAttributes plane) {
 		if(plane.isAtGate()) gates[plane.getGateNum()] = false;
 		planes.remove(plane);
 
 	}
 	
+	/**
+	 * @return is the ammount of active planes
+	 */
 	public int getPlaneAmount() {
 		return planes.size();
 	}
 
-	/*
-	 * adjusts gate availability
+	/**
+	 * sets the amount of gates available
+	 * @param count
 	 */
 	public void setGateCount(int count) {
 		for (int i = 4 - count; i > 0; i--) {
