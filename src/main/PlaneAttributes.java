@@ -12,13 +12,14 @@ public class PlaneAttributes extends PlaneBehavior {
     private double accel = 0;
     private double altaccel = 0;
     private double takeoffvel;
+    private int gateNum;
     private boolean power = false;
     private boolean atGate;
     private String callSign;
 
     private BufferedImage planeSprite;
 
-    public PlaneAttributes(BufferedImage image, boolean atGate) {
+    public PlaneAttributes(BufferedImage image, boolean atGate, int gate) {
         /*
          * x = 155; y = 375; z = 300;
          */
@@ -29,6 +30,7 @@ public class PlaneAttributes extends PlaneBehavior {
         this.dir = 0;
         this.callSign = getCallSign();
 
+        gateNum = gate;
         this.atGate = atGate;
         planeSprite = image;
     }
@@ -40,6 +42,10 @@ public class PlaneAttributes extends PlaneBehavior {
         int flightNumber = rand.nextInt(9999) + 100;
 
         return airlineCode + flightNumber;
+    }
+    
+    public int getGateNum() {
+    	return gateNum;
     }
 
     public BufferedImage getPlaneImage() {

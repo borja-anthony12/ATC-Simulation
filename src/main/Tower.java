@@ -162,7 +162,7 @@ public class Tower {
 		int randNum;
 
 		if(r.nextInt(2) == 0) {
-			plane = new PlaneAttributes(image, false);
+			plane = new PlaneAttributes(image, false, -1);
 			switch(runwayAmount){
 			case 1:
 
@@ -189,9 +189,9 @@ public class Tower {
 			}
 		}
 		else {
-			plane = new PlaneAttributes(image, true);
 			for(int i = 0; i < gateAmount; i++){
 				if(!gates[i] && !spawnedPlane) {
+					plane = new PlaneAttributes(image, true, i);
 					spawnedPlane = true;
 					gates[i] = true;
 					plane.setPlane(210 + 75 * i, 395 - 40 * i, 0);
@@ -208,10 +208,12 @@ public class Tower {
 	 * deletes a plane
 	 */
 	public void despawnPlane() {
+		if(planes.get(planes.size() - 1).isAtGate()) gates[planes.get(planes.size() - 1).getGateNum()] = false;
 		planes.remove(planes.size() - 1);
 	}
 
 	public void despawnPlane(PlaneAttributes plane) {
+		if(plane.isAtGate()) gates[plane.getGateNum()] = false;
 		planes.remove(plane);
 
 	}
