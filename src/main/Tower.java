@@ -156,35 +156,48 @@ public class Tower {
 	 */
 	public void spawnPlane(int runwayAmount, int gateAmount, BufferedImage image) {
 
-		PlaneAttributes plane = new PlaneAttributes(image);
+		PlaneAttributes plane;
 		Random r = new Random();
-		int chooseRunway;
+		int randNum;
 
-		switch(runwayAmount){
-		case 1:
+		if(r.nextInt(2) == 0) {
+			plane = new PlaneAttributes(image, false);
+			switch(runwayAmount){
+			case 1:
 
-			plane.setPlane(125, 300, 0);
-			planes.add(plane);
-			plane.turn(30);
-			break;
-		case 2:
-			chooseRunway = r.nextInt(2)+1;
-			if(chooseRunway == 1) {
 				plane.setPlane(125, 300, 0);
 				planes.add(plane);
 				plane.turn(30);
-			}else if(chooseRunway == 2) {
-				plane.setPlane(230, 45, 0);
-				planes.add(plane);
-				plane.turn(330);
+				break;
+			case 2:
+				randNum = r.nextInt(2)+1;
+				if(randNum == 1) {
+					plane.setPlane(125, 300, 0);
+					planes.add(plane);
+					plane.turn(30);
+				}
+				else if(randNum == 2) {
+					plane.setPlane(230, 45, 0);
+					planes.add(plane);
+					plane.turn(330);
+				}
+				break;
+			default:
+				System.out.println("*Sighs*");
+				break;
 			}
-
-
-			break;
-		default:
-			System.out.println("*Sighs*");
-			break;
 		}
+		else {
+			plane = new PlaneAttributes(image, true);
+			for(int i = 0; i < gateAmount; i++){
+				if(!gates[i]) {
+					plane.setPlane(160, 300, 0);
+					planes.add(plane);
+					plane.turn(110);
+				}
+			}
+		}
+		
 		System.out.println("Total planes: " + planes.size());
 	}
 

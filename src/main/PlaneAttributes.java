@@ -13,11 +13,12 @@ public class PlaneAttributes extends PlaneBehavior {
     private double altaccel = 0;
     private double takeoffvel;
     private boolean power = false;
+    private boolean atGate;
     private String callSign;
 
     private BufferedImage planeSprite;
 
-    public PlaneAttributes(BufferedImage image) {
+    public PlaneAttributes(BufferedImage image, boolean atGate) {
         /*
          * x = 155; y = 375; z = 300;
          */
@@ -28,6 +29,7 @@ public class PlaneAttributes extends PlaneBehavior {
         this.dir = 0;
         this.callSign = getCallSign();
 
+        this.atGate = atGate;
         planeSprite = image;
     }
 
@@ -43,8 +45,6 @@ public class PlaneAttributes extends PlaneBehavior {
     public BufferedImage getPlaneImage() {
             return planeSprite;
     }
-
-
 
     // 160 - 180 mph takeoff speed
     // increases velocity rate
@@ -76,7 +76,7 @@ public class PlaneAttributes extends PlaneBehavior {
      * @param y: change of y
      */
     public void move(double x, double y) {
-    	if(!isCrashed) {
+    	if(!isCrashed && !atGate) {
     		this.x += x;
         	this.y += y;
     	}
