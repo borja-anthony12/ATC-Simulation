@@ -20,4 +20,5 @@ public class Main {
 		apVisuals.getAirportDetails(runwayAmount, gateAmount);
 		apVisuals.startWindow();
 	}
+	
 }
